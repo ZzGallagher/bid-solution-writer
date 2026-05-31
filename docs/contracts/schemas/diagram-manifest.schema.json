@@ -1,0 +1,100 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://bid-solution-writer.local/schemas/diagram-manifest.schema.json",
+  "title": "diagram-manifest.json",
+  "type": "object",
+  "required": ["schema_version", "artifact", "run_id", "generated_at", "producer", "inputs", "diagrams", "render_summary"],
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": { "const": "1.0.0" },
+    "artifact": { "const": "diagram-manifest" },
+    "run_id": { "$ref": "#/$defs/run_id" },
+    "generated_at": { "$ref": "#/$defs/date_time" },
+    "producer": { "$ref": "#/$defs/producer" },
+    "inputs": { "$ref": "#/$defs/inputs" },
+    "diagrams": { "type": "array", "items": { "$ref": "#/$defs/diagram_asset" } },
+    "render_summary": { "$ref": "#/$defs/render_summary" }
+  },
+  "$defs": {
+    "run_id": { "type": "string", "pattern": "^RUN-[0-9]{8}-[0-9]{6}$" },
+    "date_time": { "type": "string", "format": "date-time" },
+    "non_empty": { "type": "string", "minLength": 1 },
+    "req_id": { "type": "string", "pattern": "^(T|P|Q|B|D)[0-9]{3}$" },
+    "producer": {
+      "type": "object",
+      "required": ["agent", "version"],
+      "additionalProperties": false,
+      "properties": {
+        "agent": { "const": "Render Validate Agent" },
+        "version": { "$ref": "#/$defs/non_empty" },
+        "renderer": { "type": "string" }
+      }
+    },
+    "inputs": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["artifact", "path", "schema_version"],
+        "additionalProperties": false,
+        "properties": {
+          "artifact": { "enum": ["diagram-specs"] },
+          "path": { "$ref": "#/$defs/non_empty" },
+          "schema_version": { "$ref": "#/$defs/non_empty" }
+        }
+      }
+    },
+    "diagram_asset": {
+      "type": "object",
+      "required": ["diagram_id", "title", "kind", "mermaid_path", "image_path", "source_requirement_ids", "description", "render_status", "assembly_allowed"],
+      "additionalProperties": false,
+      "properties": {
+        "diagram_id": { "type": "string", "pattern": "^DG[0-9]{3}$" },
+        "title": { "$ref": "#/$defs/non_empty" },
+        "kind": { "enum": ["architecture", "business_flow", "data_flow", "function_flow", "deployment", "security", "sequence", "other"] },
+        "mermaid_path": { "$ref": "#/$defs/non_empty" },
+        "image_path": { "type": "string" },
+        "source_requirement_ids": { "type": "array", "items": { "$ref": "#/$defs/req_id" } },
+        "description": { "$ref": "#/$defs/non_empty" },
+        "render_status": { "enum": ["native_rendered", "fallback_rendered", "failed", "skipped"] },
+        "assembly_allowed": { "type": "boolean" },
+        "image_check": { "$ref": "#/$defs/image_check" },
+        "errors": { "type": "array", "items": { "$ref": "#/$defs/render_error" } },
+        "review_notes": { "type": "array", "items": { "type": "string" } }
+      }
+    },
+    "image_check": {
+      "type": "object",
+      "required": ["exists", "blank_risk"],
+      "additionalProperties": false,
+      "properties": {
+        "exists": { "type": "boolean" },
+        "width": { "type": "integer", "minimum": 0 },
+        "height": { "type": "integer", "minimum": 0 },
+        "file_size_bytes": { "type": "integer", "minimum": 0 },
+        "blank_risk": { "enum": ["low", "medium", "high", "unknown"] }
+      }
+    },
+    "render_error": {
+      "type": "object",
+      "required": ["message", "recoverable"],
+      "additionalProperties": false,
+      "properties": {
+        "message": { "$ref": "#/$defs/non_empty" },
+        "recoverable": { "type": "boolean" },
+        "suggested_action": { "type": "string" }
+      }
+    },
+    "render_summary": {
+      "type": "object",
+      "required": ["total", "native_rendered", "fallback_rendered", "failed", "blocked"],
+      "additionalProperties": false,
+      "properties": {
+        "total": { "type": "integer", "minimum": 0 },
+        "native_rendered": { "type": "integer", "minimum": 0 },
+        "fallback_rendered": { "type": "integer", "minimum": 0 },
+        "failed": { "type": "integer", "minimum": 0 },
+        "blocked": { "type": "integer", "minimum": 0 }
+      }
+    }
+  }
+}

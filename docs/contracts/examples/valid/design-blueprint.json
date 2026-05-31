@@ -1,0 +1,76 @@
+{
+  "schema_version": "1.0.0",
+  "artifact": "design-blueprint",
+  "run_id": "RUN-20260530-210000",
+  "generated_at": "2026-05-30T21:00:00+08:00",
+  "producer": {
+    "agent": "Design Agent",
+    "version": "1.0.0"
+  },
+  "inputs": [
+    {
+      "artifact": "requirements",
+      "path": "output/records/requirements.json",
+      "schema_version": "1.0.0"
+    }
+  ],
+  "project_name": "电子海图显示与信息系统",
+  "architecture_layers": [
+    {
+      "layer_id": "L001",
+      "name": "业务应用层",
+      "responsibility": "承载电子海图显示与导航业务能力。",
+      "source_requirement_ids": ["T001"]
+    }
+  ],
+  "modules": [
+    {
+      "module_id": "M001",
+      "name": "海图综合态势展示",
+      "responsibility": "负责海图加载、图层控制和显示交互。",
+      "layer_ids": ["L001"],
+      "source_requirement_ids": ["T001"],
+      "related_scoring_item_ids": ["S001"],
+      "suggested_diagram_ids": ["DG001"]
+    }
+  ],
+  "sections": [
+    {
+      "section_id": "SEC001",
+      "placeholder": "【GEN:功能设计章节】",
+      "title": "功能设计",
+      "content_type": "dynamic_sections",
+      "source_requirement_ids": ["T001"],
+      "related_scoring_item_ids": ["S001"],
+      "module_ids": ["M001"],
+      "status": "planned"
+    }
+  ],
+  "diagram_plan": [
+    {
+      "diagram_id": "DG001",
+      "title": "海图综合态势展示流程图",
+      "kind": "function_flow",
+      "purpose": "说明海图加载、匹配、显示和图层控制流程。",
+      "source_requirement_ids": ["T001"],
+      "related_section_ids": ["SEC001"],
+      "layout_hint": "flowchart TB"
+    }
+  ],
+  "coverage_map": [
+    {
+      "source_id": "T001",
+      "covered_by": [
+        {
+          "kind": "section",
+          "id": "SEC001"
+        },
+        {
+          "kind": "diagram",
+          "id": "DG001"
+        }
+      ],
+      "coverage_status": "planned"
+    }
+  ]
+}

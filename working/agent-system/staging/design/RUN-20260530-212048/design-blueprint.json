@@ -1,0 +1,9492 @@
+{
+  "schema_version": "1.0.0",
+  "artifact": "design-blueprint",
+  "run_id": "RUN-20260530-212048",
+  "generated_at": "2026-05-31T14:25:11+08:00",
+  "producer": {
+    "agent": "Design Agent",
+    "version": "1.0.0"
+  },
+  "inputs": [
+    {
+      "artifact": "requirements",
+      "path": "output/records/requirements.json",
+      "schema_version": "1.0.0"
+    },
+    {
+      "artifact": "requirements-matrix",
+      "path": "output/records/requirements-matrix.json",
+      "schema_version": "1.0.0"
+    },
+    {
+      "artifact": "template-placeholder-spec",
+      "path": "templates/投标方案模板.docx",
+      "schema_version": "template-docx"
+    },
+    {
+      "artifact": "generation-rules",
+      "path": "docs/contracts/validation-rules.md",
+      "schema_version": "markdown"
+    }
+  ],
+  "project_name": "电子海图显示与信息系统",
+  "architecture_layers": [
+    {
+      "layer_id": "L001",
+      "name": "用户交互与显示层",
+      "responsibility": "承载电子海图、人机交互、显示控制、态势叠加和操作反馈能力。",
+      "source_requirement_ids": [
+        "Q001",
+        "T001",
+        "T002",
+        "T003",
+        "T004",
+        "T005",
+        "T006",
+        "T007",
+        "T008",
+        "T009",
+        "T017",
+        "T023",
+        "T026",
+        "T027",
+        "T032",
+        "P001",
+        "Q002",
+        "Q003",
+        "T036",
+        "T037",
+        "T038",
+        "T039",
+        "T040",
+        "T041",
+        "Q014",
+        "Q016",
+        "Q022"
+      ]
+    },
+    {
+      "layer_id": "L002",
+      "name": "业务应用与导航功能层",
+      "responsibility": "承载航线规划、航行监控、安全告警、个性化配置和业务规则处理。",
+      "source_requirement_ids": [
+        "Q001",
+        "T005",
+        "T010",
+        "T011",
+        "T012",
+        "T013",
+        "T014",
+        "T015",
+        "T016",
+        "T017",
+        "T018",
+        "T019",
+        "T020",
+        "T021",
+        "T022",
+        "T023",
+        "T024",
+        "T025",
+        "T028",
+        "T031",
+        "T033",
+        "Q002",
+        "Q003",
+        "Q004",
+        "Q005",
+        "Q006",
+        "Q007",
+        "Q008",
+        "Q009",
+        "Q010",
+        "Q011",
+        "Q012",
+        "T035",
+        "T036",
+        "T038",
+        "T039",
+        "T040",
+        "Q013",
+        "Q014",
+        "Q015",
+        "Q016",
+        "Q017",
+        "Q018",
+        "Q019",
+        "Q020",
+        "Q021",
+        "Q022",
+        "Q023",
+        "Q024",
+        "Q025",
+        "Q026",
+        "Q027",
+        "Q028",
+        "Q029",
+        "Q030",
+        "Q031",
+        "Q032",
+        "Q033",
+        "Q034",
+        "Q035"
+      ]
+    },
+    {
+      "layer_id": "L003",
+      "name": "数据接入与接口层",
+      "responsibility": "负责海图数据、AIS/雷达/ARPA、外部文件、数据库读写和设备接口集成。",
+      "source_requirement_ids": [
+        "Q001",
+        "T001",
+        "T005",
+        "T006",
+        "T007",
+        "T008",
+        "T009",
+        "T021",
+        "T023",
+        "T031",
+        "T032",
+        "T033",
+        "T034",
+        "P001",
+        "P003",
+        "P004",
+        "Q003",
+        "Q006",
+        "Q009",
+        "Q011",
+        "T035",
+        "T036",
+        "T037",
+        "T038",
+        "T039",
+        "T040",
+        "T041",
+        "Q020",
+        "Q022",
+        "Q032",
+        "Q034",
+        "B002",
+        "B003",
+        "D001",
+        "D002"
+      ]
+    },
+    {
+      "layer_id": "L004",
+      "name": "平台运行与部署支撑层",
+      "responsibility": "支撑跨平台、国产化环境、多设备协同、性能响应和运行部署。",
+      "source_requirement_ids": [
+        "Q001",
+        "T029",
+        "T030",
+        "T031",
+        "P001",
+        "P002",
+        "P003",
+        "P004",
+        "P005",
+        "P006",
+        "P007",
+        "Q003",
+        "Q004",
+        "Q005",
+        "Q006",
+        "Q007",
+        "Q012",
+        "T040",
+        "B001",
+        "B005",
+        "D001",
+        "D003"
+      ]
+    },
+    {
+      "layer_id": "L005",
+      "name": "质量安全与交付保障层",
+      "responsibility": "覆盖标准符合性、权限保密、质量监督、测试验收、交付和售后保障。",
+      "source_requirement_ids": [
+        "Q001",
+        "T001",
+        "T002",
+        "T031",
+        "Q002",
+        "Q003",
+        "Q004",
+        "Q005",
+        "Q006",
+        "Q007",
+        "Q008",
+        "Q009",
+        "Q010",
+        "Q011",
+        "Q012",
+        "T037",
+        "T040",
+        "Q013",
+        "Q014",
+        "Q015",
+        "Q016",
+        "Q017",
+        "Q018",
+        "Q019",
+        "Q020",
+        "Q021",
+        "Q022",
+        "Q023",
+        "Q024",
+        "Q025",
+        "Q026",
+        "Q027",
+        "Q028",
+        "Q029",
+        "Q030",
+        "Q031",
+        "Q032",
+        "Q033",
+        "Q034",
+        "Q035",
+        "Q036",
+        "B001",
+        "B002",
+        "B003",
+        "B006",
+        "D001",
+        "D002",
+        "D003",
+        "D004",
+        "T029",
+        "P001",
+        "P005",
+        "B004",
+        "B005",
+        "B007",
+        "B008"
+      ]
+    }
+  ],
+  "modules": [
+    {
+      "module_id": "M001",
+      "name": "质量监督与测试验收",
+      "responsibility": "围绕“质量监督与测试验收”归并相关需求，明确设计职责、响应边界、来源需求和后续正文/图表生成依据；覆盖条目包括：执行标准符合性。",
+      "layer_ids": [
+        "L001",
+        "L002",
+        "L003",
+        "L004",
+        "L005"
+      ],
+      "source_requirement_ids": [
+        "Q001"
+      ],
+      "related_scoring_item_ids": [
+        "S007"
+      ],
+      "suggested_diagram_ids": [
+        "DG001",
+        "DG003",
+        "DG004"
+      ]
+    },
+    {
+      "module_id": "M002",
+      "name": "安全与保密控制",
+      "responsibility": "围绕“安全与保密控制”归并相关需求，明确设计职责、响应边界、来源需求和后续正文/图表生成依据；覆盖条目包括：除功能性要求外, 海图数据加载准确完整, 系统部署运行软硬件环境满足全军统一国产化要求。, 系统上线运行前必须进行整体安全性测试, 对访问用户按照岗位业务进行灵活的权限设计, 支…。",
+      "layer_ids": [
+        "L001",
+        "L002",
+        "L003",
+        "L004",
+        "L005"
+      ],
+      "source_requirement_ids": [
+        "Q002",
+        "Q003",
+        "Q004",
+        "Q005",
+        "Q006",
+        "Q007",
+        "Q008",
+        "Q009",
+        "Q010",
+        "Q011",
+        "Q012",
+        "Q013",
+        "Q014",
+        "Q015",
+        "Q016",
+        "Q017",
+        "Q018",
+        "Q019",
+        "Q020",
+        "Q021",
+        "Q022",
+        "Q023",
+        "Q024",
+        "Q025",
+        "Q026",
+        "Q027",
+        "Q028",
+        "Q029",
+        "Q030",
+        "Q031",
+        "Q032",
+        "Q033",
+        "Q034",
+        "Q035",
+        "Q036"
+      ],
+      "related_scoring_item_ids": [
+        "S022",
+        "S001",
+        "S002",
+        "S003",
+        "S004",
+        "S005",
+        "S006",
+        "S008",
+        "S009",
+        "S016",
+        "S018"
+      ],
+      "suggested_diagram_ids": [
+        "DG002",
+        "DG003",
+        "DG004"
+      ]
+    },
+    {
+      "module_id": "M003",
+      "name": "海图综合态势展示-标准符合性",
+      "responsibility": "围绕“海图综合态势展示-标准符合性”归并相关需求，明确设计职责、响应边界、来源需求和后续正文/图表生成依据；覆盖条目包括：海图综合态势展示-标准符合性。",
+      "layer_ids": [
+        "L001",
+        "L003",
+        "L005"
+      ],
+      "source_requirement_ids": [
+        "T001"
+      ],
+      "related_scoring_item_ids": [],
+      "suggested_diagram_ids": [
+        "DG001",
+        "DG002",
+        "DG003"
+      ]
+    },
+    {
+      "module_id": "M004",
+      "name": "海图综合态势展示",
+      "responsibility": "围绕“海图综合态势展示”归并相关需求，明确设计职责、响应边界、来源需求和后续正文/图表生成依据；覆盖条目包括：海图综合态势展示。",
+      "layer_ids": [
+        "L001",
+        "L005"
+      ],
+      "source_requirement_ids": [
+        "T002",
+        "T003",
+        "T004"
+      ],
+      "related_scoring_item_ids": [],
+      "suggested_diagram_ids": [
+        "DG001",
+        "DG002",
+        "DG003"
+      ]
+    },
+    {
+      "module_id": "M005",
+      "name": "AIS/雷达等目标信息的处理与显示",
+      "responsibility": "围绕“AIS/雷达等目标信息的处理与显示”归并相关需求，明确设计职责、响应边界、来源需求和后续正文/图表生成依据；覆盖条目包括：AIS/雷达等目标信息的处理与显示。",
+      "layer_ids": [
+        "L001",
+        "L002",
+        "L003"
+      ],
+      "source_requirement_ids": [
+        "T005",
+        "T006",
+        "T007",
+        "T008",
+        "T009"
+      ],
+      "related_scoring_item_ids": [],
+      "suggested_diagram_ids": [
+        "DG001",
+        "DG002",
+        "DG003"
+      ]
+    },
+    {
+      "module_id": "M006",
+      "name": "航线规划",
+      "responsibility": "围绕“航线规划”归并相关需求，明确设计职责、响应边界、来源需求和后续正文/图表生成依据；覆盖条目包括：航线规划。",
+      "layer_ids": [
+        "L002"
+      ],
+      "source_requirement_ids": [
+        "T010",
+        "T011",
+        "T012",
+        "T013",
+        "T014",
+        "T015"
+      ],
+      "related_scoring_item_ids": [],
+      "suggested_diagram_ids": [
+        "DG001",
+        "DG002",
+        "DG003"
+      ]
+    },
+    {
+      "module_id": "M007",
+      "name": "安全等深线与水深告警",
+      "responsibility": "围绕“安全等深线与水深告警”归并相关需求，明确设计职责、响应边界、来源需求和后续正文/图表生成依据；覆盖条目包括：安全等深线与水深告警。",
+      "layer_ids": [
+        "L001",
+        "L002",
+        "L003"
+      ],
+      "source_requirement_ids": [
+        "T016",
+        "T017",
+        "T018",
+        "T019",
+        "T020",
+        "T021"
+      ],
+      "related_scoring_item_ids": [],
+      "suggested_diagram_ids": [
+        "DG002",
+        "DG003",
+        "DG004"
+      ]
+    },
+    {
+      "module_id": "M008",
+      "name": "航行监控导航与安全预警",
+      "responsibility": "围绕“航行监控导航与安全预警”归并相关需求，明确设计职责、响应边界、来源需求和后续正文/图表生成依据；覆盖条目包括：航行监控导航与安全预警。",
+      "layer_ids": [
+        "L001",
+        "L002",
+        "L003"
+      ],
+      "source_requirement_ids": [
+        "T022",
+        "T023",
+        "T024",
+        "T025"
+      ],
+      "related_scoring_item_ids": [],
+      "suggested_diagram_ids": [
+        "DG002",
+        "DG003",
+        "DG004"
+      ]
+    },
+    {
+      "module_id": "M009",
+      "name": "个性化设置需求",
+      "responsibility": "围绕“个性化设置需求”归并相关需求，明确设计职责、响应边界、来源需求和后续正文/图表生成依据；覆盖条目包括：个性化设置需求。",
+      "layer_ids": [
+        "L001",
+        "L002"
+      ],
+      "source_requirement_ids": [
+        "T026",
+        "T027",
+        "T028"
+      ],
+      "related_scoring_item_ids": [],
+      "suggested_diagram_ids": [
+        "DG002",
+        "DG003",
+        "DG006"
+      ]
+    },
+    {
+      "module_id": "M010",
+      "name": "基础平台与架构要求-跨平台兼容性",
+      "responsibility": "围绕“基础平台与架构要求-跨平台兼容性”归并相关需求，明确设计职责、响应边界、来源需求和后续正文/图表生成依据；覆盖条目包括：基础平台与架构要求-跨平台兼容性。",
+      "layer_ids": [
+        "L004",
+        "L005"
+      ],
+      "source_requirement_ids": [
+        "T029"
+      ],
+      "related_scoring_item_ids": [
+        "S001",
+        "S002",
+        "S003",
+        "S004",
+        "S005",
+        "S006",
+        "S008",
+        "S009",
+        "S016",
+        "S018",
+        "S015",
+        "S017",
+        "S019"
+      ],
+      "suggested_diagram_ids": [
+        "DG002",
+        "DG005"
+      ]
+    },
+    {
+      "module_id": "M011",
+      "name": "基础平台与架构要求-多设备协同",
+      "responsibility": "围绕“基础平台与架构要求-多设备协同”归并相关需求，明确设计职责、响应边界、来源需求和后续正文/图表生成依据；覆盖条目包括：基础平台与架构要求-多设备协同。",
+      "layer_ids": [
+        "L004"
+      ],
+      "source_requirement_ids": [
+        "T030"
+      ],
+      "related_scoring_item_ids": [
+        "S001",
+        "S002",
+        "S003",
+        "S004",
+        "S005",
+        "S006",
+        "S008",
+        "S009",
+        "S016",
+        "S018"
+      ],
+      "suggested_diagram_ids": [
+        "DG002"
+      ]
+    },
+    {
+      "module_id": "M012",
+      "name": "基础平台与架构要求",
+      "responsibility": "围绕“基础平台与架构要求”归并相关需求，明确设计职责、响应边界、来源需求和后续正文/图表生成依据；覆盖条目包括：基础平台与架构要求。",
+      "layer_ids": [
+        "L002",
+        "L003",
+        "L004",
+        "L005"
+      ],
+      "source_requirement_ids": [
+        "T031"
+      ],
+      "related_scoring_item_ids": [
+        "S001",
+        "S002",
+        "S003",
+        "S004",
+        "S005",
+        "S006",
+        "S008",
+        "S009",
+        "S016",
+        "S018"
+      ],
+      "suggested_diagram_ids": [
+        "DG002",
+        "DG004"
+      ]
+    },
+    {
+      "module_id": "M013",
+      "name": "数据维护与合规",
+      "responsibility": "围绕“数据维护与合规”归并相关需求，明确设计职责、响应边界、来源需求和后续正文/图表生成依据；覆盖条目包括：数据维护与合规。",
+      "layer_ids": [
+        "L001",
+        "L002",
+        "L003"
+      ],
+      "source_requirement_ids": [
+        "T032",
+        "T033",
+        "T034"
+      ],
+      "related_scoring_item_ids": [],
+      "suggested_diagram_ids": [
+        "DG002",
+        "DG003",
+        "DG004"
+      ]
+    },
+    {
+      "module_id": "M014",
+      "name": "安全告警与风险接口",
+      "responsibility": "围绕“安全告警与风险接口”归并相关需求，明确设计职责、响应边界、来源需求和后续正文/图表生成依据；覆盖条目包括：安全告警与风险接口。",
+      "layer_ids": [
+        "L002",
+        "L003"
+      ],
+      "source_requirement_ids": [
+        "T035"
+      ],
+      "related_scoring_item_ids": [],
+      "suggested_diagram_ids": [
+        "DG002",
+        "DG003",
+        "DG004"
+      ]
+    },
+    {
+      "module_id": "M015",
+      "name": "航线规划与监控接口",
+      "responsibility": "围绕“航线规划与监控接口”归并相关需求，明确设计职责、响应边界、来源需求和后续正文/图表生成依据；覆盖条目包括：航线规划与监控接口。",
+      "layer_ids": [
+        "L001",
+        "L002",
+        "L003"
+      ],
+      "source_requirement_ids": [
+        "T036"
+      ],
+      "related_scoring_item_ids": [],
+      "suggested_diagram_ids": [
+        "DG002",
+        "DG004"
+      ]
+    },
+    {
+      "module_id": "M016",
+      "name": "数据库数据读写接口",
+      "responsibility": "围绕“数据库数据读写接口”归并相关需求，明确设计职责、响应边界、来源需求和后续正文/图表生成依据；覆盖条目包括：数据库数据读写接口。",
+      "layer_ids": [
+        "L001",
+        "L003",
+        "L005"
+      ],
+      "source_requirement_ids": [
+        "T037"
+      ],
+      "related_scoring_item_ids": [],
+      "suggested_diagram_ids": [
+        "DG002",
+        "DG004"
+      ]
+    },
+    {
+      "module_id": "M017",
+      "name": "海图显示与态势融合接口",
+      "responsibility": "围绕“海图显示与态势融合接口”归并相关需求，明确设计职责、响应边界、来源需求和后续正文/图表生成依据；覆盖条目包括：海图显示与态势融合接口。",
+      "layer_ids": [
+        "L001",
+        "L002",
+        "L003"
+      ],
+      "source_requirement_ids": [
+        "T038"
+      ],
+      "related_scoring_item_ids": [],
+      "suggested_diagram_ids": [
+        "DG004"
+      ]
+    },
+    {
+      "module_id": "M018",
+      "name": "外部数据与文件系统",
+      "responsibility": "围绕“外部数据与文件系统”归并相关需求，明确设计职责、响应边界、来源需求和后续正文/图表生成依据；覆盖条目包括：外部数据与文件系统。",
+      "layer_ids": [
+        "L001",
+        "L002",
+        "L003"
+      ],
+      "source_requirement_ids": [
+        "T039"
+      ],
+      "related_scoring_item_ids": [],
+      "suggested_diagram_ids": [
+        "DG004"
+      ]
+    },
+    {
+      "module_id": "M019",
+      "name": "传感器与导航设备",
+      "responsibility": "围绕“传感器与导航设备”归并相关需求，明确设计职责、响应边界、来源需求和后续正文/图表生成依据；覆盖条目包括：传感器与导航设备。",
+      "layer_ids": [
+        "L001",
+        "L002",
+        "L003",
+        "L004",
+        "L005"
+      ],
+      "source_requirement_ids": [
+        "T040"
+      ],
+      "related_scoring_item_ids": [],
+      "suggested_diagram_ids": [
+        "DG004"
+      ]
+    },
+    {
+      "module_id": "M020",
+      "name": "人机交互与控制HMI",
+      "responsibility": "围绕“人机交互与控制HMI”归并相关需求，明确设计职责、响应边界、来源需求和后续正文/图表生成依据；覆盖条目包括：人机交互与控制HMI。",
+      "layer_ids": [
+        "L001",
+        "L003"
+      ],
+      "source_requirement_ids": [
+        "T041"
+      ],
+      "related_scoring_item_ids": [],
+      "suggested_diagram_ids": [
+        "DG004"
+      ]
+    },
+    {
+      "module_id": "M021",
+      "name": "性能与技术指标响应",
+      "responsibility": "围绕“性能与技术指标响应”归并相关需求，明确设计职责、响应边界、来源需求和后续正文/图表生成依据；覆盖条目包括：1）一般操作响应时间（数据查阅、图表显示等操作）：＜2s；, 2）系统初始化时间：＜10s；-2）系统初始化时间, 3）一般数据查询时间：＜5s；-3）一般数据查询时间, 4）一…。",
+      "layer_ids": [
+        "L001",
+        "L003",
+        "L004",
+        "L005"
+      ],
+      "source_requirement_ids": [
+        "P001",
+        "P002",
+        "P003",
+        "P004",
+        "P005",
+        "P006",
+        "P007"
+      ],
+      "related_scoring_item_ids": [
+        "S010",
+        "S011"
+      ],
+      "suggested_diagram_ids": [
+        "DG004",
+        "DG005"
+      ]
+    },
+    {
+      "module_id": "M022",
+      "name": "项目实施与交付管理",
+      "responsibility": "围绕“项目实施与交付管理”归并相关需求，明确设计职责、响应边界、来源需求和后续正文/图表生成依据；覆盖条目包括：交付（服务）时间、地点和方式。",
+      "layer_ids": [
+        "L004",
+        "L005"
+      ],
+      "source_requirement_ids": [
+        "B001"
+      ],
+      "related_scoring_item_ids": [
+        "S012",
+        "S013",
+        "S014"
+      ],
+      "suggested_diagram_ids": [
+        "DG005",
+        "DG007"
+      ]
+    },
+    {
+      "module_id": "M023",
+      "name": "培训售后与履约保障",
+      "responsibility": "围绕“培训售后与履约保障”归并相关需求，明确设计职责、响应边界、来源需求和后续正文/图表生成依据；覆盖条目包括：售后服务, 履约保证金。",
+      "layer_ids": [
+        "L003",
+        "L005"
+      ],
+      "source_requirement_ids": [
+        "B002",
+        "B006"
+      ],
+      "related_scoring_item_ids": [
+        "S020",
+        "S021",
+        "S022"
+      ],
+      "suggested_diagram_ids": [
+        "DG004",
+        "DG005",
+        "DG007"
+      ]
+    },
+    {
+      "module_id": "M024",
+      "name": "商务保密与知识产权响应",
+      "responsibility": "围绕“商务保密与知识产权响应”归并相关需求，明确设计职责、响应边界、来源需求和后续正文/图表生成依据；覆盖条目包括：知识产权和保密要求。",
+      "layer_ids": [
+        "L003",
+        "L005"
+      ],
+      "source_requirement_ids": [
+        "B003"
+      ],
+      "related_scoring_item_ids": [],
+      "suggested_diagram_ids": [
+        "DG005",
+        "DG007"
+      ]
+    },
+    {
+      "module_id": "M025",
+      "name": "商务条款响应",
+      "responsibility": "围绕“商务条款响应”归并相关需求，明确设计职责、响应边界、来源需求和后续正文/图表生成依据；覆盖条目包括：物资编目编码、打码贴签要求, 其他。",
+      "layer_ids": [
+        "L005"
+      ],
+      "source_requirement_ids": [
+        "B004",
+        "B007",
+        "B008"
+      ],
+      "related_scoring_item_ids": [],
+      "suggested_diagram_ids": [
+        "DG005",
+        "DG007"
+      ]
+    },
+    {
+      "module_id": "M026",
+      "name": "商务条款与结算响应",
+      "responsibility": "围绕“商务条款与结算响应”归并相关需求，明确设计职责、响应边界、来源需求和后续正文/图表生成依据；覆盖条目包括：付款及结算方式。",
+      "layer_ids": [
+        "L004",
+        "L005"
+      ],
+      "source_requirement_ids": [
+        "B005"
+      ],
+      "related_scoring_item_ids": [],
+      "suggested_diagram_ids": [
+        "DG005",
+        "DG007"
+      ]
+    },
+    {
+      "module_id": "M027",
+      "name": "交付物与验收支撑",
+      "responsibility": "围绕“交付物与验收支撑”归并相关需求，明确设计职责、响应边界、来源需求和后续正文/图表生成依据；覆盖条目包括：交付软件源代码和可执行文件在2套甲方提供的设备上能可靠运行, 交付软件源代码（含完整注释）及可执行文件, 软件部署及运维指南, 按GJB438C-2021提供技术文档。",
+      "layer_ids": [
+        "L003",
+        "L004",
+        "L005"
+      ],
+      "source_requirement_ids": [
+        "D001",
+        "D002",
+        "D003",
+        "D004"
+      ],
+      "related_scoring_item_ids": [],
+      "suggested_diagram_ids": [
+        "DG005",
+        "DG007"
+      ]
+    }
+  ],
+  "sections": [
+    {
+      "section_id": "SEC001",
+      "placeholder": "【GEN:建设内容】",
+      "title": "需求分析与建设内容",
+      "content_type": "generated_paragraphs",
+      "source_requirement_ids": [
+        "Q001",
+        "T001",
+        "T002",
+        "T003",
+        "T004",
+        "T005",
+        "T006",
+        "T007",
+        "T008",
+        "T009",
+        "T010",
+        "T011",
+        "T012",
+        "T013",
+        "T014",
+        "T015",
+        "T016",
+        "T017",
+        "T018",
+        "T019",
+        "T020",
+        "T021",
+        "T022",
+        "T023",
+        "T024",
+        "T025",
+        "T026",
+        "T027",
+        "T028",
+        "T029",
+        "T030",
+        "T031",
+        "T032",
+        "T033",
+        "T034",
+        "Q002",
+        "Q003",
+        "Q004",
+        "Q005",
+        "Q006",
+        "Q007",
+        "Q008",
+        "Q009",
+        "Q010",
+        "Q011",
+        "Q012",
+        "T035",
+        "T036",
+        "T037",
+        "T038",
+        "T039",
+        "T040",
+        "T041",
+        "Q013",
+        "Q014",
+        "Q015",
+        "Q016",
+        "Q017",
+        "Q018",
+        "Q019",
+        "Q020",
+        "Q021",
+        "Q022",
+        "Q023",
+        "Q024",
+        "Q025",
+        "Q026",
+        "Q027",
+        "Q028",
+        "Q029",
+        "Q030",
+        "Q031",
+        "Q032",
+        "Q033",
+        "Q034",
+        "Q035",
+        "Q036",
+        "B001",
+        "B002",
+        "B003",
+        "B004",
+        "B005",
+        "B006",
+        "B007",
+        "B008",
+        "D001",
+        "D002",
+        "D003",
+        "D004"
+      ],
+      "related_scoring_item_ids": [
+        "S001",
+        "S002",
+        "S003",
+        "S004",
+        "S005",
+        "S006",
+        "S007",
+        "S008",
+        "S009"
+      ],
+      "module_ids": [
+        "M001",
+        "M003",
+        "M004",
+        "M005",
+        "M006",
+        "M007",
+        "M008",
+        "M009",
+        "M010",
+        "M011",
+        "M012",
+        "M013",
+        "M002",
+        "M014",
+        "M015",
+        "M016",
+        "M017",
+        "M018",
+        "M019",
+        "M020",
+        "M022",
+        "M023",
+        "M024",
+        "M025",
+        "M026",
+        "M027"
+      ],
+      "status": "review_required"
+    },
+    {
+      "section_id": "SEC002",
+      "placeholder": "【GEN:总体架构设计】",
+      "title": "总体架构设计",
+      "content_type": "generated_paragraphs",
+      "source_requirement_ids": [
+        "T029",
+        "T030",
+        "T031",
+        "Q017"
+      ],
+      "related_scoring_item_ids": [
+        "S001",
+        "S002",
+        "S003",
+        "S004",
+        "S005",
+        "S006",
+        "S008",
+        "S009",
+        "S016",
+        "S018"
+      ],
+      "module_ids": [
+        "M010",
+        "M011",
+        "M012",
+        "M002"
+      ],
+      "status": "review_required"
+    },
+    {
+      "section_id": "SEC003",
+      "placeholder": "【GEN:总体架构图】",
+      "title": "总体架构图",
+      "content_type": "diagram_reference",
+      "source_requirement_ids": [
+        "T029",
+        "T030",
+        "T031",
+        "Q017"
+      ],
+      "related_scoring_item_ids": [
+        "S001",
+        "S002",
+        "S003",
+        "S004",
+        "S005",
+        "S006",
+        "S008",
+        "S009",
+        "S016",
+        "S018"
+      ],
+      "module_ids": [
+        "M010",
+        "M011",
+        "M012",
+        "M002"
+      ],
+      "status": "review_required"
+    },
+    {
+      "section_id": "SEC004",
+      "placeholder": "【GEN:架构图说明】",
+      "title": "架构图说明",
+      "content_type": "generated_paragraphs",
+      "source_requirement_ids": [
+        "T029",
+        "T030",
+        "T031",
+        "Q017"
+      ],
+      "related_scoring_item_ids": [
+        "S001",
+        "S002",
+        "S003",
+        "S004",
+        "S005",
+        "S006",
+        "S008",
+        "S009",
+        "S016",
+        "S018"
+      ],
+      "module_ids": [
+        "M010",
+        "M011",
+        "M012",
+        "M002"
+      ],
+      "status": "review_required"
+    },
+    {
+      "section_id": "SEC005",
+      "placeholder": "【GEN:设计原则】",
+      "title": "设计原则",
+      "content_type": "generated_paragraphs",
+      "source_requirement_ids": [
+        "Q001",
+        "Q002",
+        "Q003",
+        "Q004",
+        "Q005",
+        "Q006",
+        "Q007",
+        "Q008",
+        "Q009",
+        "Q010",
+        "Q011",
+        "Q012",
+        "Q013",
+        "Q014",
+        "Q015",
+        "Q016",
+        "Q017",
+        "Q018",
+        "Q019",
+        "Q020",
+        "Q021",
+        "Q022",
+        "Q023",
+        "Q024",
+        "Q025",
+        "Q026",
+        "Q027",
+        "Q028",
+        "Q029",
+        "Q030",
+        "Q031",
+        "Q032",
+        "Q033",
+        "Q034",
+        "Q035",
+        "Q036"
+      ],
+      "related_scoring_item_ids": [
+        "S001",
+        "S002",
+        "S003",
+        "S004",
+        "S005",
+        "S006",
+        "S007",
+        "S008",
+        "S009"
+      ],
+      "module_ids": [
+        "M001",
+        "M002"
+      ],
+      "status": "review_required"
+    },
+    {
+      "section_id": "SEC006",
+      "placeholder": "【GEN:部署架构设计】",
+      "title": "部署架构设计",
+      "content_type": "generated_paragraphs",
+      "source_requirement_ids": [
+        "T029",
+        "Q004",
+        "Q007",
+        "Q012"
+      ],
+      "related_scoring_item_ids": [],
+      "module_ids": [
+        "M010",
+        "M002"
+      ],
+      "status": "planned"
+    },
+    {
+      "section_id": "SEC007",
+      "placeholder": "【GEN:功能设计总述】",
+      "title": "功能设计总述",
+      "content_type": "generated_paragraphs",
+      "source_requirement_ids": [
+        "T001",
+        "T002",
+        "T003",
+        "T004",
+        "T005",
+        "T006",
+        "T007",
+        "T008",
+        "T009",
+        "T010",
+        "T011",
+        "T012",
+        "T013",
+        "T014",
+        "T015",
+        "T016",
+        "T017",
+        "T018",
+        "T019",
+        "T020",
+        "T021",
+        "T022",
+        "T023",
+        "T024",
+        "T025",
+        "T026",
+        "T027",
+        "T028",
+        "T029",
+        "T030",
+        "T031",
+        "T032",
+        "T033",
+        "T034",
+        "Q002",
+        "Q003",
+        "Q009",
+        "T035",
+        "T036",
+        "T037",
+        "T038",
+        "T039",
+        "T040",
+        "T041",
+        "Q014",
+        "Q016",
+        "Q022"
+      ],
+      "related_scoring_item_ids": [],
+      "module_ids": [
+        "M003",
+        "M004",
+        "M005",
+        "M006",
+        "M007",
+        "M008",
+        "M009",
+        "M010",
+        "M011",
+        "M012",
+        "M013",
+        "M002",
+        "M014",
+        "M015",
+        "M016",
+        "M017",
+        "M018",
+        "M019",
+        "M020"
+      ],
+      "status": "planned"
+    },
+    {
+      "section_id": "SEC008",
+      "placeholder": "【GEN:功能设计章节】",
+      "title": "功能设计章节",
+      "content_type": "dynamic_sections",
+      "source_requirement_ids": [
+        "T001",
+        "T002",
+        "T003",
+        "T004",
+        "T005",
+        "T006",
+        "T007",
+        "T008",
+        "T009",
+        "T010",
+        "T011",
+        "T012",
+        "T013",
+        "T014",
+        "T015",
+        "T016",
+        "T017",
+        "T018",
+        "T019",
+        "T020",
+        "T021",
+        "T022",
+        "T023",
+        "T024",
+        "T025",
+        "T026",
+        "T027",
+        "T028",
+        "T029",
+        "T030",
+        "T031",
+        "T032",
+        "T033",
+        "T034",
+        "Q002",
+        "Q003",
+        "Q005",
+        "Q006",
+        "Q007",
+        "Q009",
+        "Q011",
+        "T035",
+        "T036",
+        "T037",
+        "T038",
+        "T039",
+        "T040",
+        "T041",
+        "Q014",
+        "Q015",
+        "Q016",
+        "Q022"
+      ],
+      "related_scoring_item_ids": [],
+      "module_ids": [
+        "M003",
+        "M004",
+        "M005",
+        "M006",
+        "M007",
+        "M008",
+        "M009",
+        "M010",
+        "M011",
+        "M012",
+        "M013",
+        "M002",
+        "M014",
+        "M015",
+        "M016",
+        "M017",
+        "M018",
+        "M019",
+        "M020"
+      ],
+      "status": "planned"
+    },
+    {
+      "section_id": "SEC009",
+      "placeholder": "【GEN:性能设计章节】",
+      "title": "性能设计章节",
+      "content_type": "generated_table",
+      "source_requirement_ids": [
+        "P001",
+        "P002",
+        "P003",
+        "P004",
+        "P005",
+        "P006",
+        "P007"
+      ],
+      "related_scoring_item_ids": [
+        "S010",
+        "S011"
+      ],
+      "module_ids": [
+        "M021"
+      ],
+      "status": "review_required"
+    },
+    {
+      "section_id": "SEC010",
+      "placeholder": "【GEN:数据库架构设计】",
+      "title": "数据库架构设计",
+      "content_type": "generated_paragraphs",
+      "source_requirement_ids": [
+        "T031",
+        "T034",
+        "Q003",
+        "Q009",
+        "Q011",
+        "T035",
+        "T036",
+        "T037",
+        "T038",
+        "T039",
+        "T040",
+        "T041"
+      ],
+      "related_scoring_item_ids": [],
+      "module_ids": [
+        "M012",
+        "M013",
+        "M002",
+        "M014",
+        "M015",
+        "M016",
+        "M017",
+        "M018",
+        "M019",
+        "M020"
+      ],
+      "status": "planned"
+    },
+    {
+      "section_id": "SEC011",
+      "placeholder": "【GEN:核心业务数据设计】",
+      "title": "核心业务数据设计",
+      "content_type": "generated_paragraphs",
+      "source_requirement_ids": [
+        "T001",
+        "T002",
+        "T003",
+        "T004",
+        "T005",
+        "T006",
+        "T007",
+        "T008",
+        "T009",
+        "T017",
+        "T021",
+        "T023",
+        "T031",
+        "T032",
+        "T033",
+        "T034",
+        "Q002",
+        "Q003",
+        "Q009",
+        "Q011",
+        "T035",
+        "T036",
+        "T037",
+        "T038",
+        "T039",
+        "T040",
+        "Q014",
+        "Q022"
+      ],
+      "related_scoring_item_ids": [],
+      "module_ids": [
+        "M003",
+        "M004",
+        "M005",
+        "M007",
+        "M008",
+        "M012",
+        "M013",
+        "M002",
+        "M014",
+        "M015",
+        "M016",
+        "M017",
+        "M018",
+        "M019"
+      ],
+      "status": "planned"
+    },
+    {
+      "section_id": "SEC012",
+      "placeholder": "【GEN:通用质量特性设计总述】",
+      "title": "通用质量特性设计总述",
+      "content_type": "generated_paragraphs",
+      "source_requirement_ids": [
+        "Q001",
+        "Q002",
+        "Q003",
+        "Q004",
+        "Q005",
+        "Q006",
+        "Q007",
+        "Q008",
+        "Q009",
+        "Q010",
+        "Q011",
+        "Q012",
+        "Q013",
+        "Q014",
+        "Q015",
+        "Q016",
+        "Q017",
+        "Q018",
+        "Q019",
+        "Q020",
+        "Q021",
+        "Q022",
+        "Q023",
+        "Q024",
+        "Q025",
+        "Q026",
+        "Q027",
+        "Q028",
+        "Q029",
+        "Q030",
+        "Q031",
+        "Q032",
+        "Q033",
+        "Q034",
+        "Q035",
+        "Q036"
+      ],
+      "related_scoring_item_ids": [],
+      "module_ids": [
+        "M001",
+        "M002"
+      ],
+      "status": "review_required"
+    },
+    {
+      "section_id": "SEC013",
+      "placeholder": "【GEN:可靠性设计】",
+      "title": "可靠性设计",
+      "content_type": "generated_paragraphs",
+      "source_requirement_ids": [
+        "P002",
+        "P005",
+        "P006",
+        "Q002",
+        "Q003",
+        "Q009",
+        "Q010"
+      ],
+      "related_scoring_item_ids": [],
+      "module_ids": [
+        "M021",
+        "M002"
+      ],
+      "status": "planned"
+    },
+    {
+      "section_id": "SEC014",
+      "placeholder": "【GEN:维修性设计】",
+      "title": "维修性与保障性设计",
+      "content_type": "generated_paragraphs",
+      "source_requirement_ids": [
+        "Q002",
+        "Q003",
+        "Q005",
+        "Q006",
+        "Q010",
+        "Q011",
+        "Q018",
+        "Q019",
+        "Q022",
+        "Q023",
+        "Q024",
+        "Q030",
+        "Q032",
+        "Q034",
+        "Q035",
+        "B001",
+        "B002",
+        "B003",
+        "B004",
+        "B005",
+        "B006",
+        "B007",
+        "B008",
+        "D001",
+        "D002",
+        "D003",
+        "D004"
+      ],
+      "related_scoring_item_ids": [
+        "S020",
+        "S021",
+        "S022"
+      ],
+      "module_ids": [
+        "M002",
+        "M022",
+        "M023",
+        "M024",
+        "M025",
+        "M026",
+        "M027"
+      ],
+      "status": "review_required"
+    },
+    {
+      "section_id": "SEC015",
+      "placeholder": "【GEN:测试性设计】",
+      "title": "测试性设计",
+      "content_type": "generated_paragraphs",
+      "source_requirement_ids": [
+        "Q001",
+        "Q002",
+        "Q005",
+        "Q006",
+        "Q011",
+        "Q018",
+        "Q021",
+        "Q022",
+        "Q023",
+        "Q024",
+        "Q025"
+      ],
+      "related_scoring_item_ids": [],
+      "module_ids": [
+        "M001",
+        "M002"
+      ],
+      "status": "review_required"
+    },
+    {
+      "section_id": "SEC016",
+      "placeholder": "【GEN:安全性设计】",
+      "title": "安全性设计",
+      "content_type": "generated_paragraphs",
+      "source_requirement_ids": [
+        "T011",
+        "T012",
+        "T016",
+        "T017",
+        "T018",
+        "T020",
+        "T028",
+        "T033",
+        "Q002",
+        "Q003",
+        "Q004",
+        "Q005",
+        "Q006",
+        "Q007",
+        "Q008",
+        "Q009",
+        "Q010",
+        "Q011",
+        "Q012",
+        "T035",
+        "Q013",
+        "Q014",
+        "Q015",
+        "Q016",
+        "Q017",
+        "Q018",
+        "Q019",
+        "Q020",
+        "Q021",
+        "Q022",
+        "Q023",
+        "Q024",
+        "Q025",
+        "Q026",
+        "Q027",
+        "Q028",
+        "Q029",
+        "Q030",
+        "Q031",
+        "Q032",
+        "Q033",
+        "Q034",
+        "Q035",
+        "Q036",
+        "B003"
+      ],
+      "related_scoring_item_ids": [],
+      "module_ids": [
+        "M006",
+        "M007",
+        "M009",
+        "M013",
+        "M002",
+        "M014",
+        "M024"
+      ],
+      "status": "review_required"
+    },
+    {
+      "section_id": "SEC017",
+      "placeholder": "【GEN:环境适应性设计】",
+      "title": "环境适应性设计",
+      "content_type": "generated_paragraphs",
+      "source_requirement_ids": [
+        "T029",
+        "Q002",
+        "Q004",
+        "Q005",
+        "Q006",
+        "Q007",
+        "Q012"
+      ],
+      "related_scoring_item_ids": [],
+      "module_ids": [
+        "M010",
+        "M002"
+      ],
+      "status": "planned"
+    },
+    {
+      "section_id": "SEC018",
+      "placeholder": "【GEN:关键技术】",
+      "title": "关键技术",
+      "content_type": "generated_paragraphs",
+      "source_requirement_ids": [
+        "T001",
+        "T002",
+        "T003",
+        "T004",
+        "T005",
+        "T006",
+        "T007",
+        "T008",
+        "T009",
+        "T010",
+        "T011",
+        "T012",
+        "T013",
+        "T014",
+        "T015",
+        "T016",
+        "T017",
+        "T018",
+        "T019",
+        "T020",
+        "T021",
+        "T022",
+        "T023",
+        "T024",
+        "T025",
+        "T026",
+        "T027",
+        "T028",
+        "T029",
+        "T030",
+        "T031",
+        "T032",
+        "T033",
+        "T034",
+        "Q002",
+        "Q003",
+        "Q009",
+        "T035",
+        "T036",
+        "T037",
+        "T038",
+        "T039",
+        "T040",
+        "T041",
+        "Q014",
+        "Q016",
+        "Q017",
+        "Q022"
+      ],
+      "related_scoring_item_ids": [
+        "S001",
+        "S002",
+        "S003",
+        "S004",
+        "S005",
+        "S006",
+        "S007",
+        "S008",
+        "S009"
+      ],
+      "module_ids": [
+        "M003",
+        "M004",
+        "M005",
+        "M006",
+        "M007",
+        "M008",
+        "M009",
+        "M010",
+        "M011",
+        "M012",
+        "M013",
+        "M002",
+        "M014",
+        "M015",
+        "M016",
+        "M017",
+        "M018",
+        "M019",
+        "M020"
+      ],
+      "status": "review_required"
+    },
+    {
+      "section_id": "SEC019",
+      "placeholder": "【GEN:风险评估与控制】",
+      "title": "质量控制与风险管理",
+      "content_type": "review_text",
+      "source_requirement_ids": [
+        "Q001",
+        "Q002",
+        "Q003",
+        "Q004",
+        "Q005",
+        "Q006",
+        "Q007",
+        "Q008",
+        "Q009",
+        "Q010",
+        "Q011",
+        "Q012",
+        "Q013",
+        "Q014",
+        "Q015",
+        "Q016",
+        "Q017",
+        "Q018",
+        "Q019",
+        "Q020",
+        "Q021",
+        "Q022",
+        "Q023",
+        "Q024",
+        "Q025",
+        "Q026",
+        "Q027",
+        "Q028",
+        "Q029",
+        "Q030",
+        "Q031",
+        "Q032",
+        "Q033",
+        "Q034",
+        "Q035",
+        "Q036",
+        "B001",
+        "B002",
+        "B003",
+        "B004",
+        "B005",
+        "B006",
+        "B007",
+        "B008"
+      ],
+      "related_scoring_item_ids": [
+        "S012",
+        "S013",
+        "S014"
+      ],
+      "module_ids": [
+        "M001",
+        "M002",
+        "M022",
+        "M023",
+        "M024",
+        "M025",
+        "M026"
+      ],
+      "status": "review_required"
+    },
+    {
+      "section_id": "SEC020",
+      "placeholder": "【REVIEW:成果交付及验收】",
+      "title": "项目实施与交付验收",
+      "content_type": "review_text",
+      "source_requirement_ids": [
+        "B001",
+        "B002",
+        "B003",
+        "B004",
+        "B005",
+        "B006",
+        "B007",
+        "B008",
+        "D001",
+        "D002",
+        "D003",
+        "D004"
+      ],
+      "related_scoring_item_ids": [
+        "S012",
+        "S013",
+        "S014"
+      ],
+      "module_ids": [
+        "M022",
+        "M023",
+        "M024",
+        "M025",
+        "M026",
+        "M027"
+      ],
+      "status": "review_required"
+    },
+    {
+      "section_id": "SEC021",
+      "placeholder": "【CONFIRM:项目团队人员说明】",
+      "title": "人员与资质证明",
+      "content_type": "confirm_placeholder",
+      "source_requirement_ids": [],
+      "related_scoring_item_ids": [
+        "S015",
+        "S017",
+        "S019"
+      ],
+      "module_ids": [],
+      "status": "confirm_required"
+    },
+    {
+      "section_id": "SEC022",
+      "placeholder": "【GEN:培训方案】",
+      "title": "培训与售后服务方案",
+      "content_type": "review_text",
+      "source_requirement_ids": [
+        "B001",
+        "B002",
+        "B003",
+        "B004",
+        "B005",
+        "B006",
+        "B007",
+        "B008",
+        "D001",
+        "D002",
+        "D003",
+        "D004"
+      ],
+      "related_scoring_item_ids": [
+        "S020",
+        "S021",
+        "S022"
+      ],
+      "module_ids": [
+        "M022",
+        "M023",
+        "M024",
+        "M025",
+        "M026",
+        "M027"
+      ],
+      "status": "review_required"
+    },
+    {
+      "section_id": "SEC023",
+      "placeholder": "【GEN:编写目的】",
+      "title": "编写目的",
+      "content_type": "generated_paragraphs",
+      "source_requirement_ids": [
+        "Q001",
+        "T026",
+        "T027",
+        "T028",
+        "Q013",
+        "Q015",
+        "B001",
+        "B002",
+        "B003",
+        "B004",
+        "B005",
+        "B007",
+        "D001",
+        "D002",
+        "D003",
+        "D004"
+      ],
+      "related_scoring_item_ids": [
+        "S001",
+        "S002",
+        "S003",
+        "S004",
+        "S005",
+        "S006",
+        "S007",
+        "S008",
+        "S009",
+        "S012",
+        "S013",
+        "S014",
+        "S015",
+        "S016",
+        "S017",
+        "S018",
+        "S019"
+      ],
+      "module_ids": [
+        "M001",
+        "M009",
+        "M002",
+        "M022",
+        "M023",
+        "M024",
+        "M025",
+        "M026",
+        "M027"
+      ],
+      "status": "review_required"
+    },
+    {
+      "section_id": "SEC024",
+      "placeholder": "【GEN:数据库设计总述】",
+      "title": "数据库设计总述",
+      "content_type": "generated_paragraphs",
+      "source_requirement_ids": [
+        "Q001",
+        "T001",
+        "T002",
+        "T003",
+        "T004",
+        "T005",
+        "T006",
+        "T017",
+        "T021",
+        "T023",
+        "T031",
+        "T032",
+        "T033",
+        "T034",
+        "P001",
+        "P003",
+        "P004",
+        "Q002",
+        "Q003",
+        "Q006",
+        "Q009",
+        "Q011",
+        "T035",
+        "T036",
+        "T037",
+        "T038",
+        "T039",
+        "T040",
+        "T041",
+        "Q014",
+        "Q020",
+        "Q022",
+        "Q032",
+        "Q034",
+        "B002",
+        "B003",
+        "D001",
+        "D002"
+      ],
+      "related_scoring_item_ids": [
+        "S001",
+        "S002",
+        "S003",
+        "S004",
+        "S005",
+        "S006",
+        "S007",
+        "S008",
+        "S009",
+        "S011",
+        "S016",
+        "S018"
+      ],
+      "module_ids": [
+        "M001",
+        "M003",
+        "M004",
+        "M005",
+        "M007",
+        "M008",
+        "M012",
+        "M013",
+        "M021",
+        "M002",
+        "M014",
+        "M015",
+        "M016",
+        "M017",
+        "M018",
+        "M019",
+        "M020",
+        "M023",
+        "M024",
+        "M027"
+      ],
+      "status": "review_required"
+    },
+    {
+      "section_id": "SEC025",
+      "placeholder": "【GEN:数据库表设计】",
+      "title": "数据库表设计",
+      "content_type": "generated_paragraphs",
+      "source_requirement_ids": [
+        "Q001",
+        "T001",
+        "T002",
+        "T003",
+        "T004",
+        "T005",
+        "T006",
+        "T017",
+        "T021",
+        "T023",
+        "T031",
+        "T032",
+        "T033",
+        "T034",
+        "P001",
+        "P003",
+        "P004",
+        "Q002",
+        "Q003",
+        "Q006",
+        "Q009",
+        "Q011",
+        "T035",
+        "T036",
+        "T037",
+        "T038",
+        "T039",
+        "T040",
+        "T041",
+        "Q014",
+        "Q020",
+        "Q022",
+        "Q032",
+        "Q034",
+        "B002",
+        "B003",
+        "D001",
+        "D002"
+      ],
+      "related_scoring_item_ids": [
+        "S001",
+        "S002",
+        "S003",
+        "S004",
+        "S005",
+        "S006",
+        "S007",
+        "S008",
+        "S009",
+        "S011",
+        "S016",
+        "S018"
+      ],
+      "module_ids": [
+        "M001",
+        "M003",
+        "M004",
+        "M005",
+        "M007",
+        "M008",
+        "M012",
+        "M013",
+        "M021",
+        "M002",
+        "M014",
+        "M015",
+        "M016",
+        "M017",
+        "M018",
+        "M019",
+        "M020",
+        "M023",
+        "M024",
+        "M027"
+      ],
+      "status": "review_required"
+    },
+    {
+      "section_id": "SEC026",
+      "placeholder": "【GEN:保障性设计】",
+      "title": "保障性设计",
+      "content_type": "generated_paragraphs",
+      "source_requirement_ids": [
+        "P006",
+        "Q002",
+        "Q005",
+        "Q010",
+        "Q024",
+        "Q026",
+        "Q030",
+        "Q033",
+        "Q035",
+        "B001",
+        "B002",
+        "B004",
+        "B006",
+        "D001",
+        "D002",
+        "D003",
+        "D004"
+      ],
+      "related_scoring_item_ids": [
+        "S014",
+        "S020",
+        "S021",
+        "S022"
+      ],
+      "module_ids": [
+        "M021",
+        "M002",
+        "M022",
+        "M023",
+        "M025",
+        "M027"
+      ],
+      "status": "review_required"
+    },
+    {
+      "section_id": "SEC027",
+      "placeholder": "【GEN:质量控制总述】",
+      "title": "质量控制总述",
+      "content_type": "generated_paragraphs",
+      "source_requirement_ids": [
+        "Q001",
+        "T011",
+        "T012",
+        "T016",
+        "T017",
+        "T018",
+        "T019",
+        "T020",
+        "T021",
+        "T022",
+        "T023",
+        "T024",
+        "T025",
+        "T028",
+        "T033",
+        "Q002",
+        "Q003",
+        "Q004",
+        "Q005",
+        "Q006",
+        "Q007",
+        "Q008",
+        "Q009",
+        "Q010",
+        "Q011",
+        "Q012",
+        "T035",
+        "Q013",
+        "Q014",
+        "Q015",
+        "Q016",
+        "Q017",
+        "Q018",
+        "Q019",
+        "Q020",
+        "Q021",
+        "Q022",
+        "Q023",
+        "Q024",
+        "Q025"
+      ],
+      "related_scoring_item_ids": [
+        "S001",
+        "S002",
+        "S003",
+        "S004",
+        "S005",
+        "S006",
+        "S007",
+        "S008",
+        "S009",
+        "S014",
+        "S017"
+      ],
+      "module_ids": [
+        "M001",
+        "M006",
+        "M007",
+        "M008",
+        "M009",
+        "M013",
+        "M002",
+        "M014"
+      ],
+      "status": "review_required"
+    },
+    {
+      "section_id": "SEC028",
+      "placeholder": "【GEN:质量保证措施】",
+      "title": "质量保证措施",
+      "content_type": "generated_paragraphs",
+      "source_requirement_ids": [
+        "Q001",
+        "T011",
+        "T012",
+        "T016",
+        "T017",
+        "T018",
+        "T019",
+        "T020",
+        "T021",
+        "T022",
+        "T023",
+        "T024",
+        "T025",
+        "T028",
+        "T033",
+        "Q002",
+        "Q003",
+        "Q004",
+        "Q005",
+        "Q006",
+        "Q007",
+        "Q008",
+        "Q009",
+        "Q010",
+        "Q011",
+        "Q012",
+        "T035",
+        "Q013",
+        "Q014",
+        "Q015",
+        "Q016",
+        "Q017",
+        "Q018",
+        "Q019",
+        "Q020",
+        "Q021",
+        "Q022",
+        "Q023",
+        "Q024",
+        "Q025"
+      ],
+      "related_scoring_item_ids": [
+        "S001",
+        "S002",
+        "S003",
+        "S004",
+        "S005",
+        "S006",
+        "S007",
+        "S008",
+        "S009",
+        "S014",
+        "S017"
+      ],
+      "module_ids": [
+        "M001",
+        "M006",
+        "M007",
+        "M008",
+        "M009",
+        "M013",
+        "M002",
+        "M014"
+      ],
+      "status": "review_required"
+    },
+    {
+      "section_id": "SEC029",
+      "placeholder": "【REVIEW:质量体系与资质响应说明】",
+      "title": "质量体系与资质响应说明",
+      "content_type": "review_text",
+      "source_requirement_ids": [
+        "Q001",
+        "T011",
+        "T012",
+        "T016",
+        "T017",
+        "T018",
+        "T019",
+        "T020",
+        "T021",
+        "T022",
+        "T023",
+        "T024",
+        "T025",
+        "T028",
+        "T033",
+        "Q002",
+        "Q003",
+        "Q004",
+        "Q005",
+        "Q006",
+        "Q007",
+        "Q008",
+        "Q009",
+        "Q010",
+        "Q011",
+        "Q012",
+        "T035",
+        "Q013",
+        "Q014",
+        "Q015",
+        "Q016",
+        "Q017",
+        "Q018",
+        "Q019",
+        "Q020",
+        "Q021",
+        "Q022",
+        "Q023",
+        "Q024",
+        "Q025"
+      ],
+      "related_scoring_item_ids": [
+        "S001",
+        "S002",
+        "S003",
+        "S004",
+        "S005",
+        "S006",
+        "S007",
+        "S008",
+        "S009",
+        "S014",
+        "S015",
+        "S016",
+        "S017",
+        "S018",
+        "S019"
+      ],
+      "module_ids": [
+        "M001",
+        "M006",
+        "M007",
+        "M008",
+        "M009",
+        "M013",
+        "M002",
+        "M014"
+      ],
+      "status": "review_required"
+    },
+    {
+      "section_id": "SEC030",
+      "placeholder": "【REVIEW:服务质量保障措施】",
+      "title": "服务质量保障措施",
+      "content_type": "review_text",
+      "source_requirement_ids": [
+        "Q001",
+        "T011",
+        "T012",
+        "T016",
+        "T017",
+        "T018",
+        "T019",
+        "T020",
+        "T021",
+        "T022",
+        "T023",
+        "T024",
+        "T025",
+        "T028",
+        "T033",
+        "P006",
+        "Q002",
+        "Q003",
+        "Q004",
+        "Q005",
+        "Q006",
+        "Q007",
+        "Q008",
+        "Q009",
+        "Q010",
+        "Q011",
+        "Q012",
+        "T035",
+        "Q013",
+        "Q014",
+        "Q015",
+        "Q016",
+        "Q017",
+        "Q018",
+        "Q019",
+        "Q020",
+        "Q021",
+        "Q022",
+        "Q023",
+        "Q024"
+      ],
+      "related_scoring_item_ids": [
+        "S001",
+        "S002",
+        "S003",
+        "S004",
+        "S005",
+        "S006",
+        "S007",
+        "S008",
+        "S009",
+        "S014",
+        "S017",
+        "S020",
+        "S021",
+        "S022"
+      ],
+      "module_ids": [
+        "M001",
+        "M006",
+        "M007",
+        "M008",
+        "M009",
+        "M013",
+        "M021",
+        "M002",
+        "M014"
+      ],
+      "status": "review_required"
+    },
+    {
+      "section_id": "SEC031",
+      "placeholder": "【REVIEW:项目进度计划】",
+      "title": "项目进度计划",
+      "content_type": "review_text",
+      "source_requirement_ids": [
+        "P007",
+        "Q011",
+        "Q015",
+        "Q024",
+        "Q026",
+        "Q030",
+        "Q033",
+        "Q035",
+        "B001",
+        "B002",
+        "B003",
+        "B004",
+        "B005",
+        "B007",
+        "D001",
+        "D002",
+        "D003",
+        "D004"
+      ],
+      "related_scoring_item_ids": [
+        "S006",
+        "S012",
+        "S013",
+        "S014",
+        "S015",
+        "S016",
+        "S017",
+        "S018",
+        "S019"
+      ],
+      "module_ids": [
+        "M021",
+        "M002",
+        "M022",
+        "M023",
+        "M024",
+        "M025",
+        "M026",
+        "M027"
+      ],
+      "status": "review_required"
+    },
+    {
+      "section_id": "SEC032",
+      "placeholder": "【REVIEW:交付物清单】",
+      "title": "交付物清单",
+      "content_type": "review_text",
+      "source_requirement_ids": [
+        "Q011",
+        "Q022",
+        "Q023",
+        "Q024",
+        "Q026",
+        "Q030",
+        "Q033",
+        "Q035",
+        "B001",
+        "B002",
+        "B006",
+        "D001",
+        "D002",
+        "D003",
+        "D004"
+      ],
+      "related_scoring_item_ids": [
+        "S014",
+        "S017"
+      ],
+      "module_ids": [
+        "M002",
+        "M022",
+        "M023",
+        "M027"
+      ],
+      "status": "review_required"
+    },
+    {
+      "section_id": "SEC033",
+      "placeholder": "【REVIEW:应急支援保障承诺】",
+      "title": "应急支援保障承诺",
+      "content_type": "review_text",
+      "source_requirement_ids": [
+        "P006",
+        "Q002",
+        "Q005",
+        "Q010",
+        "Q024",
+        "Q026",
+        "Q030",
+        "Q033",
+        "Q035",
+        "B001",
+        "B002",
+        "B004",
+        "B006",
+        "D001",
+        "D002",
+        "D003",
+        "D004"
+      ],
+      "related_scoring_item_ids": [
+        "S014",
+        "S020",
+        "S021",
+        "S022"
+      ],
+      "module_ids": [
+        "M021",
+        "M002",
+        "M022",
+        "M023",
+        "M025",
+        "M027"
+      ],
+      "status": "review_required"
+    },
+    {
+      "section_id": "SEC034",
+      "placeholder": "【REVIEW:定期跟踪服务承诺】",
+      "title": "定期跟踪服务承诺",
+      "content_type": "review_text",
+      "source_requirement_ids": [
+        "T006",
+        "T007",
+        "T032",
+        "T033",
+        "T034",
+        "P006",
+        "Q008",
+        "Q017",
+        "B001",
+        "B002",
+        "B004",
+        "B006",
+        "B007"
+      ],
+      "related_scoring_item_ids": [
+        "S014",
+        "S020",
+        "S021",
+        "S022"
+      ],
+      "module_ids": [
+        "M005",
+        "M013",
+        "M021",
+        "M002",
+        "M022",
+        "M023",
+        "M025"
+      ],
+      "status": "review_required"
+    }
+  ],
+  "diagram_plan": [
+    {
+      "diagram_id": "DG001",
+      "title": "总体架构蓝图",
+      "kind": "architecture",
+      "purpose": "展示用户交互、业务功能、数据接口、平台运行和质量安全保障之间的分层关系。",
+      "source_requirement_ids": [
+        "Q001",
+        "T001",
+        "T002",
+        "T003",
+        "T004",
+        "T005",
+        "T006",
+        "T007",
+        "T008",
+        "T009",
+        "T010",
+        "T011",
+        "T012",
+        "T013"
+      ],
+      "related_section_ids": [
+        "SEC001",
+        "SEC005",
+        "SEC012",
+        "SEC015",
+        "SEC019",
+        "SEC023",
+        "SEC024",
+        "SEC025",
+        "SEC027",
+        "SEC028",
+        "SEC029",
+        "SEC030",
+        "SEC007",
+        "SEC008",
+        "SEC011",
+        "SEC018",
+        "SEC034",
+        "SEC016"
+      ],
+      "layout_hint": "flowchart TB"
+    },
+    {
+      "diagram_id": "DG002",
+      "title": "功能模块划分图",
+      "kind": "architecture",
+      "purpose": "展示海图显示、态势融合、航线规划、告警监控、个性化配置和数据维护等功能模块边界。",
+      "source_requirement_ids": [
+        "T001",
+        "T002",
+        "T003",
+        "T004",
+        "T005",
+        "T006",
+        "T007",
+        "T008",
+        "T009",
+        "T010",
+        "T011",
+        "T012",
+        "T013",
+        "T014",
+        "T015",
+        "T016",
+        "T017",
+        "T018",
+        "T019",
+        "T020",
+        "T021",
+        "T022",
+        "T023",
+        "T024",
+        "T025",
+        "T026",
+        "T027",
+        "T028",
+        "T029",
+        "T030",
+        "T031",
+        "T032",
+        "T033",
+        "T034",
+        "Q002",
+        "Q003",
+        "Q009",
+        "T035",
+        "T036",
+        "T037"
+      ],
+      "related_section_ids": [
+        "SEC001",
+        "SEC007",
+        "SEC008",
+        "SEC011",
+        "SEC018",
+        "SEC024",
+        "SEC025",
+        "SEC034",
+        "SEC016",
+        "SEC027",
+        "SEC028",
+        "SEC029",
+        "SEC030",
+        "SEC023",
+        "SEC002",
+        "SEC003",
+        "SEC004",
+        "SEC006",
+        "SEC017",
+        "SEC010",
+        "SEC005",
+        "SEC012",
+        "SEC013",
+        "SEC014",
+        "SEC015",
+        "SEC019",
+        "SEC026",
+        "SEC033"
+      ],
+      "layout_hint": "flowchart TB"
+    },
+    {
+      "diagram_id": "DG003",
+      "title": "核心业务流程图",
+      "kind": "business_flow",
+      "purpose": "说明电子海图加载、目标信息融合、航线规划、航行监控和告警处置的主业务路径。",
+      "source_requirement_ids": [
+        "Q001",
+        "T001",
+        "T002",
+        "T003",
+        "T004",
+        "T005",
+        "T006",
+        "T007",
+        "T008",
+        "T009",
+        "T010",
+        "T011",
+        "T012",
+        "T013",
+        "T014",
+        "T015",
+        "T016",
+        "T017",
+        "T018",
+        "T019",
+        "T020",
+        "T021",
+        "T022",
+        "T023",
+        "T024",
+        "T025",
+        "T028",
+        "T032",
+        "Q002",
+        "Q003",
+        "Q009",
+        "T035"
+      ],
+      "related_section_ids": [
+        "SEC001",
+        "SEC005",
+        "SEC012",
+        "SEC015",
+        "SEC019",
+        "SEC023",
+        "SEC024",
+        "SEC025",
+        "SEC027",
+        "SEC028",
+        "SEC029",
+        "SEC030",
+        "SEC007",
+        "SEC008",
+        "SEC011",
+        "SEC018",
+        "SEC034",
+        "SEC016",
+        "SEC013",
+        "SEC014",
+        "SEC017",
+        "SEC026",
+        "SEC033",
+        "SEC010"
+      ],
+      "layout_hint": "flowchart TB"
+    },
+    {
+      "diagram_id": "DG004",
+      "title": "数据流与接口关系图",
+      "kind": "data_flow",
+      "purpose": "说明外部导航设备、文件系统、数据库读写、HMI 控制和业务模块之间的数据流向。",
+      "source_requirement_ids": [
+        "Q001",
+        "T001",
+        "T005",
+        "T021",
+        "T023",
+        "T031",
+        "T032",
+        "T033",
+        "T034",
+        "P001",
+        "P003",
+        "P004",
+        "Q003",
+        "Q006",
+        "Q009",
+        "Q011",
+        "T035",
+        "T036",
+        "T037",
+        "T038",
+        "T039",
+        "T040",
+        "T041",
+        "Q020",
+        "Q022",
+        "Q032",
+        "Q034",
+        "B002"
+      ],
+      "related_section_ids": [
+        "SEC001",
+        "SEC005",
+        "SEC012",
+        "SEC015",
+        "SEC019",
+        "SEC023",
+        "SEC024",
+        "SEC025",
+        "SEC027",
+        "SEC028",
+        "SEC029",
+        "SEC030",
+        "SEC007",
+        "SEC008",
+        "SEC011",
+        "SEC018",
+        "SEC002",
+        "SEC003",
+        "SEC004",
+        "SEC010",
+        "SEC034",
+        "SEC016",
+        "SEC009",
+        "SEC013",
+        "SEC014",
+        "SEC017",
+        "SEC031",
+        "SEC032",
+        "SEC020",
+        "SEC022",
+        "SEC026",
+        "SEC033"
+      ],
+      "layout_hint": "flowchart TB"
+    },
+    {
+      "diagram_id": "DG005",
+      "title": "部署与运行支撑图",
+      "kind": "deployment",
+      "purpose": "说明国产化软硬件环境、跨平台运行、多设备协同和性能保障的部署关系。",
+      "source_requirement_ids": [
+        "Q001",
+        "T029",
+        "P001",
+        "P002",
+        "P003",
+        "P004",
+        "P005",
+        "P006",
+        "P007",
+        "Q003",
+        "Q004",
+        "Q007",
+        "Q012",
+        "B001",
+        "B002",
+        "B003",
+        "B004",
+        "B005",
+        "B007",
+        "B008",
+        "D003"
+      ],
+      "related_section_ids": [
+        "SEC001",
+        "SEC005",
+        "SEC012",
+        "SEC015",
+        "SEC019",
+        "SEC023",
+        "SEC024",
+        "SEC025",
+        "SEC027",
+        "SEC028",
+        "SEC029",
+        "SEC030",
+        "SEC002",
+        "SEC003",
+        "SEC004",
+        "SEC006",
+        "SEC007",
+        "SEC008",
+        "SEC017",
+        "SEC018",
+        "SEC009",
+        "SEC013",
+        "SEC026",
+        "SEC033",
+        "SEC034",
+        "SEC031",
+        "SEC010",
+        "SEC011",
+        "SEC014",
+        "SEC016",
+        "SEC020",
+        "SEC022",
+        "SEC032"
+      ],
+      "layout_hint": "flowchart TB"
+    },
+    {
+      "diagram_id": "DG006",
+      "title": "安全与质量保障流程图",
+      "kind": "security",
+      "purpose": "说明权限、保密、质量监督、测试验收和风险处置的闭环控制。",
+      "source_requirement_ids": [
+        "T011",
+        "T012",
+        "T016",
+        "T017",
+        "T018",
+        "T020",
+        "T028",
+        "T033",
+        "Q002",
+        "Q003",
+        "Q004",
+        "Q005",
+        "Q006",
+        "Q007",
+        "Q008",
+        "Q009",
+        "Q010",
+        "Q011",
+        "Q012",
+        "T035",
+        "Q013",
+        "Q014",
+        "Q015",
+        "Q016",
+        "Q017",
+        "Q018",
+        "Q019",
+        "Q020",
+        "Q021",
+        "Q022",
+        "Q023",
+        "Q024",
+        "Q025",
+        "Q026",
+        "Q027",
+        "Q028"
+      ],
+      "related_section_ids": [
+        "SEC001",
+        "SEC007",
+        "SEC008",
+        "SEC016",
+        "SEC018",
+        "SEC027",
+        "SEC028",
+        "SEC029",
+        "SEC030",
+        "SEC011",
+        "SEC024",
+        "SEC025",
+        "SEC023",
+        "SEC034",
+        "SEC005",
+        "SEC012",
+        "SEC013",
+        "SEC014",
+        "SEC015",
+        "SEC017",
+        "SEC019",
+        "SEC026",
+        "SEC033",
+        "SEC010",
+        "SEC006",
+        "SEC031",
+        "SEC032",
+        "SEC002",
+        "SEC003",
+        "SEC004"
+      ],
+      "layout_hint": "flowchart TB"
+    },
+    {
+      "diagram_id": "DG007",
+      "title": "项目实施与交付流程图",
+      "kind": "business_flow",
+      "purpose": "说明实施计划、交付物、验收、培训和售后服务的过程衔接。",
+      "source_requirement_ids": [
+        "B001",
+        "B002",
+        "B003",
+        "B004",
+        "B005",
+        "B006",
+        "B007",
+        "B008",
+        "D001",
+        "D002",
+        "D003",
+        "D004"
+      ],
+      "related_section_ids": [
+        "SEC001",
+        "SEC014",
+        "SEC019",
+        "SEC020",
+        "SEC022",
+        "SEC023",
+        "SEC026",
+        "SEC031",
+        "SEC032",
+        "SEC033",
+        "SEC034",
+        "SEC024",
+        "SEC025",
+        "SEC016"
+      ],
+      "layout_hint": "flowchart TB"
+    }
+  ],
+  "coverage_map": [
+    {
+      "source_id": "Q001",
+      "covered_by": [
+        {
+          "kind": "section",
+          "id": "SEC001"
+        },
+        {
+          "kind": "section",
+          "id": "SEC005"
+        },
+        {
+          "kind": "section",
+          "id": "SEC012"
+        },
+        {
+          "kind": "section",
+          "id": "SEC015"
+        },
+        {
+          "kind": "section",
+          "id": "SEC019"
+        },
+        {
+          "kind": "section",
+          "id": "SEC023"
+        },
+        {
+          "kind": "section",
+          "id": "SEC024"
+        },
+        {
+          "kind": "section",
+          "id": "SEC025"
+        },
+        {
+          "kind": "section",
+          "id": "SEC027"
+        },
+        {
+          "kind": "section",
+          "id": "SEC028"
+        },
+        {
+          "kind": "section",
+          "id": "SEC029"
+        },
+        {
+          "kind": "section",
+          "id": "SEC030"
+        },
+        {
+          "kind": "module",
+          "id": "M001"
+        },
+        {
+          "kind": "diagram",
+          "id": "DG001"
+        },
+        {
+          "kind": "diagram",
+          "id": "DG003"
+        },
+        {
+          "kind": "diagram",
+          "id": "DG004"
+        },
+        {
+          "kind": "diagram",
+          "id": "DG005"
+        }
+      ],
+      "coverage_status": "planned"
+    },
+    {
+      "source_id": "T001",
+      "covered_by": [
+        {
+          "kind": "section",
+          "id": "SEC001"
+        },
+        {
+          "kind": "section",
+          "id": "SEC007"
+        },
+        {
+          "kind": "section",
+          "id": "SEC008"
+        },
+        {
+          "kind": "section",
+          "id": "SEC011"
+        },
+        {
+          "kind": "section",
+          "id": "SEC018"
+        },
+        {
+          "kind": "section",
+          "id": "SEC024"
+        },
+        {
+          "kind": "section",
+          "id": "SEC025"
+        },
+        {
+          "kind": "module",
+          "id": "M003"
+        },
+        {
+          "kind": "diagram",
+          "id": "DG001"
+        },
+        {
+          "kind": "diagram",
+          "id": "DG002"
+        },
+        {
+          "kind": "diagram",
+          "id": "DG003"
+        },
+        {
+          "kind": "diagram",
+          "id": "DG004"
+        }
+      ],
+      "coverage_status": "planned"
+    },
+    {
+      "source_id": "T002",
+      "covered_by": [
+        {
+          "kind": "section",
+          "id": "SEC001"
+        },
+        {
+          "kind": "section",
+          "id": "SEC007"
+        },
+        {
+          "kind": "section",
+          "id": "SEC008"
+        },
+        {
+          "kind": "section",
+          "id": "SEC011"
+        },
+        {
+          "kind": "section",
+          "id": "SEC018"
+        },
+        {
+          "kind": "section",
+          "id": "SEC024"
+        },
+        {
+          "kind": "section",
+          "id": "SEC025"
+        },
+        {
+          "kind": "module",
+          "id": "M004"
+        },
+        {
+          "kind": "diagram",
+          "id": "DG001"
+        },
+        {
+          "kind": "diagram",
+          "id": "DG002"
+        },
+        {
+          "kind": "diagram",
+          "id": "DG003"
+        }
+      ],
+      "coverage_status": "planned"
+    },
+    {
+      "source_id": "T003",
+      "covered_by": [
+        {
+          "kind": "section",
+          "id": "SEC001"
+        },
+        {
+          "kind": "section",
+          "id": "SEC007"
+        },
+        {
+          "kind": "section",
+          "id": "SEC008"
+        },
+        {
+          "kind": "section",
+          "id": "SEC011"
+        },
+        {
+          "kind": "section",
+          "id": "SEC018"
+        },
+        {
+          "kind": "section",
+          "id": "SEC024"
+        },
+        {
+          "kind": "section",
+          "id": "SEC025"
+        },
+        {
+          "kind": "module",
+          "id": "M004"
+        },
+        {
+          "kind": "diagram",
+          "id": "DG001"
+        },
+        {
+          "kind": "diagram",
+          "id": "DG002"
+        },
+        {
+          "kind": "diagram",
+          "id": "DG003"
+        }
+      ],
+      "coverage_status": "planned"
+    },
+    {
+      "source_id": "T004",
+      "covered_by": [
+        {
+          "kind": "section",
+          "id": "SEC001"
+        },
+        {
+          "kind": "section",
+          "id": "SEC007"
+        },
+        {
+          "kind": "section",
+          "id": "SEC008"
+        },
+        {
+          "kind": "section",
+          "id": "SEC011"
+        },
+        {
+          "kind": "section",
+          "id": "SEC018"
+        },
+        {
+          "kind": "section",
+          "id": "SEC024"
+        },
+        {
+          "kind": "section",
+          "id": "SEC025"
+        },
+        {
+          "kind": "module",
+          "id": "M004"
+        },
+        {
+          "kind": "diagram",
+          "id": "DG001"
+        },
+        {
+          "kind": "diagram",
+          "id": "DG002"
+        },
+        {
+          "kind": "diagram",
+          "id": "DG003"
+        }
+      ],
+      "coverage_status": "planned"
+    },
+    {
+      "source_id": "T005",
+      "covered_by": [
+        {
+          "kind": "section",
+          "id": "SEC001"
+        },
+        {
+          "kind": "section",
+          "id": "SEC007"
+        },
+        {
+          "kind": "section",
+          "id": "SEC008"
+        },
+        {
+          "kind": "section",
+          "id": "SEC011"
+        },
+        {
+          "kind": "section",
+          "id": "SEC018"
+        },
+        {
+          "kind": "section",
+          "id": "SEC024"
+        },
+        {
+          "kind": "section",
+          "id": "SEC025"
+        },
+        {
+          "kind": "module",
+          "id": "M005"
+        },
+        {
+          "kind": "diagram",
+          "id": "DG001"
+        },
+        {
+          "kind": "diagram",
+          "id": "DG002"
+        },
+        {
+          "kind": "diagram",
+          "id": "DG003"
+        },
+        {
+          "kind": "diagram",
+          "id": "DG004"
+        }
+      ],
+      "coverage_status": "planned"
+    },
+    {
+      "source_id": "T006",
+      "covered_by": [
+        {
+          "kind": "section",
+          "id": "SEC001"
+        },
+        {
+          "kind": "section",
+          "id": "SEC007"
+        },
+        {
+          "kind": "section",
+          "id": "SEC008"
+        },
+        {
+          "kind": "section",
+          "id": "SEC011"
+        },
+        {
+          "kind": "section",
+          "id": "SEC018"
+        },
+        {
+          "kind": "section",
+          "id": "SEC024"
+        },
+        {
+          "kind": "section",
+          "id": "SEC025"
+        },
+        {
+          "kind": "section",
+          "id": "SEC034"
+        },
+        {
+          "kind": "module",
+          "id": "M005"
+        },
+        {
+          "kind": "diagram",
+          "id": "DG001"
+        },
+        {
+          "kind": "diagram",
+          "id": "DG002"
+        },
+        {
+          "kind": "diagram",
+          "id": "DG003"
+        }
+      ],
+      "coverage_status": "planned"
+    },
+    {
+      "source_id": "T007",
+      "covered_by": [
+        {
+          "kind": "section",
+          "id": "SEC001"
+        },
+        {
+          "kind": "section",
+          "id": "SEC007"
+        },
+        {
+          "kind": "section",
+          "id": "SEC008"
+        },
+        {
+          "kind": "section",
+          "id": "SEC011"
+        },
+        {
+          "kind": "section",
+          "id": "SEC018"
+        },
+        {
+          "kind": "section",
+          "id": "SEC034"
+        },
+        {
+          "kind": "module",
+          "id": "M005"
+        },
+        {
+          "kind": "diagram",
+          "id": "DG001"
+        },
+        {
+          "kind": "diagram",
+          "id": "DG002"
+        },
+        {
+          "kind": "diagram",
+          "id": "DG003"
+        }
+      ],
+      "coverage_status": "planned"
+    },
+    {
+      "source_id": "T008",
+      "covered_by": [
+        {
+          "kind": "section",
+          "id": "SEC001"
+        },
+        {
+          "kind": "section",
+          "id": "SEC007"
+        },
+        {
+          "kind": "section",
+          "id": "SEC008"
+        },
+        {
+          "kind": "section",
+          "id": "SEC011"
+        },
+        {
+          "kind": "section",
+          "id": "SEC018"
+        },
+        {
+          "kind": "module",
+          "id": "M005"
+        },
+        {
+          "kind": "diagram",
+          "id": "DG001"
+        },
+        {
+          "kind": "diagram",
+          "id": "DG002"
+        },
+        {
+          "kind": "diagram",
+          "id": "DG003"
+        }
+      ],
+      "coverage_status": "planned"
+    },
+    {
+      "source_id": "T009",
+      "covered_by": [
+        {
+          "kind": "section",
+          "id": "SEC001"
+        },
+        {
+          "kind": "section",
+          "id": "SEC007"
+        },
+        {
+          "kind": "section",
+          "id": "SEC008"
+        },
+        {
+          "kind": "section",
+          "id": "SEC011"
+        },
+        {
+          "kind": "section",
+          "id": "SEC018"
+        },
+        {
+          "kind": "module",
+          "id": "M005"
+        },
+        {
+          "kind": "diagram",
+          "id": "DG001"
+        },
+        {
+          "kind": "diagram",
+          "id": "DG002"
+        },
+        {
+          "kind": "diagram",
+          "id": "DG003"
+        }
+      ],
+      "coverage_status": "planned"
+    },
+    {
+      "source_id": "T010",
+      "covered_by": [
+        {
+          "kind": "section",
+          "id": "SEC001"
+        },
+        {
+          "kind": "section",
+          "id": "SEC007"
+        },
+        {
+          "kind": "section",
+          "id": "SEC008"
+        },
+        {
+          "kind": "section",
+          "id": "SEC018"
+        },
+        {
+          "kind": "module",
+          "id": "M006"
+        },
+        {
+          "kind": "diagram",
+          "id": "DG001"
+        },
+        {
+          "kind": "diagram",
+          "id": "DG002"
+        },
+        {
+          "kind": "diagram",
+          "id": "DG003"
+        }
+      ],
+      "coverage_status": "planned"
+    },
+    {
+      "source_id": "T011",
+      "covered_by": [
+        {
+          "kind": "section",
+          "id": "SEC001"
+        },
+        {
+          "kind": "section",
+          "id": "SEC007"
+        },
+        {
+          "kind": "section",
+          "id": "SEC008"
+        },
+        {
+          "kind": "section",
+          "id": "SEC016"
+        },
+        {
+          "kind": "section",
+          "id": "SEC018"
+        },
+        {
+          "kind": "section",
+          "id": "SEC027"
+        },
+        {
+          "kind": "section",
+          "id": "SEC028"
+        },
+        {
+          "kind": "section",
+          "id": "SEC029"
+        },
+        {
+          "kind": "section",
+          "id": "SEC030"
+        },
+        {
+          "kind": "module",
+          "id": "M006"
+        },
+        {
+          "kind": "diagram",
+          "id": "DG001"
+        },
+        {
+          "kind": "diagram",
+          "id": "DG002"
+        },
+        {
+          "kind": "diagram",
+          "id": "DG003"
+        },
+        {
+          "kind": "diagram",
+          "id": "DG006"
+        }
+      ],
+      "coverage_status": "planned"
+    },
+    {
+      "source_id": "T012",
+      "covered_by": [
+        {
+          "kind": "section",
+          "id": "SEC001"
+        },
+        {
+          "kind": "section",
+          "id": "SEC007"
+        },
+        {
+          "kind": "section",
+          "id": "SEC008"
+        },
+        {
+          "kind": "section",
+          "id": "SEC016"
+        },
+        {
+          "kind": "section",
+          "id": "SEC018"
+        },
+        {
+          "kind": "section",
+          "id": "SEC027"
+        },
+        {
+          "kind": "section",
+          "id": "SEC028"
+        },
+        {
+          "kind": "section",
+          "id": "SEC029"
+        },
+        {
+          "kind": "section",
+          "id": "SEC030"
+        },
+        {
+          "kind": "module",
+          "id": "M006"
+        },
+        {
+          "kind": "diagram",
+          "id": "DG001"
+        },
+        {
+          "kind": "diagram",
+          "id": "DG002"
+        },
+        {
+          "kind": "diagram",
+          "id": "DG003"
+        },
+        {
+          "kind": "diagram",
+          "id": "DG006"
+        }
+      ],
+      "coverage_status": "planned"
+    },
+    {
+      "source_id": "T013",
+      "covered_by": [
+        {
+          "kind": "section",
+          "id": "SEC001"
+        },
+        {
+          "kind": "section",
+          "id": "SEC007"
+        },
+        {
+          "kind": "section",
+          "id": "SEC008"
+        },
+        {
+          "kind": "section",
+          "id": "SEC018"
+        },
+        {
+          "kind": "module",
+          "id": "M006"
+        },
+        {
+          "kind": "diagram",
+          "id": "DG001"
+        },
+        {
+          "kind": "diagram",
+          "id": "DG002"
+        },
+        {
+          "kind": "diagram",
+          "id": "DG003"
+        }
+      ],
+      "coverage_status": "planned"
+    },
+    {
+      "source_id": "T014",
+      "covered_by": [
+        {
+          "kind": "section",
+          "id": "SEC001"
+        },
+        {
+          "kind": "section",
+          "id": "SEC007"
+        },
+        {
+          "kind": "section",
+          "id": "SEC008"
+        },
+        {
+          "kind": "section",
+          "id": "SEC018"
+        },
+        {
+          "kind": "module",
+          "id": "M006"
+        },
+        {
+          "kind": "diagram",
+          "id": "DG002"
+        },
+        {
+          "kind": "diagram",
+          "id": "DG003"
+        }
+      ],
+      "coverage_status": "planned"
+    },
+    {
+      "source_id": "T015",
+      "covered_by": [
+        {
+          "kind": "section",
+          "id": "SEC001"
+        },
+        {
+          "kind": "section",
+          "id": "SEC007"
+        },
+        {
+          "kind": "section",
+          "id": "SEC008"
+        },
+        {
+          "kind": "section",
+          "id": "SEC018"
+        },
+        {
+          "kind": "module",
+          "id": "M006"
+        },
+        {
+          "kind": "diagram",
+          "id": "DG002"
+        },
+        {
+          "kind": "diagram",
+          "id": "DG003"
+        }
+      ],
+      "coverage_status": "planned"
+    },
+    {
+      "source_id": "T016",
+      "covered_by": [
+        {
+          "kind": "section",
+          "id": "SEC001"
+        },
+        {
+          "kind": "section",
+          "id": "SEC007"
+        },
+        {
+          "kind": "section",
+          "id": "SEC008"
+        },
+        {
+          "kind": "section",
+          "id": "SEC016"
+        },
+        {
+          "kind": "section",
+          "id": "SEC018"
+        },
+        {
+          "kind": "section",
+          "id": "SEC027"
+        },
+        {
+          "kind": "section",
+          "id": "SEC028"
+        },
+        {
+          "kind": "section",
+          "id": "SEC029"
+        },
+        {
+          "kind": "section",
+          "id": "SEC030"
+        },
+        {
+          "kind": "module",
+          "id": "M007"
+        },
+        {
+          "kind": "diagram",
+          "id": "DG002"
+        },
+        {
+          "kind": "diagram",
+          "id": "DG003"
+        },
+        {
+          "kind": "diagram",
+          "id": "DG006"
+        }
+      ],
+      "coverage_status": "planned"
+    },
+    {
+      "source_id": "T017",
+      "covered_by": [
+        {
+          "kind": "section",
+          "id": "SEC001"
+        },
+        {
+          "kind": "section",
+          "id": "SEC007"
+        },
+        {
+          "kind": "section",
+          "id": "SEC008"
+        },
+        {
+          "kind": "section",
+          "id": "SEC011"
+        },
+        {
+          "kind": "section",
+          "id": "SEC016"
+        },
+        {
+          "kind": "section",
+          "id": "SEC018"
+        },
+        {
+          "kind": "section",
+          "id": "SEC024"
+        },
+        {
+          "kind": "section",
+          "id": "SEC025"
+        },
+        {
+          "kind": "section",
+          "id": "SEC027"
+        },
+        {
+          "kind": "section",
+          "id": "SEC028"
+        },
+        {
+          "kind": "section",
+          "id": "SEC029"
+        },
+        {
+          "kind": "section",
+          "id": "SEC030"
+        },
+        {
+          "kind": "module",
+          "id": "M007"
+        },
+        {
+          "kind": "diagram",
+          "id": "DG002"
+        },
+        {
+          "kind": "diagram",
+          "id": "DG003"
+        },
+        {
+          "kind": "diagram",
+          "id": "DG006"
+        }
+      ],
+      "coverage_status": "planned"
+    },
+    {
+      "source_id": "T018",
+      "covered_by": [
+        {
+          "kind": "section",
+          "id": "SEC001"
+        },
+        {
+          "kind": "section",
+          "id": "SEC007"
+        },
+        {
+          "kind": "section",
+          "id": "SEC008"
+        },
+        {
+          "kind": "section",
+          "id": "SEC016"
+        },
+        {
+          "kind": "section",
+          "id": "SEC018"
+        },
+        {
+          "kind": "section",
+          "id": "SEC027"
+        },
+        {
+          "kind": "section",
+          "id": "SEC028"
+        },
+        {
+          "kind": "section",
+          "id": "SEC029"
+        },
+        {
+          "kind": "section",
+          "id": "SEC030"
+        },
+        {
+          "kind": "module",
+          "id": "M007"
+        },
+        {
+          "kind": "diagram",
+          "id": "DG002"
+        },
+        {
+          "kind": "diagram",
+          "id": "DG003"
+        },
+        {
+          "kind": "diagram",
+          "id": "DG006"
+        }
+      ],
+      "coverage_status": "planned"
+    },
+    {
+      "source_id": "T019",
+      "covered_by": [
+        {
+          "kind": "section",
+          "id": "SEC001"
+        },
+        {
+          "kind": "section",
+          "id": "SEC007"
+        },
+        {
+          "kind": "section",
+          "id": "SEC008"
+        },
+        {
+          "kind": "section",
+          "id": "SEC018"
+        },
+        {
+          "kind": "section",
+          "id": "SEC027"
+        },
+        {
+          "kind": "section",
+          "id": "SEC028"
+        },
+        {
+          "kind": "section",
+          "id": "SEC029"
+        },
+        {
+          "kind": "section",
+          "id": "SEC030"
+        },
+        {
+          "kind": "module",
+          "id": "M007"
+        },
+        {
+          "kind": "diagram",
+          "id": "DG002"
+        },
+        {
+          "kind": "diagram",
+          "id": "DG003"
+        }
+      ],
+      "coverage_status": "planned"
+    },
+    {
+      "source_id": "T020",
+      "covered_by": [
+        {
+          "kind": "section",
+          "id": "SEC001"
+        },
+        {
+          "kind": "section",
+          "id": "SEC007"
+        },
+        {
+          "kind": "section",
+          "id": "SEC008"
+        },
+        {
+          "kind": "section",
+          "id": "SEC016"
+        },
+        {
+          "kind": "section",
+          "id": "SEC018"
+        },
+        {
+          "kind": "section",
+          "id": "SEC027"
+        },
+        {
+          "kind": "section",
+          "id": "SEC028"
+        },
+        {
+          "kind": "section",
+          "id": "SEC029"
+        },
+        {
+          "kind": "section",
+          "id": "SEC030"
+        },
+        {
+          "kind": "module",
+          "id": "M007"
+        },
+        {
+          "kind": "diagram",
+          "id": "DG002"
+        },
+        {
+          "kind": "diagram",
+          "id": "DG003"
+        },
+        {
+          "kind": "diagram",
+          "id": "DG006"
+        }
+      ],
+      "coverage_status": "planned"
+    },
+    {
+      "source_id": "T021",
+      "covered_by": [
+        {
+          "kind": "section",
+          "id": "SEC001"
+        },
+        {
+          "kind": "section",
+          "id": "SEC007"
+        },
+        {
+          "kind": "section",
+          "id": "SEC008"
+        },
+        {
+          "kind": "section",
+          "id": "SEC011"
+        },
+        {
+          "kind": "section",
+          "id": "SEC018"
+        },
+        {
+          "kind": "section",
+          "id": "SEC024"
+        },
+        {
+          "kind": "section",
+          "id": "SEC025"
+        },
+        {
+          "kind": "section",
+          "id": "SEC027"
+        },
+        {
+          "kind": "section",
+          "id": "SEC028"
+        },
+        {
+          "kind": "section",
+          "id": "SEC029"
+        },
+        {
+          "kind": "section",
+          "id": "SEC030"
+        },
+        {
+          "kind": "module",
+          "id": "M007"
+        },
+        {
+          "kind": "diagram",
+          "id": "DG002"
+        },
+        {
+          "kind": "diagram",
+          "id": "DG003"
+        },
+        {
+          "kind": "diagram",
+          "id": "DG004"
+        }
+      ],
+      "coverage_status": "planned"
+    },
+    {
+      "source_id": "T022",
+      "covered_by": [
+        {
+          "kind": "section",
+          "id": "SEC001"
+        },
+        {
+          "kind": "section",
+          "id": "SEC007"
+        },
+        {
+          "kind": "section",
+          "id": "SEC008"
+        },
+        {
+          "kind": "section",
+          "id": "SEC018"
+        },
+        {
+          "kind": "section",
+          "id": "SEC027"
+        },
+        {
+          "kind": "section",
+          "id": "SEC028"
+        },
+        {
+          "kind": "section",
+          "id": "SEC029"
+        },
+        {
+          "kind": "section",
+          "id": "SEC030"
+        },
+        {
+          "kind": "module",
+          "id": "M008"
+        },
+        {
+          "kind": "diagram",
+          "id": "DG002"
+        },
+        {
+          "kind": "diagram",
+          "id": "DG003"
+        }
+      ],
+      "coverage_status": "planned"
+    },
+    {
+      "source_id": "T023",
+      "covered_by": [
+        {
+          "kind": "section",
+          "id": "SEC001"
+        },
+        {
+          "kind": "section",
+          "id": "SEC007"
+        },
+        {
+          "kind": "section",
+          "id": "SEC008"
+        },
+        {
+          "kind": "section",
+          "id": "SEC011"
+        },
+        {
+          "kind": "section",
+          "id": "SEC018"
+        },
+        {
+          "kind": "section",
+          "id": "SEC024"
+        },
+        {
+          "kind": "section",
+          "id": "SEC025"
+        },
+        {
+          "kind": "section",
+          "id": "SEC027"
+        },
+        {
+          "kind": "section",
+          "id": "SEC028"
+        },
+        {
+          "kind": "section",
+          "id": "SEC029"
+        },
+        {
+          "kind": "section",
+          "id": "SEC030"
+        },
+        {
+          "kind": "module",
+          "id": "M008"
+        },
+        {
+          "kind": "diagram",
+          "id": "DG002"
+        },
+        {
+          "kind": "diagram",
+          "id": "DG003"
+        },
+        {
+          "kind": "diagram",
+          "id": "DG004"
+        }
+      ],
+      "coverage_status": "planned"
+    },
+    {
+      "source_id": "T024",
+      "covered_by": [
+        {
+          "kind": "section",
+          "id": "SEC001"
+        },
+        {
+          "kind": "section",
+          "id": "SEC007"
+        },
+        {
+          "kind": "section",
+          "id": "SEC008"
+        },
+        {
+          "kind": "section",
+          "id": "SEC018"
+        },
+        {
+          "kind": "section",
+          "id": "SEC027"
+        },
+        {
+          "kind": "section",
+          "id": "SEC028"
+        },
+        {
+          "kind": "section",
+          "id": "SEC029"
+        },
+        {
+          "kind": "section",
+          "id": "SEC030"
+        },
+        {
+          "kind": "module",
+          "id": "M008"
+        },
+        {
+          "kind": "diagram",
+          "id": "DG002"
+        },
+        {
+          "kind": "diagram",
+          "id": "DG003"
+        }
+      ],
+      "coverage_status": "planned"
+    },
+    {
+      "source_id": "T025",
+      "covered_by": [
+        {
+          "kind": "section",
+          "id": "SEC001"
+        },
+        {
+          "kind": "section",
+          "id": "SEC007"
+        },
+        {
+          "kind": "section",
+          "id": "SEC008"
+        },
+        {
+          "kind": "section",
+          "id": "SEC018"
+        },
+        {
+          "kind": "section",
+          "id": "SEC027"
+        },
+        {
+          "kind": "section",
+          "id": "SEC028"
+        },
+        {
+          "kind": "section",
+          "id": "SEC029"
+        },
+        {
+          "kind": "section",
+          "id": "SEC030"
+        },
+        {
+          "kind": "module",
+          "id": "M008"
+        },
+        {
+          "kind": "diagram",
+          "id": "DG002"
+        },
+        {
+          "kind": "diagram",
+          "id": "DG003"
+        }
+      ],
+      "coverage_status": "planned"
+    },
+    {
+      "source_id": "T026",
+      "covered_by": [
+        {
+          "kind": "section",
+          "id": "SEC001"
+        },
+        {
+          "kind": "section",
+          "id": "SEC007"
+        },
+        {
+          "kind": "section",
+          "id": "SEC008"
+        },
+        {
+          "kind": "section",
+          "id": "SEC018"
+        },
+        {
+          "kind": "section",
+          "id": "SEC023"
+        },
+        {
+          "kind": "module",
+          "id": "M009"
+        },
+        {
+          "kind": "diagram",
+          "id": "DG002"
+        }
+      ],
+      "coverage_status": "planned"
+    },
+    {
+      "source_id": "T027",
+      "covered_by": [
+        {
+          "kind": "section",
+          "id": "SEC001"
+        },
+        {
+          "kind": "section",
+          "id": "SEC007"
+        },
+        {
+          "kind": "section",
+          "id": "SEC008"
+        },
+        {
+          "kind": "section",
+          "id": "SEC018"
+        },
+        {
+          "kind": "section",
+          "id": "SEC023"
+        },
+        {
+          "kind": "module",
+          "id": "M009"
+        },
+        {
+          "kind": "diagram",
+          "id": "DG002"
+        }
+      ],
+      "coverage_status": "planned"
+    },
+    {
+      "source_id": "T028",
+      "covered_by": [
+        {
+          "kind": "section",
+          "id": "SEC001"
+        },
+        {
+          "kind": "section",
+          "id": "SEC007"
+        },
+        {
+          "kind": "section",
+          "id": "SEC008"
+        },
+        {
+          "kind": "section",
+          "id": "SEC016"
+        },
+        {
+          "kind": "section",
+          "id": "SEC018"
+        },
+        {
+          "kind": "section",
+          "id": "SEC023"
+        },
+        {
+          "kind": "section",
+          "id": "SEC027"
+        },
+        {
+          "kind": "section",
+          "id": "SEC028"
+        },
+        {
+          "kind": "section",
+          "id": "SEC029"
+        },
+        {
+          "kind": "section",
+          "id": "SEC030"
+        },
+        {
+          "kind": "module",
+          "id": "M009"
+        },
+        {
+          "kind": "diagram",
+          "id": "DG002"
+        },
+        {
+          "kind": "diagram",
+          "id": "DG003"
+        },
+        {
+          "kind": "diagram",
+          "id": "DG006"
+        }
+      ],
+      "coverage_status": "planned"
+    },
+    {
+      "source_id": "T029",
+      "covered_by": [
+        {
+          "kind": "section",
+          "id": "SEC001"
+        },
+        {
+          "kind": "section",
+          "id": "SEC002"
+        },
+        {
+          "kind": "section",
+          "id": "SEC003"
+        },
+        {
+          "kind": "section",
+          "id": "SEC004"
+        },
+        {
+          "kind": "section",
+          "id": "SEC006"
+        },
+        {
+          "kind": "section",
+          "id": "SEC007"
+        },
+        {
+          "kind": "section",
+          "id": "SEC008"
+        },
+        {
+          "kind": "section",
+          "id": "SEC017"
+        },
+        {
+          "kind": "section",
+          "id": "SEC018"
+        },
+        {
+          "kind": "module",
+          "id": "M010"
+        },
+        {
+          "kind": "diagram",
+          "id": "DG002"
+        },
+        {
+          "kind": "diagram",
+          "id": "DG005"
+        }
+      ],
+      "coverage_status": "planned"
+    },
+    {
+      "source_id": "T030",
+      "covered_by": [
+        {
+          "kind": "section",
+          "id": "SEC001"
+        },
+        {
+          "kind": "section",
+          "id": "SEC002"
+        },
+        {
+          "kind": "section",
+          "id": "SEC003"
+        },
+        {
+          "kind": "section",
+          "id": "SEC004"
+        },
+        {
+          "kind": "section",
+          "id": "SEC007"
+        },
+        {
+          "kind": "section",
+          "id": "SEC008"
+        },
+        {
+          "kind": "section",
+          "id": "SEC018"
+        },
+        {
+          "kind": "module",
+          "id": "M011"
+        },
+        {
+          "kind": "diagram",
+          "id": "DG002"
+        }
+      ],
+      "coverage_status": "planned"
+    },
+    {
+      "source_id": "T031",
+      "covered_by": [
+        {
+          "kind": "section",
+          "id": "SEC001"
+        },
+        {
+          "kind": "section",
+          "id": "SEC002"
+        },
+        {
+          "kind": "section",
+          "id": "SEC003"
+        },
+        {
+          "kind": "section",
+          "id": "SEC004"
+        },
+        {
+          "kind": "section",
+          "id": "SEC007"
+        },
+        {
+          "kind": "section",
+          "id": "SEC008"
+        },
+        {
+          "kind": "section",
+          "id": "SEC010"
+        },
+        {
+          "kind": "section",
+          "id": "SEC011"
+        },
+        {
+          "kind": "section",
+          "id": "SEC018"
+        },
+        {
+          "kind": "section",
+          "id": "SEC024"
+        },
+        {
+          "kind": "section",
+          "id": "SEC025"
+        },
+        {
+          "kind": "module",
+          "id": "M012"
+        },
+        {
+          "kind": "diagram",
+          "id": "DG002"
+        },
+        {
+          "kind": "diagram",
+          "id": "DG004"
+        }
+      ],
+      "coverage_status": "planned"
+    },
+    {
+      "source_id": "T032",
+      "covered_by": [
+        {
+          "kind": "section",
+          "id": "SEC001"
+        },
+        {
+          "kind": "section",
+          "id": "SEC007"
+        },
+        {
+          "kind": "section",
+          "id": "SEC008"
+        },
+        {
+          "kind": "section",
+          "id": "SEC011"
+        },
+        {
+          "kind": "section",
+          "id": "SEC018"
+        },
+        {
+          "kind": "section",
+          "id": "SEC024"
+        },
+        {
+          "kind": "section",
+          "id": "SEC025"
+        },
+        {
+          "kind": "section",
+          "id": "SEC034"
+        },
+        {
+          "kind": "module",
+          "id": "M013"
+        },
+        {
+          "kind": "diagram",
+          "id": "DG002"
+        },
+        {
+          "kind": "diagram",
+          "id": "DG003"
+        },
+        {
+          "kind": "diagram",
+          "id": "DG004"
+        }
+      ],
+      "coverage_status": "planned"
+    },
+    {
+      "source_id": "T033",
+      "covered_by": [
+        {
+          "kind": "section",
+          "id": "SEC001"
+        },
+        {
+          "kind": "section",
+          "id": "SEC007"
+        },
+        {
+          "kind": "section",
+          "id": "SEC008"
+        },
+        {
+          "kind": "section",
+          "id": "SEC011"
+        },
+        {
+          "kind": "section",
+          "id": "SEC016"
+        },
+        {
+          "kind": "section",
+          "id": "SEC018"
+        },
+        {
+          "kind": "section",
+          "id": "SEC024"
+        },
+        {
+          "kind": "section",
+          "id": "SEC025"
+        },
+        {
+          "kind": "section",
+          "id": "SEC027"
+        },
+        {
+          "kind": "section",
+          "id": "SEC028"
+        },
+        {
+          "kind": "section",
+          "id": "SEC029"
+        },
+        {
+          "kind": "section",
+          "id": "SEC030"
+        },
+        {
+          "kind": "section",
+          "id": "SEC034"
+        },
+        {
+          "kind": "module",
+          "id": "M013"
+        },
+        {
+          "kind": "diagram",
+          "id": "DG002"
+        },
+        {
+          "kind": "diagram",
+          "id": "DG004"
+        },
+        {
+          "kind": "diagram",
+          "id": "DG006"
+        }
+      ],
+      "coverage_status": "planned"
+    },
+    {
+      "source_id": "T034",
+      "covered_by": [
+        {
+          "kind": "section",
+          "id": "SEC001"
+        },
+        {
+          "kind": "section",
+          "id": "SEC007"
+        },
+        {
+          "kind": "section",
+          "id": "SEC008"
+        },
+        {
+          "kind": "section",
+          "id": "SEC010"
+        },
+        {
+          "kind": "section",
+          "id": "SEC011"
+        },
+        {
+          "kind": "section",
+          "id": "SEC018"
+        },
+        {
+          "kind": "section",
+          "id": "SEC024"
+        },
+        {
+          "kind": "section",
+          "id": "SEC025"
+        },
+        {
+          "kind": "section",
+          "id": "SEC034"
+        },
+        {
+          "kind": "module",
+          "id": "M013"
+        },
+        {
+          "kind": "diagram",
+          "id": "DG002"
+        },
+        {
+          "kind": "diagram",
+          "id": "DG004"
+        }
+      ],
+      "coverage_status": "planned"
+    },
+    {
+      "source_id": "P001",
+      "covered_by": [
+        {
+          "kind": "section",
+          "id": "SEC009"
+        },
+        {
+          "kind": "section",
+          "id": "SEC024"
+        },
+        {
+          "kind": "section",
+          "id": "SEC025"
+        },
+        {
+          "kind": "module",
+          "id": "M021"
+        },
+        {
+          "kind": "diagram",
+          "id": "DG004"
+        },
+        {
+          "kind": "diagram",
+          "id": "DG005"
+        }
+      ],
+      "coverage_status": "planned"
+    },
+    {
+      "source_id": "P002",
+      "covered_by": [
+        {
+          "kind": "section",
+          "id": "SEC009"
+        },
+        {
+          "kind": "section",
+          "id": "SEC013"
+        },
+        {
+          "kind": "module",
+          "id": "M021"
+        },
+        {
+          "kind": "diagram",
+          "id": "DG005"
+        }
+      ],
+      "coverage_status": "planned"
+    },
+    {
+      "source_id": "P003",
+      "covered_by": [
+        {
+          "kind": "section",
+          "id": "SEC009"
+        },
+        {
+          "kind": "section",
+          "id": "SEC024"
+        },
+        {
+          "kind": "section",
+          "id": "SEC025"
+        },
+        {
+          "kind": "module",
+          "id": "M021"
+        },
+        {
+          "kind": "diagram",
+          "id": "DG004"
+        },
+        {
+          "kind": "diagram",
+          "id": "DG005"
+        }
+      ],
+      "coverage_status": "planned"
+    },
+    {
+      "source_id": "P004",
+      "covered_by": [
+        {
+          "kind": "section",
+          "id": "SEC009"
+        },
+        {
+          "kind": "section",
+          "id": "SEC024"
+        },
+        {
+          "kind": "section",
+          "id": "SEC025"
+        },
+        {
+          "kind": "module",
+          "id": "M021"
+        },
+        {
+          "kind": "diagram",
+          "id": "DG004"
+        },
+        {
+          "kind": "diagram",
+          "id": "DG005"
+        }
+      ],
+      "coverage_status": "planned"
+    },
+    {
+      "source_id": "P005",
+      "covered_by": [
+        {
+          "kind": "section",
+          "id": "SEC009"
+        },
+        {
+          "kind": "section",
+          "id": "SEC013"
+        },
+        {
+          "kind": "module",
+          "id": "M021"
+        },
+        {
+          "kind": "diagram",
+          "id": "DG005"
+        }
+      ],
+      "coverage_status": "planned"
+    },
+    {
+      "source_id": "P006",
+      "covered_by": [
+        {
+          "kind": "section",
+          "id": "SEC009"
+        },
+        {
+          "kind": "section",
+          "id": "SEC013"
+        },
+        {
+          "kind": "section",
+          "id": "SEC026"
+        },
+        {
+          "kind": "section",
+          "id": "SEC030"
+        },
+        {
+          "kind": "section",
+          "id": "SEC033"
+        },
+        {
+          "kind": "section",
+          "id": "SEC034"
+        },
+        {
+          "kind": "module",
+          "id": "M021"
+        },
+        {
+          "kind": "diagram",
+          "id": "DG005"
+        }
+      ],
+      "coverage_status": "planned"
+    },
+    {
+      "source_id": "P007",
+      "covered_by": [
+        {
+          "kind": "section",
+          "id": "SEC009"
+        },
+        {
+          "kind": "section",
+          "id": "SEC031"
+        },
+        {
+          "kind": "module",
+          "id": "M021"
+        },
+        {
+          "kind": "diagram",
+          "id": "DG005"
+        }
+      ],
+      "coverage_status": "planned"
+    },
+    {
+      "source_id": "Q002",
+      "covered_by": [
+        {
+          "kind": "section",
+          "id": "SEC001"
+        },
+        {
+          "kind": "section",
+          "id": "SEC005"
+        },
+        {
+          "kind": "section",
+          "id": "SEC007"
+        },
+        {
+          "kind": "section",
+          "id": "SEC008"
+        },
+        {
+          "kind": "section",
+          "id": "SEC011"
+        },
+        {
+          "kind": "section",
+          "id": "SEC012"
+        },
+        {
+          "kind": "section",
+          "id": "SEC013"
+        },
+        {
+          "kind": "section",
+          "id": "SEC014"
+        },
+        {
+          "kind": "section",
+          "id": "SEC015"
+        },
+        {
+          "kind": "section",
+          "id": "SEC016"
+        },
+        {
+          "kind": "section",
+          "id": "SEC017"
+        },
+        {
+          "kind": "section",
+          "id": "SEC018"
+        },
+        {
+          "kind": "section",
+          "id": "SEC019"
+        },
+        {
+          "kind": "section",
+          "id": "SEC024"
+        },
+        {
+          "kind": "section",
+          "id": "SEC025"
+        },
+        {
+          "kind": "section",
+          "id": "SEC026"
+        },
+        {
+          "kind": "section",
+          "id": "SEC027"
+        },
+        {
+          "kind": "section",
+          "id": "SEC028"
+        },
+        {
+          "kind": "section",
+          "id": "SEC029"
+        },
+        {
+          "kind": "section",
+          "id": "SEC030"
+        },
+        {
+          "kind": "section",
+          "id": "SEC033"
+        },
+        {
+          "kind": "module",
+          "id": "M002"
+        },
+        {
+          "kind": "diagram",
+          "id": "DG002"
+        },
+        {
+          "kind": "diagram",
+          "id": "DG003"
+        },
+        {
+          "kind": "diagram",
+          "id": "DG006"
+        }
+      ],
+      "coverage_status": "planned"
+    },
+    {
+      "source_id": "Q003",
+      "covered_by": [
+        {
+          "kind": "section",
+          "id": "SEC001"
+        },
+        {
+          "kind": "section",
+          "id": "SEC005"
+        },
+        {
+          "kind": "section",
+          "id": "SEC007"
+        },
+        {
+          "kind": "section",
+          "id": "SEC008"
+        },
+        {
+          "kind": "section",
+          "id": "SEC010"
+        },
+        {
+          "kind": "section",
+          "id": "SEC011"
+        },
+        {
+          "kind": "section",
+          "id": "SEC012"
+        },
+        {
+          "kind": "section",
+          "id": "SEC013"
+        },
+        {
+          "kind": "section",
+          "id": "SEC014"
+        },
+        {
+          "kind": "section",
+          "id": "SEC016"
+        },
+        {
+          "kind": "section",
+          "id": "SEC018"
+        },
+        {
+          "kind": "section",
+          "id": "SEC019"
+        },
+        {
+          "kind": "section",
+          "id": "SEC024"
+        },
+        {
+          "kind": "section",
+          "id": "SEC025"
+        },
+        {
+          "kind": "section",
+          "id": "SEC027"
+        },
+        {
+          "kind": "section",
+          "id": "SEC028"
+        },
+        {
+          "kind": "section",
+          "id": "SEC029"
+        },
+        {
+          "kind": "section",
+          "id": "SEC030"
+        },
+        {
+          "kind": "module",
+          "id": "M002"
+        },
+        {
+          "kind": "diagram",
+          "id": "DG002"
+        },
+        {
+          "kind": "diagram",
+          "id": "DG003"
+        },
+        {
+          "kind": "diagram",
+          "id": "DG004"
+        },
+        {
+          "kind": "diagram",
+          "id": "DG005"
+        },
+        {
+          "kind": "diagram",
+          "id": "DG006"
+        }
+      ],
+      "coverage_status": "planned"
+    },
+    {
+      "source_id": "Q004",
+      "covered_by": [
+        {
+          "kind": "section",
+          "id": "SEC001"
+        },
+        {
+          "kind": "section",
+          "id": "SEC005"
+        },
+        {
+          "kind": "section",
+          "id": "SEC006"
+        },
+        {
+          "kind": "section",
+          "id": "SEC012"
+        },
+        {
+          "kind": "section",
+          "id": "SEC016"
+        },
+        {
+          "kind": "section",
+          "id": "SEC017"
+        },
+        {
+          "kind": "section",
+          "id": "SEC019"
+        },
+        {
+          "kind": "section",
+          "id": "SEC027"
+        },
+        {
+          "kind": "section",
+          "id": "SEC028"
+        },
+        {
+          "kind": "section",
+          "id": "SEC029"
+        },
+        {
+          "kind": "section",
+          "id": "SEC030"
+        },
+        {
+          "kind": "module",
+          "id": "M002"
+        },
+        {
+          "kind": "diagram",
+          "id": "DG005"
+        },
+        {
+          "kind": "diagram",
+          "id": "DG006"
+        }
+      ],
+      "coverage_status": "planned"
+    },
+    {
+      "source_id": "Q005",
+      "covered_by": [
+        {
+          "kind": "section",
+          "id": "SEC001"
+        },
+        {
+          "kind": "section",
+          "id": "SEC005"
+        },
+        {
+          "kind": "section",
+          "id": "SEC008"
+        },
+        {
+          "kind": "section",
+          "id": "SEC012"
+        },
+        {
+          "kind": "section",
+          "id": "SEC014"
+        },
+        {
+          "kind": "section",
+          "id": "SEC015"
+        },
+        {
+          "kind": "section",
+          "id": "SEC016"
+        },
+        {
+          "kind": "section",
+          "id": "SEC017"
+        },
+        {
+          "kind": "section",
+          "id": "SEC019"
+        },
+        {
+          "kind": "section",
+          "id": "SEC026"
+        },
+        {
+          "kind": "section",
+          "id": "SEC027"
+        },
+        {
+          "kind": "section",
+          "id": "SEC028"
+        },
+        {
+          "kind": "section",
+          "id": "SEC029"
+        },
+        {
+          "kind": "section",
+          "id": "SEC030"
+        },
+        {
+          "kind": "section",
+          "id": "SEC033"
+        },
+        {
+          "kind": "module",
+          "id": "M002"
+        },
+        {
+          "kind": "diagram",
+          "id": "DG006"
+        }
+      ],
+      "coverage_status": "planned"
+    },
+    {
+      "source_id": "Q006",
+      "covered_by": [
+        {
+          "kind": "section",
+          "id": "SEC001"
+        },
+        {
+          "kind": "section",
+          "id": "SEC005"
+        },
+        {
+          "kind": "section",
+          "id": "SEC008"
+        },
+        {
+          "kind": "section",
+          "id": "SEC012"
+        },
+        {
+          "kind": "section",
+          "id": "SEC014"
+        },
+        {
+          "kind": "section",
+          "id": "SEC015"
+        },
+        {
+          "kind": "section",
+          "id": "SEC016"
+        },
+        {
+          "kind": "section",
+          "id": "SEC017"
+        },
+        {
+          "kind": "section",
+          "id": "SEC019"
+        },
+        {
+          "kind": "section",
+          "id": "SEC024"
+        },
+        {
+          "kind": "section",
+          "id": "SEC025"
+        },
+        {
+          "kind": "section",
+          "id": "SEC027"
+        },
+        {
+          "kind": "section",
+          "id": "SEC028"
+        },
+        {
+          "kind": "section",
+          "id": "SEC029"
+        },
+        {
+          "kind": "section",
+          "id": "SEC030"
+        },
+        {
+          "kind": "module",
+          "id": "M002"
+        },
+        {
+          "kind": "diagram",
+          "id": "DG004"
+        },
+        {
+          "kind": "diagram",
+          "id": "DG006"
+        }
+      ],
+      "coverage_status": "planned"
+    },
+    {
+      "source_id": "Q007",
+      "covered_by": [
+        {
+          "kind": "section",
+          "id": "SEC001"
+        },
+        {
+          "kind": "section",
+          "id": "SEC005"
+        },
+        {
+          "kind": "section",
+          "id": "SEC006"
+        },
+        {
+          "kind": "section",
+          "id": "SEC008"
+        },
+        {
+          "kind": "section",
+          "id": "SEC012"
+        },
+        {
+          "kind": "section",
+          "id": "SEC016"
+        },
+        {
+          "kind": "section",
+          "id": "SEC017"
+        },
+        {
+          "kind": "section",
+          "id": "SEC019"
+        },
+        {
+          "kind": "section",
+          "id": "SEC027"
+        },
+        {
+          "kind": "section",
+          "id": "SEC028"
+        },
+        {
+          "kind": "section",
+          "id": "SEC029"
+        },
+        {
+          "kind": "section",
+          "id": "SEC030"
+        },
+        {
+          "kind": "module",
+          "id": "M002"
+        },
+        {
+          "kind": "diagram",
+          "id": "DG005"
+        },
+        {
+          "kind": "diagram",
+          "id": "DG006"
+        }
+      ],
+      "coverage_status": "planned"
+    },
+    {
+      "source_id": "Q008",
+      "covered_by": [
+        {
+          "kind": "section",
+          "id": "SEC001"
+        },
+        {
+          "kind": "section",
+          "id": "SEC005"
+        },
+        {
+          "kind": "section",
+          "id": "SEC012"
+        },
+        {
+          "kind": "section",
+          "id": "SEC016"
+        },
+        {
+          "kind": "section",
+          "id": "SEC019"
+        },
+        {
+          "kind": "section",
+          "id": "SEC027"
+        },
+        {
+          "kind": "section",
+          "id": "SEC028"
+        },
+        {
+          "kind": "section",
+          "id": "SEC029"
+        },
+        {
+          "kind": "section",
+          "id": "SEC030"
+        },
+        {
+          "kind": "section",
+          "id": "SEC034"
+        },
+        {
+          "kind": "module",
+          "id": "M002"
+        },
+        {
+          "kind": "diagram",
+          "id": "DG006"
+        }
+      ],
+      "coverage_status": "planned"
+    },
+    {
+      "source_id": "Q009",
+      "covered_by": [
+        {
+          "kind": "section",
+          "id": "SEC001"
+        },
+        {
+          "kind": "section",
+          "id": "SEC005"
+        },
+        {
+          "kind": "section",
+          "id": "SEC007"
+        },
+        {
+          "kind": "section",
+          "id": "SEC008"
+        },
+        {
+          "kind": "section",
+          "id": "SEC010"
+        },
+        {
+          "kind": "section",
+          "id": "SEC011"
+        },
+        {
+          "kind": "section",
+          "id": "SEC012"
+        },
+        {
+          "kind": "section",
+          "id": "SEC013"
+        },
+        {
+          "kind": "section",
+          "id": "SEC016"
+        },
+        {
+          "kind": "section",
+          "id": "SEC018"
+        },
+        {
+          "kind": "section",
+          "id": "SEC019"
+        },
+        {
+          "kind": "section",
+          "id": "SEC024"
+        },
+        {
+          "kind": "section",
+          "id": "SEC025"
+        },
+        {
+          "kind": "section",
+          "id": "SEC027"
+        },
+        {
+          "kind": "section",
+          "id": "SEC028"
+        },
+        {
+          "kind": "section",
+          "id": "SEC029"
+        },
+        {
+          "kind": "section",
+          "id": "SEC030"
+        },
+        {
+          "kind": "module",
+          "id": "M002"
+        },
+        {
+          "kind": "diagram",
+          "id": "DG002"
+        },
+        {
+          "kind": "diagram",
+          "id": "DG003"
+        },
+        {
+          "kind": "diagram",
+          "id": "DG004"
+        },
+        {
+          "kind": "diagram",
+          "id": "DG006"
+        }
+      ],
+      "coverage_status": "planned"
+    },
+    {
+      "source_id": "Q010",
+      "covered_by": [
+        {
+          "kind": "section",
+          "id": "SEC001"
+        },
+        {
+          "kind": "section",
+          "id": "SEC005"
+        },
+        {
+          "kind": "section",
+          "id": "SEC012"
+        },
+        {
+          "kind": "section",
+          "id": "SEC013"
+        },
+        {
+          "kind": "section",
+          "id": "SEC014"
+        },
+        {
+          "kind": "section",
+          "id": "SEC016"
+        },
+        {
+          "kind": "section",
+          "id": "SEC019"
+        },
+        {
+          "kind": "section",
+          "id": "SEC026"
+        },
+        {
+          "kind": "section",
+          "id": "SEC027"
+        },
+        {
+          "kind": "section",
+          "id": "SEC028"
+        },
+        {
+          "kind": "section",
+          "id": "SEC029"
+        },
+        {
+          "kind": "section",
+          "id": "SEC030"
+        },
+        {
+          "kind": "section",
+          "id": "SEC033"
+        },
+        {
+          "kind": "module",
+          "id": "M002"
+        },
+        {
+          "kind": "diagram",
+          "id": "DG006"
+        }
+      ],
+      "coverage_status": "planned"
+    },
+    {
+      "source_id": "Q011",
+      "covered_by": [
+        {
+          "kind": "section",
+          "id": "SEC001"
+        },
+        {
+          "kind": "section",
+          "id": "SEC005"
+        },
+        {
+          "kind": "section",
+          "id": "SEC008"
+        },
+        {
+          "kind": "section",
+          "id": "SEC010"
+        },
+        {
+          "kind": "section",
+          "id": "SEC011"
+        },
+        {
+          "kind": "section",
+          "id": "SEC012"
+        },
+        {
+          "kind": "section",
+          "id": "SEC014"
+        },
+        {
+          "kind": "section",
+          "id": "SEC015"
+        },
+        {
+          "kind": "section",
+          "id": "SEC016"
+        },
+        {
+          "kind": "section",
+          "id": "SEC019"
+        },
+        {
+          "kind": "section",
+          "id": "SEC024"
+        },
+        {
+          "kind": "section",
+          "id": "SEC025"
+        },
+        {
+          "kind": "section",
+          "id": "SEC027"
+        },
+        {
+          "kind": "section",
+          "id": "SEC028"
+        },
+        {
+          "kind": "section",
+          "id": "SEC029"
+        },
+        {
+          "kind": "section",
+          "id": "SEC030"
+        },
+        {
+          "kind": "section",
+          "id": "SEC031"
+        },
+        {
+          "kind": "section",
+          "id": "SEC032"
+        },
+        {
+          "kind": "module",
+          "id": "M002"
+        },
+        {
+          "kind": "diagram",
+          "id": "DG004"
+        },
+        {
+          "kind": "diagram",
+          "id": "DG006"
+        }
+      ],
+      "coverage_status": "planned"
+    },
+    {
+      "source_id": "Q012",
+      "covered_by": [
+        {
+          "kind": "section",
+          "id": "SEC001"
+        },
+        {
+          "kind": "section",
+          "id": "SEC005"
+        },
+        {
+          "kind": "section",
+          "id": "SEC006"
+        },
+        {
+          "kind": "section",
+          "id": "SEC012"
+        },
+        {
+          "kind": "section",
+          "id": "SEC016"
+        },
+        {
+          "kind": "section",
+          "id": "SEC017"
+        },
+        {
+          "kind": "section",
+          "id": "SEC019"
+        },
+        {
+          "kind": "section",
+          "id": "SEC027"
+        },
+        {
+          "kind": "section",
+          "id": "SEC028"
+        },
+        {
+          "kind": "section",
+          "id": "SEC029"
+        },
+        {
+          "kind": "section",
+          "id": "SEC030"
+        },
+        {
+          "kind": "module",
+          "id": "M002"
+        },
+        {
+          "kind": "diagram",
+          "id": "DG005"
+        },
+        {
+          "kind": "diagram",
+          "id": "DG006"
+        }
+      ],
+      "coverage_status": "planned"
+    },
+    {
+      "source_id": "T035",
+      "covered_by": [
+        {
+          "kind": "section",
+          "id": "SEC001"
+        },
+        {
+          "kind": "section",
+          "id": "SEC007"
+        },
+        {
+          "kind": "section",
+          "id": "SEC008"
+        },
+        {
+          "kind": "section",
+          "id": "SEC010"
+        },
+        {
+          "kind": "section",
+          "id": "SEC011"
+        },
+        {
+          "kind": "section",
+          "id": "SEC016"
+        },
+        {
+          "kind": "section",
+          "id": "SEC018"
+        },
+        {
+          "kind": "section",
+          "id": "SEC024"
+        },
+        {
+          "kind": "section",
+          "id": "SEC025"
+        },
+        {
+          "kind": "section",
+          "id": "SEC027"
+        },
+        {
+          "kind": "section",
+          "id": "SEC028"
+        },
+        {
+          "kind": "section",
+          "id": "SEC029"
+        },
+        {
+          "kind": "section",
+          "id": "SEC030"
+        },
+        {
+          "kind": "module",
+          "id": "M014"
+        },
+        {
+          "kind": "diagram",
+          "id": "DG002"
+        },
+        {
+          "kind": "diagram",
+          "id": "DG003"
+        },
+        {
+          "kind": "diagram",
+          "id": "DG004"
+        },
+        {
+          "kind": "diagram",
+          "id": "DG006"
+        }
+      ],
+      "coverage_status": "planned"
+    },
+    {
+      "source_id": "T036",
+      "covered_by": [
+        {
+          "kind": "section",
+          "id": "SEC001"
+        },
+        {
+          "kind": "section",
+          "id": "SEC007"
+        },
+        {
+          "kind": "section",
+          "id": "SEC008"
+        },
+        {
+          "kind": "section",
+          "id": "SEC010"
+        },
+        {
+          "kind": "section",
+          "id": "SEC011"
+        },
+        {
+          "kind": "section",
+          "id": "SEC018"
+        },
+        {
+          "kind": "section",
+          "id": "SEC024"
+        },
+        {
+          "kind": "section",
+          "id": "SEC025"
+        },
+        {
+          "kind": "module",
+          "id": "M015"
+        },
+        {
+          "kind": "diagram",
+          "id": "DG002"
+        },
+        {
+          "kind": "diagram",
+          "id": "DG004"
+        }
+      ],
+      "coverage_status": "planned"
+    },
+    {
+      "source_id": "T037",
+      "covered_by": [
+        {
+          "kind": "section",
+          "id": "SEC001"
+        },
+        {
+          "kind": "section",
+          "id": "SEC007"
+        },
+        {
+          "kind": "section",
+          "id": "SEC008"
+        },
+        {
+          "kind": "section",
+          "id": "SEC010"
+        },
+        {
+          "kind": "section",
+          "id": "SEC011"
+        },
+        {
+          "kind": "section",
+          "id": "SEC018"
+        },
+        {
+          "kind": "section",
+          "id": "SEC024"
+        },
+        {
+          "kind": "section",
+          "id": "SEC025"
+        },
+        {
+          "kind": "module",
+          "id": "M016"
+        },
+        {
+          "kind": "diagram",
+          "id": "DG002"
+        },
+        {
+          "kind": "diagram",
+          "id": "DG004"
+        }
+      ],
+      "coverage_status": "planned"
+    },
+    {
+      "source_id": "T038",
+      "covered_by": [
+        {
+          "kind": "section",
+          "id": "SEC001"
+        },
+        {
+          "kind": "section",
+          "id": "SEC007"
+        },
+        {
+          "kind": "section",
+          "id": "SEC008"
+        },
+        {
+          "kind": "section",
+          "id": "SEC010"
+        },
+        {
+          "kind": "section",
+          "id": "SEC011"
+        },
+        {
+          "kind": "section",
+          "id": "SEC018"
+        },
+        {
+          "kind": "section",
+          "id": "SEC024"
+        },
+        {
+          "kind": "section",
+          "id": "SEC025"
+        },
+        {
+          "kind": "module",
+          "id": "M017"
+        },
+        {
+          "kind": "diagram",
+          "id": "DG004"
+        }
+      ],
+      "coverage_status": "planned"
+    },
+    {
+      "source_id": "T039",
+      "covered_by": [
+        {
+          "kind": "section",
+          "id": "SEC001"
+        },
+        {
+          "kind": "section",
+          "id": "SEC007"
+        },
+        {
+          "kind": "section",
+          "id": "SEC008"
+        },
+        {
+          "kind": "section",
+          "id": "SEC010"
+        },
+        {
+          "kind": "section",
+          "id": "SEC011"
+        },
+        {
+          "kind": "section",
+          "id": "SEC018"
+        },
+        {
+          "kind": "section",
+          "id": "SEC024"
+        },
+        {
+          "kind": "section",
+          "id": "SEC025"
+        },
+        {
+          "kind": "module",
+          "id": "M018"
+        },
+        {
+          "kind": "diagram",
+          "id": "DG004"
+        }
+      ],
+      "coverage_status": "planned"
+    },
+    {
+      "source_id": "T040",
+      "covered_by": [
+        {
+          "kind": "section",
+          "id": "SEC001"
+        },
+        {
+          "kind": "section",
+          "id": "SEC007"
+        },
+        {
+          "kind": "section",
+          "id": "SEC008"
+        },
+        {
+          "kind": "section",
+          "id": "SEC010"
+        },
+        {
+          "kind": "section",
+          "id": "SEC011"
+        },
+        {
+          "kind": "section",
+          "id": "SEC018"
+        },
+        {
+          "kind": "section",
+          "id": "SEC024"
+        },
+        {
+          "kind": "section",
+          "id": "SEC025"
+        },
+        {
+          "kind": "module",
+          "id": "M019"
+        },
+        {
+          "kind": "diagram",
+          "id": "DG004"
+        }
+      ],
+      "coverage_status": "planned"
+    },
+    {
+      "source_id": "T041",
+      "covered_by": [
+        {
+          "kind": "section",
+          "id": "SEC001"
+        },
+        {
+          "kind": "section",
+          "id": "SEC007"
+        },
+        {
+          "kind": "section",
+          "id": "SEC008"
+        },
+        {
+          "kind": "section",
+          "id": "SEC010"
+        },
+        {
+          "kind": "section",
+          "id": "SEC018"
+        },
+        {
+          "kind": "section",
+          "id": "SEC024"
+        },
+        {
+          "kind": "section",
+          "id": "SEC025"
+        },
+        {
+          "kind": "module",
+          "id": "M020"
+        },
+        {
+          "kind": "diagram",
+          "id": "DG004"
+        }
+      ],
+      "coverage_status": "planned"
+    },
+    {
+      "source_id": "Q013",
+      "covered_by": [
+        {
+          "kind": "section",
+          "id": "SEC001"
+        },
+        {
+          "kind": "section",
+          "id": "SEC005"
+        },
+        {
+          "kind": "section",
+          "id": "SEC012"
+        },
+        {
+          "kind": "section",
+          "id": "SEC016"
+        },
+        {
+          "kind": "section",
+          "id": "SEC019"
+        },
+        {
+          "kind": "section",
+          "id": "SEC023"
+        },
+        {
+          "kind": "section",
+          "id": "SEC027"
+        },
+        {
+          "kind": "section",
+          "id": "SEC028"
+        },
+        {
+          "kind": "section",
+          "id": "SEC029"
+        },
+        {
+          "kind": "section",
+          "id": "SEC030"
+        },
+        {
+          "kind": "module",
+          "id": "M002"
+        },
+        {
+          "kind": "diagram",
+          "id": "DG006"
+        }
+      ],
+      "coverage_status": "planned"
+    },
+    {
+      "source_id": "Q014",
+      "covered_by": [
+        {
+          "kind": "section",
+          "id": "SEC001"
+        },
+        {
+          "kind": "section",
+          "id": "SEC005"
+        },
+        {
+          "kind": "section",
+          "id": "SEC007"
+        },
+        {
+          "kind": "section",
+          "id": "SEC008"
+        },
+        {
+          "kind": "section",
+          "id": "SEC011"
+        },
+        {
+          "kind": "section",
+          "id": "SEC012"
+        },
+        {
+          "kind": "section",
+          "id": "SEC016"
+        },
+        {
+          "kind": "section",
+          "id": "SEC018"
+        },
+        {
+          "kind": "section",
+          "id": "SEC019"
+        },
+        {
+          "kind": "section",
+          "id": "SEC024"
+        },
+        {
+          "kind": "section",
+          "id": "SEC025"
+        },
+        {
+          "kind": "section",
+          "id": "SEC027"
+        },
+        {
+          "kind": "section",
+          "id": "SEC028"
+        },
+        {
+          "kind": "section",
+          "id": "SEC029"
+        },
+        {
+          "kind": "section",
+          "id": "SEC030"
+        },
+        {
+          "kind": "module",
+          "id": "M002"
+        },
+        {
+          "kind": "diagram",
+          "id": "DG006"
+        }
+      ],
+      "coverage_status": "planned"
+    },
+    {
+      "source_id": "Q015",
+      "covered_by": [
+        {
+          "kind": "section",
+          "id": "SEC001"
+        },
+        {
+          "kind": "section",
+          "id": "SEC005"
+        },
+        {
+          "kind": "section",
+          "id": "SEC008"
+        },
+        {
+          "kind": "section",
+          "id": "SEC012"
+        },
+        {
+          "kind": "section",
+          "id": "SEC016"
+        },
+        {
+          "kind": "section",
+          "id": "SEC019"
+        },
+        {
+          "kind": "section",
+          "id": "SEC023"
+        },
+        {
+          "kind": "section",
+          "id": "SEC027"
+        },
+        {
+          "kind": "section",
+          "id": "SEC028"
+        },
+        {
+          "kind": "section",
+          "id": "SEC029"
+        },
+        {
+          "kind": "section",
+          "id": "SEC030"
+        },
+        {
+          "kind": "section",
+          "id": "SEC031"
+        },
+        {
+          "kind": "module",
+          "id": "M002"
+        },
+        {
+          "kind": "diagram",
+          "id": "DG006"
+        }
+      ],
+      "coverage_status": "planned"
+    },
+    {
+      "source_id": "Q016",
+      "covered_by": [
+        {
+          "kind": "section",
+          "id": "SEC001"
+        },
+        {
+          "kind": "section",
+          "id": "SEC005"
+        },
+        {
+          "kind": "section",
+          "id": "SEC007"
+        },
+        {
+          "kind": "section",
+          "id": "SEC008"
+        },
+        {
+          "kind": "section",
+          "id": "SEC012"
+        },
+        {
+          "kind": "section",
+          "id": "SEC016"
+        },
+        {
+          "kind": "section",
+          "id": "SEC018"
+        },
+        {
+          "kind": "section",
+          "id": "SEC019"
+        },
+        {
+          "kind": "section",
+          "id": "SEC027"
+        },
+        {
+          "kind": "section",
+          "id": "SEC028"
+        },
+        {
+          "kind": "section",
+          "id": "SEC029"
+        },
+        {
+          "kind": "section",
+          "id": "SEC030"
+        },
+        {
+          "kind": "module",
+          "id": "M002"
+        },
+        {
+          "kind": "diagram",
+          "id": "DG006"
+        }
+      ],
+      "coverage_status": "planned"
+    },
+    {
+      "source_id": "Q017",
+      "covered_by": [
+        {
+          "kind": "section",
+          "id": "SEC001"
+        },
+        {
+          "kind": "section",
+          "id": "SEC002"
+        },
+        {
+          "kind": "section",
+          "id": "SEC003"
+        },
+        {
+          "kind": "section",
+          "id": "SEC004"
+        },
+        {
+          "kind": "section",
+          "id": "SEC005"
+        },
+        {
+          "kind": "section",
+          "id": "SEC012"
+        },
+        {
+          "kind": "section",
+          "id": "SEC016"
+        },
+        {
+          "kind": "section",
+          "id": "SEC018"
+        },
+        {
+          "kind": "section",
+          "id": "SEC019"
+        },
+        {
+          "kind": "section",
+          "id": "SEC027"
+        },
+        {
+          "kind": "section",
+          "id": "SEC028"
+        },
+        {
+          "kind": "section",
+          "id": "SEC029"
+        },
+        {
+          "kind": "section",
+          "id": "SEC030"
+        },
+        {
+          "kind": "section",
+          "id": "SEC034"
+        },
+        {
+          "kind": "module",
+          "id": "M002"
+        },
+        {
+          "kind": "diagram",
+          "id": "DG006"
+        }
+      ],
+      "coverage_status": "planned"
+    },
+    {
+      "source_id": "Q018",
+      "covered_by": [
+        {
+          "kind": "section",
+          "id": "SEC001"
+        },
+        {
+          "kind": "section",
+          "id": "SEC005"
+        },
+        {
+          "kind": "section",
+          "id": "SEC012"
+        },
+        {
+          "kind": "section",
+          "id": "SEC014"
+        },
+        {
+          "kind": "section",
+          "id": "SEC015"
+        },
+        {
+          "kind": "section",
+          "id": "SEC016"
+        },
+        {
+          "kind": "section",
+          "id": "SEC019"
+        },
+        {
+          "kind": "section",
+          "id": "SEC027"
+        },
+        {
+          "kind": "section",
+          "id": "SEC028"
+        },
+        {
+          "kind": "section",
+          "id": "SEC029"
+        },
+        {
+          "kind": "section",
+          "id": "SEC030"
+        },
+        {
+          "kind": "module",
+          "id": "M002"
+        },
+        {
+          "kind": "diagram",
+          "id": "DG006"
+        }
+      ],
+      "coverage_status": "planned"
+    },
+    {
+      "source_id": "Q019",
+      "covered_by": [
+        {
+          "kind": "section",
+          "id": "SEC001"
+        },
+        {
+          "kind": "section",
+          "id": "SEC005"
+        },
+        {
+          "kind": "section",
+          "id": "SEC012"
+        },
+        {
+          "kind": "section",
+          "id": "SEC014"
+        },
+        {
+          "kind": "section",
+          "id": "SEC016"
+        },
+        {
+          "kind": "section",
+          "id": "SEC019"
+        },
+        {
+          "kind": "section",
+          "id": "SEC027"
+        },
+        {
+          "kind": "section",
+          "id": "SEC028"
+        },
+        {
+          "kind": "section",
+          "id": "SEC029"
+        },
+        {
+          "kind": "section",
+          "id": "SEC030"
+        },
+        {
+          "kind": "module",
+          "id": "M002"
+        },
+        {
+          "kind": "diagram",
+          "id": "DG006"
+        }
+      ],
+      "coverage_status": "planned"
+    },
+    {
+      "source_id": "Q020",
+      "covered_by": [
+        {
+          "kind": "section",
+          "id": "SEC001"
+        },
+        {
+          "kind": "section",
+          "id": "SEC005"
+        },
+        {
+          "kind": "section",
+          "id": "SEC012"
+        },
+        {
+          "kind": "section",
+          "id": "SEC016"
+        },
+        {
+          "kind": "section",
+          "id": "SEC019"
+        },
+        {
+          "kind": "section",
+          "id": "SEC024"
+        },
+        {
+          "kind": "section",
+          "id": "SEC025"
+        },
+        {
+          "kind": "section",
+          "id": "SEC027"
+        },
+        {
+          "kind": "section",
+          "id": "SEC028"
+        },
+        {
+          "kind": "section",
+          "id": "SEC029"
+        },
+        {
+          "kind": "section",
+          "id": "SEC030"
+        },
+        {
+          "kind": "module",
+          "id": "M002"
+        },
+        {
+          "kind": "diagram",
+          "id": "DG004"
+        },
+        {
+          "kind": "diagram",
+          "id": "DG006"
+        }
+      ],
+      "coverage_status": "planned"
+    },
+    {
+      "source_id": "Q021",
+      "covered_by": [
+        {
+          "kind": "section",
+          "id": "SEC001"
+        },
+        {
+          "kind": "section",
+          "id": "SEC005"
+        },
+        {
+          "kind": "section",
+          "id": "SEC012"
+        },
+        {
+          "kind": "section",
+          "id": "SEC015"
+        },
+        {
+          "kind": "section",
+          "id": "SEC016"
+        },
+        {
+          "kind": "section",
+          "id": "SEC019"
+        },
+        {
+          "kind": "section",
+          "id": "SEC027"
+        },
+        {
+          "kind": "section",
+          "id": "SEC028"
+        },
+        {
+          "kind": "section",
+          "id": "SEC029"
+        },
+        {
+          "kind": "section",
+          "id": "SEC030"
+        },
+        {
+          "kind": "module",
+          "id": "M002"
+        },
+        {
+          "kind": "diagram",
+          "id": "DG006"
+        }
+      ],
+      "coverage_status": "planned"
+    },
+    {
+      "source_id": "Q022",
+      "covered_by": [
+        {
+          "kind": "section",
+          "id": "SEC001"
+        },
+        {
+          "kind": "section",
+          "id": "SEC005"
+        },
+        {
+          "kind": "section",
+          "id": "SEC007"
+        },
+        {
+          "kind": "section",
+          "id": "SEC008"
+        },
+        {
+          "kind": "section",
+          "id": "SEC011"
+        },
+        {
+          "kind": "section",
+          "id": "SEC012"
+        },
+        {
+          "kind": "section",
+          "id": "SEC014"
+        },
+        {
+          "kind": "section",
+          "id": "SEC015"
+        },
+        {
+          "kind": "section",
+          "id": "SEC016"
+        },
+        {
+          "kind": "section",
+          "id": "SEC018"
+        },
+        {
+          "kind": "section",
+          "id": "SEC019"
+        },
+        {
+          "kind": "section",
+          "id": "SEC024"
+        },
+        {
+          "kind": "section",
+          "id": "SEC025"
+        },
+        {
+          "kind": "section",
+          "id": "SEC027"
+        },
+        {
+          "kind": "section",
+          "id": "SEC028"
+        },
+        {
+          "kind": "section",
+          "id": "SEC029"
+        },
+        {
+          "kind": "section",
+          "id": "SEC030"
+        },
+        {
+          "kind": "section",
+          "id": "SEC032"
+        },
+        {
+          "kind": "module",
+          "id": "M002"
+        },
+        {
+          "kind": "diagram",
+          "id": "DG004"
+        },
+        {
+          "kind": "diagram",
+          "id": "DG006"
+        }
+      ],
+      "coverage_status": "planned"
+    },
+    {
+      "source_id": "Q023",
+      "covered_by": [
+        {
+          "kind": "section",
+          "id": "SEC001"
+        },
+        {
+          "kind": "section",
+          "id": "SEC005"
+        },
+        {
+          "kind": "section",
+          "id": "SEC012"
+        },
+        {
+          "kind": "section",
+          "id": "SEC014"
+        },
+        {
+          "kind": "section",
+          "id": "SEC015"
+        },
+        {
+          "kind": "section",
+          "id": "SEC016"
+        },
+        {
+          "kind": "section",
+          "id": "SEC019"
+        },
+        {
+          "kind": "section",
+          "id": "SEC027"
+        },
+        {
+          "kind": "section",
+          "id": "SEC028"
+        },
+        {
+          "kind": "section",
+          "id": "SEC029"
+        },
+        {
+          "kind": "section",
+          "id": "SEC030"
+        },
+        {
+          "kind": "section",
+          "id": "SEC032"
+        },
+        {
+          "kind": "module",
+          "id": "M002"
+        },
+        {
+          "kind": "diagram",
+          "id": "DG006"
+        }
+      ],
+      "coverage_status": "planned"
+    },
+    {
+      "source_id": "Q024",
+      "covered_by": [
+        {
+          "kind": "section",
+          "id": "SEC001"
+        },
+        {
+          "kind": "section",
+          "id": "SEC005"
+        },
+        {
+          "kind": "section",
+          "id": "SEC012"
+        },
+        {
+          "kind": "section",
+          "id": "SEC014"
+        },
+        {
+          "kind": "section",
+          "id": "SEC015"
+        },
+        {
+          "kind": "section",
+          "id": "SEC016"
+        },
+        {
+          "kind": "section",
+          "id": "SEC019"
+        },
+        {
+          "kind": "section",
+          "id": "SEC026"
+        },
+        {
+          "kind": "section",
+          "id": "SEC027"
+        },
+        {
+          "kind": "section",
+          "id": "SEC028"
+        },
+        {
+          "kind": "section",
+          "id": "SEC029"
+        },
+        {
+          "kind": "section",
+          "id": "SEC030"
+        },
+        {
+          "kind": "section",
+          "id": "SEC031"
+        },
+        {
+          "kind": "section",
+          "id": "SEC032"
+        },
+        {
+          "kind": "section",
+          "id": "SEC033"
+        },
+        {
+          "kind": "module",
+          "id": "M002"
+        },
+        {
+          "kind": "diagram",
+          "id": "DG006"
+        },
+        {
+          "kind": "review",
+          "id": "Q024"
+        }
+      ],
+      "coverage_status": "review_required"
+    },
+    {
+      "source_id": "Q025",
+      "covered_by": [
+        {
+          "kind": "section",
+          "id": "SEC001"
+        },
+        {
+          "kind": "section",
+          "id": "SEC005"
+        },
+        {
+          "kind": "section",
+          "id": "SEC012"
+        },
+        {
+          "kind": "section",
+          "id": "SEC015"
+        },
+        {
+          "kind": "section",
+          "id": "SEC016"
+        },
+        {
+          "kind": "section",
+          "id": "SEC019"
+        },
+        {
+          "kind": "section",
+          "id": "SEC027"
+        },
+        {
+          "kind": "section",
+          "id": "SEC028"
+        },
+        {
+          "kind": "section",
+          "id": "SEC029"
+        },
+        {
+          "kind": "module",
+          "id": "M002"
+        },
+        {
+          "kind": "diagram",
+          "id": "DG006"
+        }
+      ],
+      "coverage_status": "planned"
+    },
+    {
+      "source_id": "Q026",
+      "covered_by": [
+        {
+          "kind": "section",
+          "id": "SEC001"
+        },
+        {
+          "kind": "section",
+          "id": "SEC005"
+        },
+        {
+          "kind": "section",
+          "id": "SEC012"
+        },
+        {
+          "kind": "section",
+          "id": "SEC016"
+        },
+        {
+          "kind": "section",
+          "id": "SEC019"
+        },
+        {
+          "kind": "section",
+          "id": "SEC026"
+        },
+        {
+          "kind": "section",
+          "id": "SEC031"
+        },
+        {
+          "kind": "section",
+          "id": "SEC032"
+        },
+        {
+          "kind": "section",
+          "id": "SEC033"
+        },
+        {
+          "kind": "module",
+          "id": "M002"
+        },
+        {
+          "kind": "diagram",
+          "id": "DG006"
+        }
+      ],
+      "coverage_status": "planned"
+    },
+    {
+      "source_id": "Q027",
+      "covered_by": [
+        {
+          "kind": "section",
+          "id": "SEC001"
+        },
+        {
+          "kind": "section",
+          "id": "SEC005"
+        },
+        {
+          "kind": "section",
+          "id": "SEC012"
+        },
+        {
+          "kind": "section",
+          "id": "SEC016"
+        },
+        {
+          "kind": "section",
+          "id": "SEC019"
+        },
+        {
+          "kind": "module",
+          "id": "M002"
+        },
+        {
+          "kind": "diagram",
+          "id": "DG006"
+        }
+      ],
+      "coverage_status": "planned"
+    },
+    {
+      "source_id": "Q028",
+      "covered_by": [
+        {
+          "kind": "section",
+          "id": "SEC001"
+        },
+        {
+          "kind": "section",
+          "id": "SEC005"
+        },
+        {
+          "kind": "section",
+          "id": "SEC012"
+        },
+        {
+          "kind": "section",
+          "id": "SEC016"
+        },
+        {
+          "kind": "section",
+          "id": "SEC019"
+        },
+        {
+          "kind": "module",
+          "id": "M002"
+        },
+        {
+          "kind": "diagram",
+          "id": "DG006"
+        }
+      ],
+      "coverage_status": "planned"
+    },
+    {
+      "source_id": "Q029",
+      "covered_by": [
+        {
+          "kind": "section",
+          "id": "SEC001"
+        },
+        {
+          "kind": "section",
+          "id": "SEC005"
+        },
+        {
+          "kind": "section",
+          "id": "SEC012"
+        },
+        {
+          "kind": "section",
+          "id": "SEC016"
+        },
+        {
+          "kind": "section",
+          "id": "SEC019"
+        },
+        {
+          "kind": "module",
+          "id": "M002"
+        }
+      ],
+      "coverage_status": "planned"
+    },
+    {
+      "source_id": "Q030",
+      "covered_by": [
+        {
+          "kind": "section",
+          "id": "SEC001"
+        },
+        {
+          "kind": "section",
+          "id": "SEC005"
+        },
+        {
+          "kind": "section",
+          "id": "SEC012"
+        },
+        {
+          "kind": "section",
+          "id": "SEC014"
+        },
+        {
+          "kind": "section",
+          "id": "SEC016"
+        },
+        {
+          "kind": "section",
+          "id": "SEC019"
+        },
+        {
+          "kind": "section",
+          "id": "SEC026"
+        },
+        {
+          "kind": "section",
+          "id": "SEC031"
+        },
+        {
+          "kind": "section",
+          "id": "SEC032"
+        },
+        {
+          "kind": "section",
+          "id": "SEC033"
+        },
+        {
+          "kind": "module",
+          "id": "M002"
+        },
+        {
+          "kind": "review",
+          "id": "Q030"
+        }
+      ],
+      "coverage_status": "review_required"
+    },
+    {
+      "source_id": "Q031",
+      "covered_by": [
+        {
+          "kind": "section",
+          "id": "SEC001"
+        },
+        {
+          "kind": "section",
+          "id": "SEC005"
+        },
+        {
+          "kind": "section",
+          "id": "SEC012"
+        },
+        {
+          "kind": "section",
+          "id": "SEC016"
+        },
+        {
+          "kind": "section",
+          "id": "SEC019"
+        },
+        {
+          "kind": "module",
+          "id": "M002"
+        }
+      ],
+      "coverage_status": "planned"
+    },
+    {
+      "source_id": "Q032",
+      "covered_by": [
+        {
+          "kind": "section",
+          "id": "SEC001"
+        },
+        {
+          "kind": "section",
+          "id": "SEC005"
+        },
+        {
+          "kind": "section",
+          "id": "SEC012"
+        },
+        {
+          "kind": "section",
+          "id": "SEC014"
+        },
+        {
+          "kind": "section",
+          "id": "SEC016"
+        },
+        {
+          "kind": "section",
+          "id": "SEC019"
+        },
+        {
+          "kind": "section",
+          "id": "SEC024"
+        },
+        {
+          "kind": "section",
+          "id": "SEC025"
+        },
+        {
+          "kind": "module",
+          "id": "M002"
+        },
+        {
+          "kind": "diagram",
+          "id": "DG004"
+        }
+      ],
+      "coverage_status": "planned"
+    },
+    {
+      "source_id": "Q033",
+      "covered_by": [
+        {
+          "kind": "section",
+          "id": "SEC001"
+        },
+        {
+          "kind": "section",
+          "id": "SEC005"
+        },
+        {
+          "kind": "section",
+          "id": "SEC012"
+        },
+        {
+          "kind": "section",
+          "id": "SEC016"
+        },
+        {
+          "kind": "section",
+          "id": "SEC019"
+        },
+        {
+          "kind": "section",
+          "id": "SEC026"
+        },
+        {
+          "kind": "section",
+          "id": "SEC031"
+        },
+        {
+          "kind": "section",
+          "id": "SEC032"
+        },
+        {
+          "kind": "section",
+          "id": "SEC033"
+        },
+        {
+          "kind": "module",
+          "id": "M002"
+        }
+      ],
+      "coverage_status": "planned"
+    },
+    {
+      "source_id": "Q034",
+      "covered_by": [
+        {
+          "kind": "section",
+          "id": "SEC001"
+        },
+        {
+          "kind": "section",
+          "id": "SEC005"
+        },
+        {
+          "kind": "section",
+          "id": "SEC012"
+        },
+        {
+          "kind": "section",
+          "id": "SEC014"
+        },
+        {
+          "kind": "section",
+          "id": "SEC016"
+        },
+        {
+          "kind": "section",
+          "id": "SEC019"
+        },
+        {
+          "kind": "section",
+          "id": "SEC024"
+        },
+        {
+          "kind": "section",
+          "id": "SEC025"
+        },
+        {
+          "kind": "module",
+          "id": "M002"
+        },
+        {
+          "kind": "diagram",
+          "id": "DG004"
+        }
+      ],
+      "coverage_status": "planned"
+    },
+    {
+      "source_id": "Q035",
+      "covered_by": [
+        {
+          "kind": "section",
+          "id": "SEC001"
+        },
+        {
+          "kind": "section",
+          "id": "SEC005"
+        },
+        {
+          "kind": "section",
+          "id": "SEC012"
+        },
+        {
+          "kind": "section",
+          "id": "SEC014"
+        },
+        {
+          "kind": "section",
+          "id": "SEC016"
+        },
+        {
+          "kind": "section",
+          "id": "SEC019"
+        },
+        {
+          "kind": "section",
+          "id": "SEC026"
+        },
+        {
+          "kind": "section",
+          "id": "SEC031"
+        },
+        {
+          "kind": "section",
+          "id": "SEC032"
+        },
+        {
+          "kind": "section",
+          "id": "SEC033"
+        },
+        {
+          "kind": "module",
+          "id": "M002"
+        }
+      ],
+      "coverage_status": "planned"
+    },
+    {
+      "source_id": "Q036",
+      "covered_by": [
+        {
+          "kind": "section",
+          "id": "SEC001"
+        },
+        {
+          "kind": "section",
+          "id": "SEC005"
+        },
+        {
+          "kind": "section",
+          "id": "SEC012"
+        },
+        {
+          "kind": "section",
+          "id": "SEC016"
+        },
+        {
+          "kind": "section",
+          "id": "SEC019"
+        },
+        {
+          "kind": "module",
+          "id": "M002"
+        }
+      ],
+      "coverage_status": "planned"
+    },
+    {
+      "source_id": "B001",
+      "covered_by": [
+        {
+          "kind": "section",
+          "id": "SEC001"
+        },
+        {
+          "kind": "section",
+          "id": "SEC014"
+        },
+        {
+          "kind": "section",
+          "id": "SEC019"
+        },
+        {
+          "kind": "section",
+          "id": "SEC020"
+        },
+        {
+          "kind": "section",
+          "id": "SEC022"
+        },
+        {
+          "kind": "section",
+          "id": "SEC023"
+        },
+        {
+          "kind": "section",
+          "id": "SEC026"
+        },
+        {
+          "kind": "section",
+          "id": "SEC031"
+        },
+        {
+          "kind": "section",
+          "id": "SEC032"
+        },
+        {
+          "kind": "section",
+          "id": "SEC033"
+        },
+        {
+          "kind": "section",
+          "id": "SEC034"
+        },
+        {
+          "kind": "module",
+          "id": "M022"
+        },
+        {
+          "kind": "diagram",
+          "id": "DG005"
+        },
+        {
+          "kind": "diagram",
+          "id": "DG007"
+        }
+      ],
+      "coverage_status": "planned"
+    },
+    {
+      "source_id": "B002",
+      "covered_by": [
+        {
+          "kind": "section",
+          "id": "SEC001"
+        },
+        {
+          "kind": "section",
+          "id": "SEC014"
+        },
+        {
+          "kind": "section",
+          "id": "SEC019"
+        },
+        {
+          "kind": "section",
+          "id": "SEC020"
+        },
+        {
+          "kind": "section",
+          "id": "SEC022"
+        },
+        {
+          "kind": "section",
+          "id": "SEC023"
+        },
+        {
+          "kind": "section",
+          "id": "SEC024"
+        },
+        {
+          "kind": "section",
+          "id": "SEC025"
+        },
+        {
+          "kind": "section",
+          "id": "SEC026"
+        },
+        {
+          "kind": "section",
+          "id": "SEC031"
+        },
+        {
+          "kind": "section",
+          "id": "SEC032"
+        },
+        {
+          "kind": "section",
+          "id": "SEC033"
+        },
+        {
+          "kind": "section",
+          "id": "SEC034"
+        },
+        {
+          "kind": "module",
+          "id": "M023"
+        },
+        {
+          "kind": "diagram",
+          "id": "DG004"
+        },
+        {
+          "kind": "diagram",
+          "id": "DG005"
+        },
+        {
+          "kind": "diagram",
+          "id": "DG007"
+        },
+        {
+          "kind": "review",
+          "id": "B002"
+        }
+      ],
+      "coverage_status": "review_required"
+    },
+    {
+      "source_id": "B003",
+      "covered_by": [
+        {
+          "kind": "section",
+          "id": "SEC001"
+        },
+        {
+          "kind": "section",
+          "id": "SEC014"
+        },
+        {
+          "kind": "section",
+          "id": "SEC016"
+        },
+        {
+          "kind": "section",
+          "id": "SEC019"
+        },
+        {
+          "kind": "section",
+          "id": "SEC020"
+        },
+        {
+          "kind": "section",
+          "id": "SEC022"
+        },
+        {
+          "kind": "section",
+          "id": "SEC023"
+        },
+        {
+          "kind": "section",
+          "id": "SEC024"
+        },
+        {
+          "kind": "section",
+          "id": "SEC025"
+        },
+        {
+          "kind": "section",
+          "id": "SEC031"
+        },
+        {
+          "kind": "module",
+          "id": "M024"
+        },
+        {
+          "kind": "diagram",
+          "id": "DG005"
+        },
+        {
+          "kind": "diagram",
+          "id": "DG007"
+        },
+        {
+          "kind": "review",
+          "id": "B003"
+        }
+      ],
+      "coverage_status": "review_required"
+    },
+    {
+      "source_id": "B004",
+      "covered_by": [
+        {
+          "kind": "section",
+          "id": "SEC001"
+        },
+        {
+          "kind": "section",
+          "id": "SEC014"
+        },
+        {
+          "kind": "section",
+          "id": "SEC019"
+        },
+        {
+          "kind": "section",
+          "id": "SEC020"
+        },
+        {
+          "kind": "section",
+          "id": "SEC022"
+        },
+        {
+          "kind": "section",
+          "id": "SEC023"
+        },
+        {
+          "kind": "section",
+          "id": "SEC026"
+        },
+        {
+          "kind": "section",
+          "id": "SEC031"
+        },
+        {
+          "kind": "section",
+          "id": "SEC033"
+        },
+        {
+          "kind": "section",
+          "id": "SEC034"
+        },
+        {
+          "kind": "module",
+          "id": "M025"
+        },
+        {
+          "kind": "diagram",
+          "id": "DG005"
+        },
+        {
+          "kind": "diagram",
+          "id": "DG007"
+        },
+        {
+          "kind": "review",
+          "id": "B004"
+        }
+      ],
+      "coverage_status": "review_required"
+    },
+    {
+      "source_id": "B005",
+      "covered_by": [
+        {
+          "kind": "section",
+          "id": "SEC001"
+        },
+        {
+          "kind": "section",
+          "id": "SEC014"
+        },
+        {
+          "kind": "section",
+          "id": "SEC019"
+        },
+        {
+          "kind": "section",
+          "id": "SEC020"
+        },
+        {
+          "kind": "section",
+          "id": "SEC022"
+        },
+        {
+          "kind": "section",
+          "id": "SEC023"
+        },
+        {
+          "kind": "section",
+          "id": "SEC031"
+        },
+        {
+          "kind": "module",
+          "id": "M026"
+        },
+        {
+          "kind": "diagram",
+          "id": "DG005"
+        },
+        {
+          "kind": "diagram",
+          "id": "DG007"
+        },
+        {
+          "kind": "review",
+          "id": "B005"
+        }
+      ],
+      "coverage_status": "review_required"
+    },
+    {
+      "source_id": "B006",
+      "covered_by": [
+        {
+          "kind": "section",
+          "id": "SEC001"
+        },
+        {
+          "kind": "section",
+          "id": "SEC014"
+        },
+        {
+          "kind": "section",
+          "id": "SEC019"
+        },
+        {
+          "kind": "section",
+          "id": "SEC020"
+        },
+        {
+          "kind": "section",
+          "id": "SEC022"
+        },
+        {
+          "kind": "section",
+          "id": "SEC026"
+        },
+        {
+          "kind": "section",
+          "id": "SEC032"
+        },
+        {
+          "kind": "section",
+          "id": "SEC033"
+        },
+        {
+          "kind": "section",
+          "id": "SEC034"
+        },
+        {
+          "kind": "module",
+          "id": "M023"
+        },
+        {
+          "kind": "diagram",
+          "id": "DG007"
+        },
+        {
+          "kind": "review",
+          "id": "B006"
+        }
+      ],
+      "coverage_status": "review_required"
+    },
+    {
+      "source_id": "B007",
+      "covered_by": [
+        {
+          "kind": "section",
+          "id": "SEC001"
+        },
+        {
+          "kind": "section",
+          "id": "SEC014"
+        },
+        {
+          "kind": "section",
+          "id": "SEC019"
+        },
+        {
+          "kind": "section",
+          "id": "SEC020"
+        },
+        {
+          "kind": "section",
+          "id": "SEC022"
+        },
+        {
+          "kind": "section",
+          "id": "SEC023"
+        },
+        {
+          "kind": "section",
+          "id": "SEC031"
+        },
+        {
+          "kind": "section",
+          "id": "SEC034"
+        },
+        {
+          "kind": "module",
+          "id": "M025"
+        },
+        {
+          "kind": "diagram",
+          "id": "DG005"
+        },
+        {
+          "kind": "diagram",
+          "id": "DG007"
+        },
+        {
+          "kind": "review",
+          "id": "B007"
+        }
+      ],
+      "coverage_status": "review_required"
+    },
+    {
+      "source_id": "B008",
+      "covered_by": [
+        {
+          "kind": "section",
+          "id": "SEC001"
+        },
+        {
+          "kind": "section",
+          "id": "SEC014"
+        },
+        {
+          "kind": "section",
+          "id": "SEC019"
+        },
+        {
+          "kind": "section",
+          "id": "SEC020"
+        },
+        {
+          "kind": "section",
+          "id": "SEC022"
+        },
+        {
+          "kind": "module",
+          "id": "M025"
+        },
+        {
+          "kind": "diagram",
+          "id": "DG005"
+        },
+        {
+          "kind": "diagram",
+          "id": "DG007"
+        }
+      ],
+      "coverage_status": "planned"
+    },
+    {
+      "source_id": "D001",
+      "covered_by": [
+        {
+          "kind": "section",
+          "id": "SEC001"
+        },
+        {
+          "kind": "section",
+          "id": "SEC014"
+        },
+        {
+          "kind": "section",
+          "id": "SEC020"
+        },
+        {
+          "kind": "section",
+          "id": "SEC022"
+        },
+        {
+          "kind": "section",
+          "id": "SEC023"
+        },
+        {
+          "kind": "section",
+          "id": "SEC024"
+        },
+        {
+          "kind": "section",
+          "id": "SEC025"
+        },
+        {
+          "kind": "section",
+          "id": "SEC026"
+        },
+        {
+          "kind": "section",
+          "id": "SEC031"
+        },
+        {
+          "kind": "section",
+          "id": "SEC032"
+        },
+        {
+          "kind": "section",
+          "id": "SEC033"
+        },
+        {
+          "kind": "module",
+          "id": "M027"
+        },
+        {
+          "kind": "diagram",
+          "id": "DG007"
+        }
+      ],
+      "coverage_status": "planned"
+    },
+    {
+      "source_id": "D002",
+      "covered_by": [
+        {
+          "kind": "section",
+          "id": "SEC001"
+        },
+        {
+          "kind": "section",
+          "id": "SEC014"
+        },
+        {
+          "kind": "section",
+          "id": "SEC020"
+        },
+        {
+          "kind": "section",
+          "id": "SEC022"
+        },
+        {
+          "kind": "section",
+          "id": "SEC023"
+        },
+        {
+          "kind": "section",
+          "id": "SEC024"
+        },
+        {
+          "kind": "section",
+          "id": "SEC025"
+        },
+        {
+          "kind": "section",
+          "id": "SEC026"
+        },
+        {
+          "kind": "section",
+          "id": "SEC031"
+        },
+        {
+          "kind": "section",
+          "id": "SEC032"
+        },
+        {
+          "kind": "section",
+          "id": "SEC033"
+        },
+        {
+          "kind": "module",
+          "id": "M027"
+        },
+        {
+          "kind": "diagram",
+          "id": "DG007"
+        }
+      ],
+      "coverage_status": "planned"
+    },
+    {
+      "source_id": "D003",
+      "covered_by": [
+        {
+          "kind": "section",
+          "id": "SEC001"
+        },
+        {
+          "kind": "section",
+          "id": "SEC014"
+        },
+        {
+          "kind": "section",
+          "id": "SEC020"
+        },
+        {
+          "kind": "section",
+          "id": "SEC022"
+        },
+        {
+          "kind": "section",
+          "id": "SEC023"
+        },
+        {
+          "kind": "section",
+          "id": "SEC026"
+        },
+        {
+          "kind": "section",
+          "id": "SEC031"
+        },
+        {
+          "kind": "section",
+          "id": "SEC032"
+        },
+        {
+          "kind": "section",
+          "id": "SEC033"
+        },
+        {
+          "kind": "module",
+          "id": "M027"
+        },
+        {
+          "kind": "diagram",
+          "id": "DG005"
+        },
+        {
+          "kind": "diagram",
+          "id": "DG007"
+        }
+      ],
+      "coverage_status": "planned"
+    },
+    {
+      "source_id": "D004",
+      "covered_by": [
+        {
+          "kind": "section",
+          "id": "SEC001"
+        },
+        {
+          "kind": "section",
+          "id": "SEC014"
+        },
+        {
+          "kind": "section",
+          "id": "SEC020"
+        },
+        {
+          "kind": "section",
+          "id": "SEC022"
+        },
+        {
+          "kind": "section",
+          "id": "SEC023"
+        },
+        {
+          "kind": "section",
+          "id": "SEC026"
+        },
+        {
+          "kind": "section",
+          "id": "SEC031"
+        },
+        {
+          "kind": "section",
+          "id": "SEC032"
+        },
+        {
+          "kind": "section",
+          "id": "SEC033"
+        },
+        {
+          "kind": "module",
+          "id": "M027"
+        },
+        {
+          "kind": "diagram",
+          "id": "DG007"
+        }
+      ],
+      "coverage_status": "planned"
+    },
+    {
+      "source_id": "S001",
+      "covered_by": [
+        {
+          "kind": "section",
+          "id": "SEC001"
+        },
+        {
+          "kind": "section",
+          "id": "SEC002"
+        },
+        {
+          "kind": "section",
+          "id": "SEC003"
+        },
+        {
+          "kind": "section",
+          "id": "SEC004"
+        },
+        {
+          "kind": "section",
+          "id": "SEC005"
+        },
+        {
+          "kind": "section",
+          "id": "SEC018"
+        },
+        {
+          "kind": "section",
+          "id": "SEC023"
+        },
+        {
+          "kind": "section",
+          "id": "SEC024"
+        },
+        {
+          "kind": "section",
+          "id": "SEC025"
+        },
+        {
+          "kind": "section",
+          "id": "SEC027"
+        },
+        {
+          "kind": "section",
+          "id": "SEC028"
+        },
+        {
+          "kind": "section",
+          "id": "SEC029"
+        },
+        {
+          "kind": "section",
+          "id": "SEC030"
+        },
+        {
+          "kind": "module",
+          "id": "M002"
+        },
+        {
+          "kind": "module",
+          "id": "M010"
+        },
+        {
+          "kind": "module",
+          "id": "M011"
+        },
+        {
+          "kind": "module",
+          "id": "M012"
+        },
+        {
+          "kind": "review",
+          "id": "S001"
+        }
+      ],
+      "coverage_status": "review_required"
+    },
+    {
+      "source_id": "S002",
+      "covered_by": [
+        {
+          "kind": "section",
+          "id": "SEC001"
+        },
+        {
+          "kind": "section",
+          "id": "SEC002"
+        },
+        {
+          "kind": "section",
+          "id": "SEC003"
+        },
+        {
+          "kind": "section",
+          "id": "SEC004"
+        },
+        {
+          "kind": "section",
+          "id": "SEC005"
+        },
+        {
+          "kind": "section",
+          "id": "SEC018"
+        },
+        {
+          "kind": "section",
+          "id": "SEC023"
+        },
+        {
+          "kind": "section",
+          "id": "SEC024"
+        },
+        {
+          "kind": "section",
+          "id": "SEC025"
+        },
+        {
+          "kind": "section",
+          "id": "SEC027"
+        },
+        {
+          "kind": "section",
+          "id": "SEC028"
+        },
+        {
+          "kind": "section",
+          "id": "SEC029"
+        },
+        {
+          "kind": "section",
+          "id": "SEC030"
+        },
+        {
+          "kind": "module",
+          "id": "M002"
+        },
+        {
+          "kind": "module",
+          "id": "M010"
+        },
+        {
+          "kind": "module",
+          "id": "M011"
+        },
+        {
+          "kind": "module",
+          "id": "M012"
+        },
+        {
+          "kind": "review",
+          "id": "S002"
+        }
+      ],
+      "coverage_status": "review_required"
+    },
+    {
+      "source_id": "S003",
+      "covered_by": [
+        {
+          "kind": "section",
+          "id": "SEC001"
+        },
+        {
+          "kind": "section",
+          "id": "SEC002"
+        },
+        {
+          "kind": "section",
+          "id": "SEC003"
+        },
+        {
+          "kind": "section",
+          "id": "SEC004"
+        },
+        {
+          "kind": "section",
+          "id": "SEC005"
+        },
+        {
+          "kind": "section",
+          "id": "SEC018"
+        },
+        {
+          "kind": "section",
+          "id": "SEC023"
+        },
+        {
+          "kind": "section",
+          "id": "SEC024"
+        },
+        {
+          "kind": "section",
+          "id": "SEC025"
+        },
+        {
+          "kind": "section",
+          "id": "SEC027"
+        },
+        {
+          "kind": "section",
+          "id": "SEC028"
+        },
+        {
+          "kind": "section",
+          "id": "SEC029"
+        },
+        {
+          "kind": "section",
+          "id": "SEC030"
+        },
+        {
+          "kind": "module",
+          "id": "M002"
+        },
+        {
+          "kind": "module",
+          "id": "M010"
+        },
+        {
+          "kind": "module",
+          "id": "M011"
+        },
+        {
+          "kind": "module",
+          "id": "M012"
+        },
+        {
+          "kind": "review",
+          "id": "S003"
+        }
+      ],
+      "coverage_status": "review_required"
+    },
+    {
+      "source_id": "S004",
+      "covered_by": [
+        {
+          "kind": "section",
+          "id": "SEC001"
+        },
+        {
+          "kind": "section",
+          "id": "SEC002"
+        },
+        {
+          "kind": "section",
+          "id": "SEC003"
+        },
+        {
+          "kind": "section",
+          "id": "SEC004"
+        },
+        {
+          "kind": "section",
+          "id": "SEC005"
+        },
+        {
+          "kind": "section",
+          "id": "SEC018"
+        },
+        {
+          "kind": "section",
+          "id": "SEC023"
+        },
+        {
+          "kind": "section",
+          "id": "SEC024"
+        },
+        {
+          "kind": "section",
+          "id": "SEC025"
+        },
+        {
+          "kind": "section",
+          "id": "SEC027"
+        },
+        {
+          "kind": "section",
+          "id": "SEC028"
+        },
+        {
+          "kind": "section",
+          "id": "SEC029"
+        },
+        {
+          "kind": "section",
+          "id": "SEC030"
+        },
+        {
+          "kind": "module",
+          "id": "M002"
+        },
+        {
+          "kind": "module",
+          "id": "M010"
+        },
+        {
+          "kind": "module",
+          "id": "M011"
+        },
+        {
+          "kind": "module",
+          "id": "M012"
+        },
+        {
+          "kind": "review",
+          "id": "S004"
+        }
+      ],
+      "coverage_status": "review_required"
+    },
+    {
+      "source_id": "S005",
+      "covered_by": [
+        {
+          "kind": "section",
+          "id": "SEC001"
+        },
+        {
+          "kind": "section",
+          "id": "SEC002"
+        },
+        {
+          "kind": "section",
+          "id": "SEC003"
+        },
+        {
+          "kind": "section",
+          "id": "SEC004"
+        },
+        {
+          "kind": "section",
+          "id": "SEC005"
+        },
+        {
+          "kind": "section",
+          "id": "SEC018"
+        },
+        {
+          "kind": "section",
+          "id": "SEC023"
+        },
+        {
+          "kind": "section",
+          "id": "SEC024"
+        },
+        {
+          "kind": "section",
+          "id": "SEC025"
+        },
+        {
+          "kind": "section",
+          "id": "SEC027"
+        },
+        {
+          "kind": "section",
+          "id": "SEC028"
+        },
+        {
+          "kind": "section",
+          "id": "SEC029"
+        },
+        {
+          "kind": "section",
+          "id": "SEC030"
+        },
+        {
+          "kind": "module",
+          "id": "M002"
+        },
+        {
+          "kind": "module",
+          "id": "M010"
+        },
+        {
+          "kind": "module",
+          "id": "M011"
+        },
+        {
+          "kind": "module",
+          "id": "M012"
+        },
+        {
+          "kind": "review",
+          "id": "S005"
+        }
+      ],
+      "coverage_status": "review_required"
+    },
+    {
+      "source_id": "S006",
+      "covered_by": [
+        {
+          "kind": "section",
+          "id": "SEC001"
+        },
+        {
+          "kind": "section",
+          "id": "SEC002"
+        },
+        {
+          "kind": "section",
+          "id": "SEC003"
+        },
+        {
+          "kind": "section",
+          "id": "SEC004"
+        },
+        {
+          "kind": "section",
+          "id": "SEC005"
+        },
+        {
+          "kind": "section",
+          "id": "SEC018"
+        },
+        {
+          "kind": "section",
+          "id": "SEC023"
+        },
+        {
+          "kind": "section",
+          "id": "SEC024"
+        },
+        {
+          "kind": "section",
+          "id": "SEC025"
+        },
+        {
+          "kind": "section",
+          "id": "SEC027"
+        },
+        {
+          "kind": "section",
+          "id": "SEC028"
+        },
+        {
+          "kind": "section",
+          "id": "SEC029"
+        },
+        {
+          "kind": "section",
+          "id": "SEC030"
+        },
+        {
+          "kind": "section",
+          "id": "SEC031"
+        },
+        {
+          "kind": "module",
+          "id": "M002"
+        },
+        {
+          "kind": "module",
+          "id": "M010"
+        },
+        {
+          "kind": "module",
+          "id": "M011"
+        },
+        {
+          "kind": "module",
+          "id": "M012"
+        },
+        {
+          "kind": "review",
+          "id": "S006"
+        }
+      ],
+      "coverage_status": "review_required"
+    },
+    {
+      "source_id": "S007",
+      "covered_by": [
+        {
+          "kind": "section",
+          "id": "SEC001"
+        },
+        {
+          "kind": "section",
+          "id": "SEC005"
+        },
+        {
+          "kind": "section",
+          "id": "SEC018"
+        },
+        {
+          "kind": "section",
+          "id": "SEC023"
+        },
+        {
+          "kind": "section",
+          "id": "SEC024"
+        },
+        {
+          "kind": "section",
+          "id": "SEC025"
+        },
+        {
+          "kind": "section",
+          "id": "SEC027"
+        },
+        {
+          "kind": "section",
+          "id": "SEC028"
+        },
+        {
+          "kind": "section",
+          "id": "SEC029"
+        },
+        {
+          "kind": "section",
+          "id": "SEC030"
+        },
+        {
+          "kind": "module",
+          "id": "M001"
+        },
+        {
+          "kind": "review",
+          "id": "S007"
+        }
+      ],
+      "coverage_status": "review_required"
+    },
+    {
+      "source_id": "S008",
+      "covered_by": [
+        {
+          "kind": "section",
+          "id": "SEC001"
+        },
+        {
+          "kind": "section",
+          "id": "SEC002"
+        },
+        {
+          "kind": "section",
+          "id": "SEC003"
+        },
+        {
+          "kind": "section",
+          "id": "SEC004"
+        },
+        {
+          "kind": "section",
+          "id": "SEC005"
+        },
+        {
+          "kind": "section",
+          "id": "SEC018"
+        },
+        {
+          "kind": "section",
+          "id": "SEC023"
+        },
+        {
+          "kind": "section",
+          "id": "SEC024"
+        },
+        {
+          "kind": "section",
+          "id": "SEC025"
+        },
+        {
+          "kind": "section",
+          "id": "SEC027"
+        },
+        {
+          "kind": "section",
+          "id": "SEC028"
+        },
+        {
+          "kind": "section",
+          "id": "SEC029"
+        },
+        {
+          "kind": "section",
+          "id": "SEC030"
+        },
+        {
+          "kind": "module",
+          "id": "M002"
+        },
+        {
+          "kind": "module",
+          "id": "M010"
+        },
+        {
+          "kind": "module",
+          "id": "M011"
+        },
+        {
+          "kind": "module",
+          "id": "M012"
+        },
+        {
+          "kind": "review",
+          "id": "S008"
+        }
+      ],
+      "coverage_status": "review_required"
+    },
+    {
+      "source_id": "S009",
+      "covered_by": [
+        {
+          "kind": "section",
+          "id": "SEC001"
+        },
+        {
+          "kind": "section",
+          "id": "SEC002"
+        },
+        {
+          "kind": "section",
+          "id": "SEC003"
+        },
+        {
+          "kind": "section",
+          "id": "SEC004"
+        },
+        {
+          "kind": "section",
+          "id": "SEC005"
+        },
+        {
+          "kind": "section",
+          "id": "SEC018"
+        },
+        {
+          "kind": "section",
+          "id": "SEC023"
+        },
+        {
+          "kind": "section",
+          "id": "SEC024"
+        },
+        {
+          "kind": "section",
+          "id": "SEC025"
+        },
+        {
+          "kind": "section",
+          "id": "SEC027"
+        },
+        {
+          "kind": "section",
+          "id": "SEC028"
+        },
+        {
+          "kind": "section",
+          "id": "SEC029"
+        },
+        {
+          "kind": "section",
+          "id": "SEC030"
+        },
+        {
+          "kind": "module",
+          "id": "M002"
+        },
+        {
+          "kind": "module",
+          "id": "M010"
+        },
+        {
+          "kind": "module",
+          "id": "M011"
+        },
+        {
+          "kind": "module",
+          "id": "M012"
+        },
+        {
+          "kind": "review",
+          "id": "S009"
+        }
+      ],
+      "coverage_status": "review_required"
+    },
+    {
+      "source_id": "S010",
+      "covered_by": [
+        {
+          "kind": "section",
+          "id": "SEC009"
+        },
+        {
+          "kind": "module",
+          "id": "M021"
+        },
+        {
+          "kind": "review",
+          "id": "S010"
+        }
+      ],
+      "coverage_status": "review_required"
+    },
+    {
+      "source_id": "S011",
+      "covered_by": [
+        {
+          "kind": "section",
+          "id": "SEC009"
+        },
+        {
+          "kind": "section",
+          "id": "SEC024"
+        },
+        {
+          "kind": "section",
+          "id": "SEC025"
+        },
+        {
+          "kind": "module",
+          "id": "M021"
+        },
+        {
+          "kind": "review",
+          "id": "S011"
+        }
+      ],
+      "coverage_status": "review_required"
+    },
+    {
+      "source_id": "S012",
+      "covered_by": [
+        {
+          "kind": "section",
+          "id": "SEC019"
+        },
+        {
+          "kind": "section",
+          "id": "SEC020"
+        },
+        {
+          "kind": "section",
+          "id": "SEC023"
+        },
+        {
+          "kind": "section",
+          "id": "SEC031"
+        },
+        {
+          "kind": "module",
+          "id": "M022"
+        },
+        {
+          "kind": "review",
+          "id": "S012"
+        }
+      ],
+      "coverage_status": "review_required"
+    },
+    {
+      "source_id": "S013",
+      "covered_by": [
+        {
+          "kind": "section",
+          "id": "SEC019"
+        },
+        {
+          "kind": "section",
+          "id": "SEC020"
+        },
+        {
+          "kind": "section",
+          "id": "SEC023"
+        },
+        {
+          "kind": "section",
+          "id": "SEC031"
+        },
+        {
+          "kind": "module",
+          "id": "M022"
+        }
+      ],
+      "coverage_status": "planned"
+    },
+    {
+      "source_id": "S014",
+      "covered_by": [
+        {
+          "kind": "section",
+          "id": "SEC019"
+        },
+        {
+          "kind": "section",
+          "id": "SEC020"
+        },
+        {
+          "kind": "section",
+          "id": "SEC023"
+        },
+        {
+          "kind": "section",
+          "id": "SEC026"
+        },
+        {
+          "kind": "section",
+          "id": "SEC027"
+        },
+        {
+          "kind": "section",
+          "id": "SEC028"
+        },
+        {
+          "kind": "section",
+          "id": "SEC029"
+        },
+        {
+          "kind": "section",
+          "id": "SEC030"
+        },
+        {
+          "kind": "section",
+          "id": "SEC031"
+        },
+        {
+          "kind": "section",
+          "id": "SEC032"
+        },
+        {
+          "kind": "section",
+          "id": "SEC033"
+        },
+        {
+          "kind": "section",
+          "id": "SEC034"
+        },
+        {
+          "kind": "module",
+          "id": "M022"
+        },
+        {
+          "kind": "review",
+          "id": "S014"
+        }
+      ],
+      "coverage_status": "review_required"
+    },
+    {
+      "source_id": "S015",
+      "covered_by": [
+        {
+          "kind": "section",
+          "id": "SEC021"
+        },
+        {
+          "kind": "section",
+          "id": "SEC023"
+        },
+        {
+          "kind": "section",
+          "id": "SEC029"
+        },
+        {
+          "kind": "section",
+          "id": "SEC031"
+        },
+        {
+          "kind": "module",
+          "id": "M010"
+        },
+        {
+          "kind": "review",
+          "id": "S015"
+        }
+      ],
+      "coverage_status": "review_required"
+    },
+    {
+      "source_id": "S016",
+      "covered_by": [
+        {
+          "kind": "section",
+          "id": "SEC002"
+        },
+        {
+          "kind": "section",
+          "id": "SEC003"
+        },
+        {
+          "kind": "section",
+          "id": "SEC004"
+        },
+        {
+          "kind": "section",
+          "id": "SEC023"
+        },
+        {
+          "kind": "section",
+          "id": "SEC024"
+        },
+        {
+          "kind": "section",
+          "id": "SEC025"
+        },
+        {
+          "kind": "section",
+          "id": "SEC029"
+        },
+        {
+          "kind": "section",
+          "id": "SEC031"
+        },
+        {
+          "kind": "module",
+          "id": "M002"
+        },
+        {
+          "kind": "module",
+          "id": "M010"
+        },
+        {
+          "kind": "module",
+          "id": "M011"
+        },
+        {
+          "kind": "module",
+          "id": "M012"
+        },
+        {
+          "kind": "review",
+          "id": "S016"
+        }
+      ],
+      "coverage_status": "review_required"
+    },
+    {
+      "source_id": "S017",
+      "covered_by": [
+        {
+          "kind": "section",
+          "id": "SEC021"
+        },
+        {
+          "kind": "section",
+          "id": "SEC023"
+        },
+        {
+          "kind": "section",
+          "id": "SEC027"
+        },
+        {
+          "kind": "section",
+          "id": "SEC028"
+        },
+        {
+          "kind": "section",
+          "id": "SEC029"
+        },
+        {
+          "kind": "section",
+          "id": "SEC030"
+        },
+        {
+          "kind": "section",
+          "id": "SEC031"
+        },
+        {
+          "kind": "section",
+          "id": "SEC032"
+        },
+        {
+          "kind": "module",
+          "id": "M010"
+        },
+        {
+          "kind": "review",
+          "id": "S017"
+        }
+      ],
+      "coverage_status": "review_required"
+    },
+    {
+      "source_id": "S018",
+      "covered_by": [
+        {
+          "kind": "section",
+          "id": "SEC002"
+        },
+        {
+          "kind": "section",
+          "id": "SEC003"
+        },
+        {
+          "kind": "section",
+          "id": "SEC004"
+        },
+        {
+          "kind": "section",
+          "id": "SEC023"
+        },
+        {
+          "kind": "section",
+          "id": "SEC024"
+        },
+        {
+          "kind": "section",
+          "id": "SEC025"
+        },
+        {
+          "kind": "section",
+          "id": "SEC029"
+        },
+        {
+          "kind": "section",
+          "id": "SEC031"
+        },
+        {
+          "kind": "module",
+          "id": "M002"
+        },
+        {
+          "kind": "module",
+          "id": "M010"
+        },
+        {
+          "kind": "module",
+          "id": "M011"
+        },
+        {
+          "kind": "module",
+          "id": "M012"
+        },
+        {
+          "kind": "review",
+          "id": "S018"
+        }
+      ],
+      "coverage_status": "review_required"
+    },
+    {
+      "source_id": "S019",
+      "covered_by": [
+        {
+          "kind": "section",
+          "id": "SEC021"
+        },
+        {
+          "kind": "section",
+          "id": "SEC023"
+        },
+        {
+          "kind": "section",
+          "id": "SEC029"
+        },
+        {
+          "kind": "section",
+          "id": "SEC031"
+        },
+        {
+          "kind": "module",
+          "id": "M010"
+        },
+        {
+          "kind": "review",
+          "id": "S019"
+        }
+      ],
+      "coverage_status": "review_required"
+    },
+    {
+      "source_id": "S020",
+      "covered_by": [
+        {
+          "kind": "section",
+          "id": "SEC014"
+        },
+        {
+          "kind": "section",
+          "id": "SEC022"
+        },
+        {
+          "kind": "section",
+          "id": "SEC026"
+        },
+        {
+          "kind": "section",
+          "id": "SEC030"
+        },
+        {
+          "kind": "section",
+          "id": "SEC033"
+        },
+        {
+          "kind": "section",
+          "id": "SEC034"
+        },
+        {
+          "kind": "module",
+          "id": "M023"
+        }
+      ],
+      "coverage_status": "planned"
+    },
+    {
+      "source_id": "S021",
+      "covered_by": [
+        {
+          "kind": "section",
+          "id": "SEC014"
+        },
+        {
+          "kind": "section",
+          "id": "SEC022"
+        },
+        {
+          "kind": "section",
+          "id": "SEC026"
+        },
+        {
+          "kind": "section",
+          "id": "SEC030"
+        },
+        {
+          "kind": "section",
+          "id": "SEC033"
+        },
+        {
+          "kind": "section",
+          "id": "SEC034"
+        },
+        {
+          "kind": "module",
+          "id": "M023"
+        },
+        {
+          "kind": "review",
+          "id": "S021"
+        }
+      ],
+      "coverage_status": "review_required"
+    },
+    {
+      "source_id": "S022",
+      "covered_by": [
+        {
+          "kind": "section",
+          "id": "SEC014"
+        },
+        {
+          "kind": "section",
+          "id": "SEC022"
+        },
+        {
+          "kind": "section",
+          "id": "SEC026"
+        },
+        {
+          "kind": "section",
+          "id": "SEC030"
+        },
+        {
+          "kind": "section",
+          "id": "SEC033"
+        },
+        {
+          "kind": "section",
+          "id": "SEC034"
+        },
+        {
+          "kind": "module",
+          "id": "M002"
+        },
+        {
+          "kind": "module",
+          "id": "M023"
+        },
+        {
+          "kind": "review",
+          "id": "S022"
+        }
+      ],
+      "coverage_status": "review_required"
+    }
+  ],
+  "assumptions": [
+    "Design Agent 只规划结构、模块、章节和图表，不生成最终正文或 Mermaid 源码。",
+    "高风险事实、人员资质、服务承诺和商务条款在正文阶段继续保留 REVIEW 或 CONFIRM 状态。"
+  ],
+  "warnings": [
+    "模板占位符 【GEN:编写目的】 未在内置章节目标中定义，已按模板兜底生成 section。",
+    "模板占位符 【GEN:数据库设计总述】 未在内置章节目标中定义，已按模板兜底生成 section。",
+    "模板占位符 【GEN:数据库表设计】 未在内置章节目标中定义，已按模板兜底生成 section。",
+    "模板占位符 【GEN:保障性设计】 未在内置章节目标中定义，已按模板兜底生成 section。",
+    "模板占位符 【GEN:质量控制总述】 未在内置章节目标中定义，已按模板兜底生成 section。",
+    "模板占位符 【GEN:质量保证措施】 未在内置章节目标中定义，已按模板兜底生成 section。",
+    "模板占位符 【REVIEW:质量体系与资质响应说明】 未在内置章节目标中定义，已按模板兜底生成 section。",
+    "模板占位符 【REVIEW:服务质量保障措施】 未在内置章节目标中定义，已按模板兜底生成 section。",
+    "模板占位符 【REVIEW:项目进度计划】 未在内置章节目标中定义，已按模板兜底生成 section。",
+    "模板占位符 【REVIEW:交付物清单】 未在内置章节目标中定义，已按模板兜底生成 section。",
+    "模板占位符 【REVIEW:应急支援保障承诺】 未在内置章节目标中定义，已按模板兜底生成 section。",
+    "模板占位符 【REVIEW:定期跟踪服务承诺】 未在内置章节目标中定义，已按模板兜底生成 section。"
+  ]
+}

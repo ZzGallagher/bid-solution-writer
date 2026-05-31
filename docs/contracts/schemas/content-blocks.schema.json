@@ -1,0 +1,115 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://bid-solution-writer.local/schemas/content-blocks.schema.json",
+  "title": "content-blocks.json",
+  "type": "object",
+  "required": ["schema_version", "artifact", "run_id", "generated_at", "producer", "inputs", "blocks", "review_items", "confirm_items"],
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": { "const": "1.0.0" },
+    "artifact": { "const": "content-blocks" },
+    "run_id": { "$ref": "#/$defs/run_id" },
+    "generated_at": { "$ref": "#/$defs/date_time" },
+    "producer": { "$ref": "#/$defs/producer" },
+    "inputs": { "$ref": "#/$defs/inputs" },
+    "blocks": { "type": "array", "items": { "$ref": "#/$defs/block" } },
+    "review_items": { "type": "array", "items": { "$ref": "#/$defs/lifecycle_item" } },
+    "confirm_items": { "type": "array", "items": { "$ref": "#/$defs/lifecycle_item" } }
+  },
+  "$defs": {
+    "run_id": { "type": "string", "pattern": "^RUN-[0-9]{8}-[0-9]{6}$" },
+    "date_time": { "type": "string", "format": "date-time" },
+    "non_empty": { "type": "string", "minLength": 1 },
+    "req_id": { "type": "string", "pattern": "^(T|P|Q|B|D)[0-9]{3}$" },
+    "score_id": { "type": "string", "pattern": "^S[0-9]{3}$" },
+    "producer": {
+      "type": "object",
+      "required": ["agent", "version"],
+      "additionalProperties": false,
+      "properties": {
+        "agent": { "const": "Content Agent" },
+        "version": { "$ref": "#/$defs/non_empty" },
+        "model": { "type": "string" }
+      }
+    },
+    "inputs": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["artifact", "path", "schema_version"],
+        "additionalProperties": false,
+        "properties": {
+          "artifact": { "enum": ["requirements", "requirements-matrix", "design-blueprint", "section-plan", "template-placeholder-spec", "generation-rules"] },
+          "path": { "$ref": "#/$defs/non_empty" },
+          "schema_version": { "$ref": "#/$defs/non_empty" }
+        }
+      }
+    },
+    "block": {
+      "type": "object",
+      "required": ["block_id", "placeholder", "section_id", "type", "content", "source_requirement_ids", "scoring_item_ids", "status"],
+      "additionalProperties": false,
+      "properties": {
+        "block_id": { "type": "string", "pattern": "^CB[0-9]{3}$" },
+        "placeholder": { "$ref": "#/$defs/non_empty" },
+        "section_id": { "type": "string", "pattern": "^SEC[0-9]{3}$" },
+        "type": { "enum": ["paragraphs", "table", "list", "heading", "diagram_reference", "confirm_placeholder", "review_text"] },
+        "content": {
+          "oneOf": [
+            { "type": "array", "items": { "$ref": "#/$defs/non_empty" } },
+            { "$ref": "#/$defs/table_content" },
+            { "$ref": "#/$defs/diagram_ref" },
+            { "$ref": "#/$defs/placeholder_content" }
+          ]
+        },
+        "source_requirement_ids": { "type": "array", "items": { "$ref": "#/$defs/req_id" } },
+        "scoring_item_ids": { "type": "array", "items": { "$ref": "#/$defs/score_id" } },
+        "diagram_ids": { "type": "array", "items": { "type": "string", "pattern": "^DG[0-9]{3}$" } },
+        "status": { "enum": ["generated", "review_required", "confirm_required", "blocked"] },
+        "risk_flags": {
+          "type": "array",
+          "items": { "enum": ["personnel", "qualification", "performance_case", "price", "delivery_date", "service_commitment", "unsupported_claim"] }
+        },
+        "review_notes": { "type": "array", "items": { "type": "string" } }
+      }
+    },
+    "table_content": {
+      "type": "object",
+      "required": ["columns", "rows"],
+      "additionalProperties": false,
+      "properties": {
+        "columns": { "type": "array", "items": { "$ref": "#/$defs/non_empty" } },
+        "rows": { "type": "array", "items": { "type": "array", "items": { "type": "string" } } }
+      }
+    },
+    "diagram_ref": {
+      "type": "object",
+      "required": ["diagram_id", "caption"],
+      "additionalProperties": false,
+      "properties": {
+        "diagram_id": { "type": "string", "pattern": "^DG[0-9]{3}$" },
+        "caption": { "$ref": "#/$defs/non_empty" }
+      }
+    },
+    "placeholder_content": {
+      "type": "object",
+      "required": ["placeholder_text"],
+      "additionalProperties": false,
+      "properties": {
+        "placeholder_text": { "$ref": "#/$defs/non_empty" }
+      }
+    },
+    "lifecycle_item": {
+      "type": "object",
+      "required": ["item_id", "block_id", "message", "source_ids", "status"],
+      "additionalProperties": false,
+      "properties": {
+        "item_id": { "type": "string", "pattern": "^(RV|CF)[0-9]{3}$" },
+        "block_id": { "type": "string", "pattern": "^CB[0-9]{3}$" },
+        "message": { "$ref": "#/$defs/non_empty" },
+        "source_ids": { "type": "array", "items": { "type": "string", "pattern": "^(T|P|Q|B|D|S)[0-9]{3}$" } },
+        "status": { "enum": ["review_required", "confirm_required", "resolved", "waived"] }
+      }
+    }
+  }
+}

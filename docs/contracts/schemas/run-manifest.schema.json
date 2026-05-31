@@ -1,0 +1,84 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://bid-solution-writer.local/schemas/run-manifest.schema.json",
+  "title": "run-manifest.json",
+  "type": "object",
+  "required": ["schema_version", "artifact", "run_id", "generated_at", "producer", "inputs", "stages"],
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": { "const": "1.0.0" },
+    "artifact": { "const": "run-manifest" },
+    "run_id": { "$ref": "#/$defs/run_id" },
+    "generated_at": { "$ref": "#/$defs/date_time" },
+    "producer": { "$ref": "#/$defs/producer" },
+    "inputs": { "$ref": "#/$defs/inputs" },
+    "stages": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/stage" }
+    },
+    "outputs": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/path_ref" }
+    },
+    "recovery_pointer": {
+      "type": "string"
+    }
+  },
+  "$defs": {
+    "run_id": { "type": "string", "pattern": "^RUN-[0-9]{8}-[0-9]{6}$" },
+    "date_time": { "type": "string", "format": "date-time" },
+    "non_empty": { "type": "string", "minLength": 1 },
+    "producer": {
+      "type": "object",
+      "required": ["agent", "version"],
+      "additionalProperties": false,
+      "properties": {
+        "agent": { "const": "Coordinator Agent" },
+        "version": { "$ref": "#/$defs/non_empty" }
+      }
+    },
+    "inputs": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/input_file" }
+    },
+    "input_file": {
+      "type": "object",
+      "required": ["input_id", "path", "kind"],
+      "additionalProperties": false,
+      "properties": {
+        "input_id": { "type": "string", "pattern": "^IN[0-9]{3}$" },
+        "path": { "$ref": "#/$defs/non_empty" },
+        "kind": { "enum": ["technical_requirements", "business_requirements", "scoring_table", "template", "rules", "placeholder_spec", "other"] },
+        "sha256": { "type": "string", "pattern": "^[A-Fa-f0-9]{64}$" }
+      }
+    },
+    "path_ref": {
+      "type": "object",
+      "required": ["artifact", "path"],
+      "additionalProperties": false,
+      "properties": {
+        "artifact": { "$ref": "#/$defs/non_empty" },
+        "path": { "$ref": "#/$defs/non_empty" }
+      }
+    },
+    "stage": {
+      "type": "object",
+      "required": ["stage_id", "agent", "status", "staging_path"],
+      "additionalProperties": false,
+      "properties": {
+        "stage_id": { "enum": ["requirements", "design", "content", "diagrams", "review", "assembly"] },
+        "agent": { "$ref": "#/$defs/non_empty" },
+        "status": { "enum": ["planned", "generated", "approved", "blocked", "published", "failed"] },
+        "staging_path": { "$ref": "#/$defs/non_empty" },
+        "published_path": { "type": "string" },
+        "started_at": { "$ref": "#/$defs/date_time" },
+        "finished_at": { "$ref": "#/$defs/date_time" },
+        "errors": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/non_empty" }
+        },
+        "recovery_action": { "type": "string" }
+      }
+    }
+  }
+}

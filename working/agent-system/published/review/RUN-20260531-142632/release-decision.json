@@ -1,0 +1,843 @@
+{
+  "schema_version": "1.0.0",
+  "artifact": "release-decision",
+  "run_id": "RUN-20260531-142632",
+  "generated_at": "2026-05-31T20:37:38+08:00",
+  "producer": {
+    "agent": "Review Gate Agent",
+    "version": "1.0.0"
+  },
+  "inputs": [
+    {
+      "artifact": "requirements",
+      "path": "output/records/requirements.json",
+      "schema_version": "1.0.0"
+    },
+    {
+      "artifact": "requirements-matrix",
+      "path": "output/records/requirements-matrix.json",
+      "schema_version": "1.0.0"
+    },
+    {
+      "artifact": "design-blueprint",
+      "path": "output/records/design-blueprint.json",
+      "schema_version": "1.0.0"
+    },
+    {
+      "artifact": "content-blocks",
+      "path": "output/records/content-blocks.json",
+      "schema_version": "1.0.0"
+    },
+    {
+      "artifact": "diagram-manifest",
+      "path": "output/records/diagram-manifest.json",
+      "schema_version": "1.0.0"
+    },
+    {
+      "artifact": "placeholder-fill-log",
+      "path": "output/records/placeholder-fill-log.md",
+      "schema_version": "n/a"
+    }
+  ],
+  "decision": "approved",
+  "allow_word_assembly": true,
+  "quality_gates": [
+    {
+      "gate_id": "G001",
+      "name": "必需产物检查",
+      "status": "passed",
+      "message": "所有必需输入产物均可读取。"
+    },
+    {
+      "gate_id": "G002",
+      "name": "覆盖率与评分项响应",
+      "status": "passed",
+      "message": "需求覆盖 92/92，评分项响应 22/22。"
+    },
+    {
+      "gate_id": "G003",
+      "name": "来源 ID 绑定",
+      "status": "passed",
+      "message": "所有正文与图表均有有效来源 ID。"
+    },
+    {
+      "gate_id": "G004",
+      "name": "CONFIRM 与 REVIEW 留痕",
+      "status": "passed",
+      "message": "确认与复核事项已进入对应清单。"
+    },
+    {
+      "gate_id": "G005",
+      "name": "虚构事实与过度承诺",
+      "status": "passed",
+      "message": "未发现未留痕的高风险事实或过度承诺。"
+    },
+    {
+      "gate_id": "G006",
+      "name": "Mermaid 降级渲染标记",
+      "status": "warning",
+      "message": "图表 DG001 为 fallback_rendered，已记录降级说明，需人工关注。"
+    },
+    {
+      "gate_id": "G007",
+      "name": "Mermaid 降级渲染标记",
+      "status": "warning",
+      "message": "图表 DG002 为 fallback_rendered，已记录降级说明，需人工关注。"
+    },
+    {
+      "gate_id": "G008",
+      "name": "Mermaid 降级渲染标记",
+      "status": "warning",
+      "message": "图表 DG003 为 fallback_rendered，已记录降级说明，需人工关注。"
+    },
+    {
+      "gate_id": "G009",
+      "name": "Mermaid 降级渲染标记",
+      "status": "warning",
+      "message": "图表 DG004 为 fallback_rendered，已记录降级说明，需人工关注。"
+    },
+    {
+      "gate_id": "G010",
+      "name": "Mermaid 降级渲染标记",
+      "status": "warning",
+      "message": "图表 DG005 为 fallback_rendered，已记录降级说明，需人工关注。"
+    },
+    {
+      "gate_id": "G011",
+      "name": "Mermaid 降级渲染标记",
+      "status": "warning",
+      "message": "图表 DG006 为 fallback_rendered，已记录降级说明，需人工关注。"
+    },
+    {
+      "gate_id": "G012",
+      "name": "Mermaid 降级渲染标记",
+      "status": "warning",
+      "message": "图表 DG007 为 fallback_rendered，已记录降级说明，需人工关注。"
+    },
+    {
+      "gate_id": "G013",
+      "name": "Mermaid 降级渲染标记",
+      "status": "warning",
+      "message": "图表 DG008 为 fallback_rendered，已记录降级说明，需人工关注。"
+    },
+    {
+      "gate_id": "G014",
+      "name": "Mermaid 降级渲染标记",
+      "status": "warning",
+      "message": "图表 DG009 为 fallback_rendered，已记录降级说明，需人工关注。"
+    },
+    {
+      "gate_id": "G015",
+      "name": "Mermaid 降级渲染标记",
+      "status": "warning",
+      "message": "图表 DG010 为 fallback_rendered，已记录降级说明，需人工关注。"
+    },
+    {
+      "gate_id": "G016",
+      "name": "Mermaid 降级渲染标记",
+      "status": "warning",
+      "message": "图表 DG011 为 fallback_rendered，已记录降级说明，需人工关注。"
+    },
+    {
+      "gate_id": "G017",
+      "name": "Mermaid 降级渲染标记",
+      "status": "warning",
+      "message": "图表 DG012 为 fallback_rendered，已记录降级说明，需人工关注。"
+    },
+    {
+      "gate_id": "G018",
+      "name": "Mermaid 降级渲染标记",
+      "status": "warning",
+      "message": "图表 DG013 为 fallback_rendered，已记录降级说明，需人工关注。"
+    },
+    {
+      "gate_id": "G019",
+      "name": "Mermaid 降级渲染标记",
+      "status": "warning",
+      "message": "图表 DG014 为 fallback_rendered，已记录降级说明，需人工关注。"
+    },
+    {
+      "gate_id": "G020",
+      "name": "Mermaid 降级渲染标记",
+      "status": "warning",
+      "message": "图表 DG015 为 fallback_rendered，已记录降级说明，需人工关注。"
+    },
+    {
+      "gate_id": "G021",
+      "name": "Mermaid 降级渲染标记",
+      "status": "warning",
+      "message": "图表 DG016 为 fallback_rendered，已记录降级说明，需人工关注。"
+    },
+    {
+      "gate_id": "G022",
+      "name": "Mermaid 降级渲染标记",
+      "status": "warning",
+      "message": "图表 DG017 为 fallback_rendered，已记录降级说明，需人工关注。"
+    },
+    {
+      "gate_id": "G023",
+      "name": "Mermaid 降级渲染标记",
+      "status": "warning",
+      "message": "图表 DG018 为 fallback_rendered，已记录降级说明，需人工关注。"
+    },
+    {
+      "gate_id": "G024",
+      "name": "Mermaid 降级渲染标记",
+      "status": "warning",
+      "message": "图表 DG019 为 fallback_rendered，已记录降级说明，需人工关注。"
+    },
+    {
+      "gate_id": "G025",
+      "name": "Mermaid 降级渲染标记",
+      "status": "warning",
+      "message": "图表 DG020 为 fallback_rendered，已记录降级说明，需人工关注。"
+    },
+    {
+      "gate_id": "G026",
+      "name": "Mermaid 降级渲染标记",
+      "status": "warning",
+      "message": "图表 DG021 为 fallback_rendered，已记录降级说明，需人工关注。"
+    },
+    {
+      "gate_id": "G027",
+      "name": "Mermaid 降级渲染标记",
+      "status": "warning",
+      "message": "图表 DG022 为 fallback_rendered，已记录降级说明，需人工关注。"
+    },
+    {
+      "gate_id": "G028",
+      "name": "Mermaid 降级渲染标记",
+      "status": "warning",
+      "message": "图表 DG023 为 fallback_rendered，已记录降级说明，需人工关注。"
+    },
+    {
+      "gate_id": "G029",
+      "name": "Mermaid 降级渲染标记",
+      "status": "warning",
+      "message": "图表 DG024 为 fallback_rendered，已记录降级说明，需人工关注。"
+    },
+    {
+      "gate_id": "G030",
+      "name": "Mermaid 降级渲染标记",
+      "status": "warning",
+      "message": "图表 DG025 为 fallback_rendered，已记录降级说明，需人工关注。"
+    },
+    {
+      "gate_id": "G031",
+      "name": "Mermaid 降级渲染标记",
+      "status": "warning",
+      "message": "图表 DG026 为 fallback_rendered，已记录降级说明，需人工关注。"
+    },
+    {
+      "gate_id": "G032",
+      "name": "Mermaid 降级渲染标记",
+      "status": "warning",
+      "message": "图表 DG027 为 fallback_rendered，已记录降级说明，需人工关注。"
+    },
+    {
+      "gate_id": "G033",
+      "name": "Mermaid 降级渲染标记",
+      "status": "warning",
+      "message": "图表 DG028 为 fallback_rendered，已记录降级说明，需人工关注。"
+    },
+    {
+      "gate_id": "G034",
+      "name": "Mermaid 降级渲染标记",
+      "status": "warning",
+      "message": "图表 DG029 为 fallback_rendered，已记录降级说明，需人工关注。"
+    },
+    {
+      "gate_id": "G035",
+      "name": "Mermaid 降级渲染标记",
+      "status": "warning",
+      "message": "图表 DG030 为 fallback_rendered，已记录降级说明，需人工关注。"
+    },
+    {
+      "gate_id": "G036",
+      "name": "Mermaid 降级渲染标记",
+      "status": "warning",
+      "message": "图表 DG031 为 fallback_rendered，已记录降级说明，需人工关注。"
+    },
+    {
+      "gate_id": "G037",
+      "name": "Mermaid 降级渲染标记",
+      "status": "warning",
+      "message": "图表 DG032 为 fallback_rendered，已记录降级说明，需人工关注。"
+    },
+    {
+      "gate_id": "G038",
+      "name": "Mermaid 降级渲染标记",
+      "status": "warning",
+      "message": "图表 DG033 为 fallback_rendered，已记录降级说明，需人工关注。"
+    },
+    {
+      "gate_id": "G039",
+      "name": "Mermaid 降级渲染标记",
+      "status": "warning",
+      "message": "图表 DG034 为 fallback_rendered，已记录降级说明，需人工关注。"
+    },
+    {
+      "gate_id": "G040",
+      "name": "Mermaid 降级渲染标记",
+      "status": "warning",
+      "message": "图表 DG035 为 fallback_rendered，已记录降级说明，需人工关注。"
+    },
+    {
+      "gate_id": "G041",
+      "name": "Mermaid 降级渲染标记",
+      "status": "warning",
+      "message": "图表 DG036 为 fallback_rendered，已记录降级说明，需人工关注。"
+    },
+    {
+      "gate_id": "G042",
+      "name": "Mermaid 降级渲染标记",
+      "status": "warning",
+      "message": "图表 DG037 为 fallback_rendered，已记录降级说明，需人工关注。"
+    },
+    {
+      "gate_id": "G043",
+      "name": "Mermaid 降级渲染标记",
+      "status": "warning",
+      "message": "图表 DG038 为 fallback_rendered，已记录降级说明，需人工关注。"
+    },
+    {
+      "gate_id": "G044",
+      "name": "Mermaid 降级渲染标记",
+      "status": "warning",
+      "message": "图表 DG039 为 fallback_rendered，已记录降级说明，需人工关注。"
+    },
+    {
+      "gate_id": "G045",
+      "name": "Mermaid 降级渲染标记",
+      "status": "warning",
+      "message": "图表 DG040 为 fallback_rendered，已记录降级说明，需人工关注。"
+    },
+    {
+      "gate_id": "G046",
+      "name": "Mermaid 降级渲染标记",
+      "status": "warning",
+      "message": "图表 DG041 为 fallback_rendered，已记录降级说明，需人工关注。"
+    },
+    {
+      "gate_id": "G047",
+      "name": "Mermaid 降级渲染标记",
+      "status": "warning",
+      "message": "图表 DG042 为 fallback_rendered，已记录降级说明，需人工关注。"
+    },
+    {
+      "gate_id": "G048",
+      "name": "Mermaid 降级渲染标记",
+      "status": "warning",
+      "message": "图表 DG043 为 fallback_rendered，已记录降级说明，需人工关注。"
+    },
+    {
+      "gate_id": "G049",
+      "name": "Mermaid 降级渲染标记",
+      "status": "warning",
+      "message": "图表 DG044 为 fallback_rendered，已记录降级说明，需人工关注。"
+    },
+    {
+      "gate_id": "G050",
+      "name": "Mermaid 降级渲染标记",
+      "status": "warning",
+      "message": "图表 DG045 为 fallback_rendered，已记录降级说明，需人工关注。"
+    },
+    {
+      "gate_id": "G051",
+      "name": "Mermaid 降级渲染标记",
+      "status": "warning",
+      "message": "图表 DG046 为 fallback_rendered，已记录降级说明，需人工关注。"
+    },
+    {
+      "gate_id": "G052",
+      "name": "Mermaid 降级渲染标记",
+      "status": "warning",
+      "message": "图表 DG047 为 fallback_rendered，已记录降级说明，需人工关注。"
+    },
+    {
+      "gate_id": "G053",
+      "name": "Mermaid 降级渲染标记",
+      "status": "warning",
+      "message": "图表 DG048 为 fallback_rendered，已记录降级说明，需人工关注。"
+    },
+    {
+      "gate_id": "G054",
+      "name": "图文一致性",
+      "status": "passed",
+      "message": "图表与正文、设计蓝图来源一致。"
+    },
+    {
+      "gate_id": "G055",
+      "name": "占位符残留检查",
+      "status": "passed",
+      "message": "placeholder-fill-log.md 未显示未处理占位符。"
+    }
+  ],
+  "issues": [],
+  "confirm_items": [
+    {
+      "item_id": "CF001",
+      "title": "人员与资质证明 需人工确认后再装配。",
+      "source": {
+        "artifact": "content-blocks.json",
+        "id": "CB021"
+      },
+      "status": "open",
+      "note": "S015, S017, S019"
+    },
+    {
+      "item_id": "CF002",
+      "title": "输入资料未提供投标人名称。",
+      "source": {
+        "artifact": "content-blocks.json",
+        "id": "CB021"
+      },
+      "status": "open",
+      "note": ""
+    },
+    {
+      "item_id": "CF003",
+      "title": "评分项要求投标文件提供供应商自身证明材料，输入资料未提供该事实，后续正文不得自动补齐。",
+      "source": {
+        "artifact": "content-blocks.json",
+        "id": "CB001"
+      },
+      "status": "open",
+      "note": "S007"
+    },
+    {
+      "item_id": "CF004",
+      "title": "评分项要求投标文件提供供应商自身证明材料，输入资料未提供该事实，后续正文不得自动补齐。",
+      "source": {
+        "artifact": "content-blocks.json",
+        "id": "CB019"
+      },
+      "status": "open",
+      "note": "S014"
+    },
+    {
+      "item_id": "CF005",
+      "title": "评分项要求投标文件提供供应商自身证明材料，输入资料未提供该事实，后续正文不得自动补齐。",
+      "source": {
+        "artifact": "content-blocks.json",
+        "id": "CB021"
+      },
+      "status": "open",
+      "note": "S015"
+    },
+    {
+      "item_id": "CF006",
+      "title": "评分项要求投标文件提供供应商自身证明材料，输入资料未提供该事实，后续正文不得自动补齐。",
+      "source": {
+        "artifact": "content-blocks.json",
+        "id": "CB002"
+      },
+      "status": "open",
+      "note": "S016"
+    },
+    {
+      "item_id": "CF007",
+      "title": "评分项要求投标文件提供供应商自身证明材料，输入资料未提供该事实，后续正文不得自动补齐。",
+      "source": {
+        "artifact": "content-blocks.json",
+        "id": "CB021"
+      },
+      "status": "open",
+      "note": "S017"
+    },
+    {
+      "item_id": "CF008",
+      "title": "评分项要求投标文件提供供应商自身证明材料，输入资料未提供该事实，后续正文不得自动补齐。",
+      "source": {
+        "artifact": "content-blocks.json",
+        "id": "CB002"
+      },
+      "status": "open",
+      "note": "S018"
+    },
+    {
+      "item_id": "CF009",
+      "title": "评分项要求投标文件提供供应商自身证明材料，输入资料未提供该事实，后续正文不得自动补齐。",
+      "source": {
+        "artifact": "content-blocks.json",
+        "id": "CB021"
+      },
+      "status": "open",
+      "note": "S019"
+    },
+    {
+      "item_id": "CF010",
+      "title": "评分项要求投标文件提供供应商自身证明材料，输入资料未提供该事实，后续正文不得自动补齐。",
+      "source": {
+        "artifact": "content-blocks.json",
+        "id": "CB014"
+      },
+      "status": "open",
+      "note": "S021"
+    },
+    {
+      "item_id": "CF011",
+      "title": "评分项要求投标文件提供供应商自身证明材料，输入资料未提供该事实，后续正文不得自动补齐。",
+      "source": {
+        "artifact": "content-blocks.json",
+        "id": "CB014"
+      },
+      "status": "open",
+      "note": "S022"
+    }
+  ],
+  "review_items": [
+    {
+      "item_id": "RV001",
+      "title": "编写目的 需复核来源、表达边界和评分项响应。",
+      "source": {
+        "artifact": "content-blocks.json",
+        "id": "CB001"
+      },
+      "status": "open",
+      "note": "Q001, T001, T002, T003, T004, T005, T006, T007, T008, T009, T010, T011, T012, T013, T014, T015, T016, T017, T018, T019, T020, T021, T022, T023, T024, T025, T026, T027, T028, T029, T030, T031, T032, T033, T034, Q002, Q003, Q004, Q005, Q006, Q007, Q008, Q009, Q010, Q011, Q012, T035, T036, T037, T038, T039, T040, T041, Q013, Q014, Q015, Q016, Q017, Q018, Q019, Q020, Q021, Q022, Q023, Q024, Q025, Q026, Q027, Q028, Q029, Q030, Q031, Q032, Q033, Q034, Q035, Q036, B001, B002, B003, B004, B005, B006, B007, B008, D001, D002, D003, D004, S001, S002, S003, S004, S005, S006, S007, S008, S009"
+    },
+    {
+      "item_id": "RV002",
+      "title": "总体架构设计 需复核来源、表达边界和评分项响应。",
+      "source": {
+        "artifact": "content-blocks.json",
+        "id": "CB002"
+      },
+      "status": "open",
+      "note": "T029, T030, T031, Q017, S001, S002, S003, S004, S005, S006, S008, S009, S016, S018"
+    },
+    {
+      "item_id": "RV003",
+      "title": "总体架构图 需复核来源、表达边界和评分项响应。",
+      "source": {
+        "artifact": "content-blocks.json",
+        "id": "CB003"
+      },
+      "status": "open",
+      "note": "T029, T030, T031, Q017, S001, S002, S003, S004, S005, S006, S008, S009, S016, S018"
+    },
+    {
+      "item_id": "RV004",
+      "title": "架构图说明 需复核来源、表达边界和评分项响应。",
+      "source": {
+        "artifact": "content-blocks.json",
+        "id": "CB004"
+      },
+      "status": "open",
+      "note": "T029, T030, T031, Q017, S001, S002, S003, S004, S005, S006, S008, S009, S016, S018"
+    },
+    {
+      "item_id": "RV005",
+      "title": "设计原则 需复核来源、表达边界和评分项响应。",
+      "source": {
+        "artifact": "content-blocks.json",
+        "id": "CB005"
+      },
+      "status": "open",
+      "note": "Q001, Q002, Q003, Q004, Q005, Q006, Q007, Q008, Q009, Q010, Q011, Q012, Q013, Q014, Q015, Q016, Q017, Q018, Q019, Q020, Q021, Q022, Q023, Q024, Q025, Q026, Q027, Q028, Q029, Q030, Q031, Q032, Q033, Q034, Q035, Q036, S001, S002, S003, S004, S005, S006, S007, S008, S009"
+    },
+    {
+      "item_id": "RV006",
+      "title": "性能设计章节 需复核来源、表达边界和评分项响应。",
+      "source": {
+        "artifact": "content-blocks.json",
+        "id": "CB009"
+      },
+      "status": "open",
+      "note": "P001, P002, P003, P004, P005, P006, P007, S010, S011"
+    },
+    {
+      "item_id": "RV007",
+      "title": "通用质量特性设计总述 需复核来源、表达边界和评分项响应。",
+      "source": {
+        "artifact": "content-blocks.json",
+        "id": "CB012"
+      },
+      "status": "open",
+      "note": "Q001, Q002, Q003, Q004, Q005, Q006, Q007, Q008, Q009, Q010, Q011, Q012, Q013, Q014, Q015, Q016, Q017, Q018, Q019, Q020, Q021, Q022, Q023, Q024, Q025, Q026, Q027, Q028, Q029, Q030, Q031, Q032, Q033, Q034, Q035, Q036"
+    },
+    {
+      "item_id": "RV008",
+      "title": "可靠性设计 需复核来源、表达边界和评分项响应。",
+      "source": {
+        "artifact": "content-blocks.json",
+        "id": "CB013"
+      },
+      "status": "open",
+      "note": "P002, P005, P006, Q002, Q003, Q009, Q010"
+    },
+    {
+      "item_id": "RV009",
+      "title": "维修性与保障性设计 需复核来源、表达边界和评分项响应。",
+      "source": {
+        "artifact": "content-blocks.json",
+        "id": "CB014"
+      },
+      "status": "open",
+      "note": "Q002, Q003, Q005, Q006, Q010, Q011, Q018, Q019, Q022, Q023, Q024, Q030, Q032, Q034, Q035, B001, B002, B003, B004, B005, B006, B007, B008, D001, D002, D003, D004, S020, S021, S022"
+    },
+    {
+      "item_id": "RV010",
+      "title": "测试性设计 需复核来源、表达边界和评分项响应。",
+      "source": {
+        "artifact": "content-blocks.json",
+        "id": "CB015"
+      },
+      "status": "open",
+      "note": "Q001, Q002, Q005, Q006, Q011, Q018, Q021, Q022, Q023, Q024, Q025"
+    },
+    {
+      "item_id": "RV011",
+      "title": "安全性设计 需复核来源、表达边界和评分项响应。",
+      "source": {
+        "artifact": "content-blocks.json",
+        "id": "CB016"
+      },
+      "status": "open",
+      "note": "T011, T012, T016, T017, T018, T020, T028, T033, Q002, Q003, Q004, Q005, Q006, Q007, Q008, Q009, Q010, Q011, Q012, T035, Q013, Q014, Q015, Q016, Q017, Q018, Q019, Q020, Q021, Q022, Q023, Q024, Q025, Q026, Q027, Q028, Q029, Q030, Q031, Q032, Q033, Q034, Q035, Q036, B003"
+    },
+    {
+      "item_id": "RV012",
+      "title": "关键技术 需复核来源、表达边界和评分项响应。",
+      "source": {
+        "artifact": "content-blocks.json",
+        "id": "CB018"
+      },
+      "status": "open",
+      "note": "T001, T002, T003, T004, T005, T006, T007, T008, T009, T010, T011, T012, T013, T014, T015, T016, T017, T018, T019, T020, T021, T022, T023, T024, T025, T026, T027, T028, T029, T030, T031, T032, T033, T034, Q002, Q003, Q009, T035, T036, T037, T038, T039, T040, T041, Q014, Q016, Q017, Q022, S001, S002, S003, S004, S005, S006, S007, S008, S009"
+    },
+    {
+      "item_id": "RV013",
+      "title": "质量控制与风险管理 需复核来源、表达边界和评分项响应。",
+      "source": {
+        "artifact": "content-blocks.json",
+        "id": "CB019"
+      },
+      "status": "open",
+      "note": "Q001, Q002, Q003, Q004, Q005, Q006, Q007, Q008, Q009, Q010, Q011, Q012, Q013, Q014, Q015, Q016, Q017, Q018, Q019, Q020, Q021, Q022, Q023, Q024, Q025, Q026, Q027, Q028, Q029, Q030, Q031, Q032, Q033, Q034, Q035, Q036, B001, B002, B003, B004, B005, B006, B007, B008, S012, S013, S014"
+    },
+    {
+      "item_id": "RV014",
+      "title": "项目实施与交付验收 需复核来源、表达边界和评分项响应。",
+      "source": {
+        "artifact": "content-blocks.json",
+        "id": "CB020"
+      },
+      "status": "open",
+      "note": "B001, B002, B003, B004, B005, B006, B007, B008, D001, D002, D003, D004, S012, S013, S014"
+    },
+    {
+      "item_id": "RV015",
+      "title": "培训与售后服务方案 需复核来源、表达边界和评分项响应。",
+      "source": {
+        "artifact": "content-blocks.json",
+        "id": "CB022"
+      },
+      "status": "open",
+      "note": "B001, B002, B003, B004, B005, B006, B007, B008, D001, D002, D003, D004, S020, S021, S022"
+    },
+    {
+      "item_id": "RV016",
+      "title": "数据库设计总述 需复核来源、表达边界和评分项响应。",
+      "source": {
+        "artifact": "content-blocks.json",
+        "id": "CB024"
+      },
+      "status": "open",
+      "note": "Q001, T001, T002, T003, T004, T005, T006, T017, T021, T023, T031, T032, T033, T034, P001, P003, P004, Q002, Q003, Q006, Q009, Q011, T035, T036, T037, T038, T039, T040, T041, Q014, Q020, Q022, Q032, Q034, B002, B003, D001, D002, S001, S002, S003, S004, S005, S006, S007, S008, S009, S011, S016, S018"
+    },
+    {
+      "item_id": "RV017",
+      "title": "数据库表设计 需复核来源、表达边界和评分项响应。",
+      "source": {
+        "artifact": "content-blocks.json",
+        "id": "CB025"
+      },
+      "status": "open",
+      "note": "Q001, T001, T002, T003, T004, T005, T006, T017, T021, T023, T031, T032, T033, T034, P001, P003, P004, Q002, Q003, Q006, Q009, Q011, T035, T036, T037, T038, T039, T040, T041, Q014, Q020, Q022, Q032, Q034, B002, B003, D001, D002, S001, S002, S003, S004, S005, S006, S007, S008, S009, S011, S016, S018"
+    },
+    {
+      "item_id": "RV018",
+      "title": "保障性设计 需复核来源、表达边界和评分项响应。",
+      "source": {
+        "artifact": "content-blocks.json",
+        "id": "CB026"
+      },
+      "status": "open",
+      "note": "P006, Q002, Q005, Q010, Q024, Q026, Q030, Q033, Q035, B001, B002, B004, B006, D001, D002, D003, D004, S014, S020, S021, S022"
+    },
+    {
+      "item_id": "RV019",
+      "title": "质量控制总述 需复核来源、表达边界和评分项响应。",
+      "source": {
+        "artifact": "content-blocks.json",
+        "id": "CB027"
+      },
+      "status": "open",
+      "note": "Q001, T011, T012, T016, T017, T018, T019, T020, T021, T022, T023, T024, T025, T028, T033, Q002, Q003, Q004, Q005, Q006, Q007, Q008, Q009, Q010, Q011, Q012, T035, Q013, Q014, Q015, Q016, Q017, Q018, Q019, Q020, Q021, Q022, Q023, Q024, Q025, S001, S002, S003, S004, S005, S006, S007, S008, S009, S014, S017"
+    },
+    {
+      "item_id": "RV020",
+      "title": "质量保证措施 需复核来源、表达边界和评分项响应。",
+      "source": {
+        "artifact": "content-blocks.json",
+        "id": "CB028"
+      },
+      "status": "open",
+      "note": "Q001, T011, T012, T016, T017, T018, T019, T020, T021, T022, T023, T024, T025, T028, T033, Q002, Q003, Q004, Q005, Q006, Q007, Q008, Q009, Q010, Q011, Q012, T035, Q013, Q014, Q015, Q016, Q017, Q018, Q019, Q020, Q021, Q022, Q023, Q024, Q025, S001, S002, S003, S004, S005, S006, S007, S008, S009, S014, S017"
+    },
+    {
+      "item_id": "RV021",
+      "title": "质量体系与资质响应说明 需复核来源、表达边界和评分项响应。",
+      "source": {
+        "artifact": "content-blocks.json",
+        "id": "CB029"
+      },
+      "status": "open",
+      "note": "Q001, T011, T012, T016, T017, T018, T019, T020, T021, T022, T023, T024, T025, T028, T033, Q002, Q003, Q004, Q005, Q006, Q007, Q008, Q009, Q010, Q011, Q012, T035, Q013, Q014, Q015, Q016, Q017, Q018, Q019, Q020, Q021, Q022, Q023, Q024, Q025, S001, S002, S003, S004, S005, S006, S007, S008, S009, S014, S015, S016, S017, S018, S019"
+    },
+    {
+      "item_id": "RV022",
+      "title": "服务质量保障措施 需复核来源、表达边界和评分项响应。",
+      "source": {
+        "artifact": "content-blocks.json",
+        "id": "CB030"
+      },
+      "status": "open",
+      "note": "Q001, T011, T012, T016, T017, T018, T019, T020, T021, T022, T023, T024, T025, T028, T033, P006, Q002, Q003, Q004, Q005, Q006, Q007, Q008, Q009, Q010, Q011, Q012, T035, Q013, Q014, Q015, Q016, Q017, Q018, Q019, Q020, Q021, Q022, Q023, Q024, S001, S002, S003, S004, S005, S006, S007, S008, S009, S014, S017, S020, S021, S022"
+    },
+    {
+      "item_id": "RV023",
+      "title": "项目进度计划 需复核来源、表达边界和评分项响应。",
+      "source": {
+        "artifact": "content-blocks.json",
+        "id": "CB031"
+      },
+      "status": "open",
+      "note": "P007, Q011, Q015, Q024, Q026, Q030, Q033, Q035, B001, B002, B003, B004, B005, B007, D001, D002, D003, D004, S006, S012, S013, S014, S015, S016, S017, S018, S019"
+    },
+    {
+      "item_id": "RV024",
+      "title": "交付物清单 需复核来源、表达边界和评分项响应。",
+      "source": {
+        "artifact": "content-blocks.json",
+        "id": "CB032"
+      },
+      "status": "open",
+      "note": "Q011, Q022, Q023, Q024, Q026, Q030, Q033, Q035, B001, B002, B006, D001, D002, D003, D004, S014, S017"
+    },
+    {
+      "item_id": "RV025",
+      "title": "应急支援保障承诺 需复核来源、表达边界和评分项响应。",
+      "source": {
+        "artifact": "content-blocks.json",
+        "id": "CB033"
+      },
+      "status": "open",
+      "note": "P006, Q002, Q005, Q010, Q024, Q026, Q030, Q033, Q035, B001, B002, B004, B006, D001, D002, D003, D004, S014, S020, S021, S022"
+    },
+    {
+      "item_id": "RV026",
+      "title": "定期跟踪服务承诺 需复核来源、表达边界和评分项响应。",
+      "source": {
+        "artifact": "content-blocks.json",
+        "id": "CB034"
+      },
+      "status": "open",
+      "note": "T006, T007, T032, T033, T034, P006, Q008, Q017, B001, B002, B004, B006, B007, S014, S020, S021, S022"
+    },
+    {
+      "item_id": "RV027",
+      "title": "该条目涉及高风险事实，后续响应应保持来源可追溯并进入复核。",
+      "source": {
+        "artifact": "content-blocks.json",
+        "id": "CB001"
+      },
+      "status": "open",
+      "note": "Q024"
+    },
+    {
+      "item_id": "RV028",
+      "title": "该条目涉及高风险事实，后续响应应保持来源可追溯并进入复核。",
+      "source": {
+        "artifact": "content-blocks.json",
+        "id": "CB001"
+      },
+      "status": "open",
+      "note": "Q030"
+    },
+    {
+      "item_id": "RV029",
+      "title": "该条目涉及高风险事实，后续响应应保持来源可追溯并进入复核。",
+      "source": {
+        "artifact": "content-blocks.json",
+        "id": "CB001"
+      },
+      "status": "open",
+      "note": "B002"
+    },
+    {
+      "item_id": "RV030",
+      "title": "该条目涉及高风险事实，后续响应应保持来源可追溯并进入复核。",
+      "source": {
+        "artifact": "content-blocks.json",
+        "id": "CB001"
+      },
+      "status": "open",
+      "note": "B003"
+    },
+    {
+      "item_id": "RV031",
+      "title": "该条目涉及高风险事实，后续响应应保持来源可追溯并进入复核。",
+      "source": {
+        "artifact": "content-blocks.json",
+        "id": "CB001"
+      },
+      "status": "open",
+      "note": "B004"
+    },
+    {
+      "item_id": "RV032",
+      "title": "该条目涉及高风险事实，后续响应应保持来源可追溯并进入复核。",
+      "source": {
+        "artifact": "content-blocks.json",
+        "id": "CB001"
+      },
+      "status": "open",
+      "note": "B005"
+    },
+    {
+      "item_id": "RV033",
+      "title": "该条目涉及高风险事实，后续响应应保持来源可追溯并进入复核。",
+      "source": {
+        "artifact": "content-blocks.json",
+        "id": "CB001"
+      },
+      "status": "open",
+      "note": "B006"
+    },
+    {
+      "item_id": "RV034",
+      "title": "该条目涉及高风险事实，后续响应应保持来源可追溯并进入复核。",
+      "source": {
+        "artifact": "content-blocks.json",
+        "id": "CB001"
+      },
+      "status": "open",
+      "note": "B007"
+    }
+  ],
+  "coverage_summary": {
+    "requirements_total": 92,
+    "requirements_covered": 92,
+    "requirements_uncovered": 0,
+    "scoring_items_total": 22,
+    "scoring_items_covered": 22,
+    "diagram_total": 48,
+    "diagram_assembly_allowed": 48
+  },
+  "next_actions": [
+    "Review Gate 已通过，可以进入 Word Layout Agent。"
+  ]
+}

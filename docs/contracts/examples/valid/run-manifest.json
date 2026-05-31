@@ -1,0 +1,32 @@
+{
+  "schema_version": "1.0.0",
+  "artifact": "run-manifest",
+  "run_id": "RUN-20260530-210000",
+  "generated_at": "2026-05-30T21:00:00+08:00",
+  "producer": {
+    "agent": "Coordinator Agent",
+    "version": "1.0.0"
+  },
+  "inputs": [
+    {
+      "input_id": "IN001",
+      "path": "input/技术要求.docx",
+      "kind": "technical_requirements"
+    }
+  ],
+  "stages": [
+    {
+      "stage_id": "requirements",
+      "agent": "Requirement Evidence Agent",
+      "status": "published",
+      "staging_path": "working/agent-system/staging/requirements/RUN-20260530-210000",
+      "published_path": "working/agent-system/published/requirements/RUN-20260530-210000"
+    }
+  ],
+  "outputs": [
+    {
+      "artifact": "requirements",
+      "path": "output/records/requirements.json"
+    }
+  ]
+}

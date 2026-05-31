@@ -1,0 +1,57 @@
+{
+  "schema_version": "1.0.0",
+  "artifact": "diagram-manifest",
+  "run_id": "RUN-20260530-210000",
+  "generated_at": "2026-05-30T21:52:52+08:00",
+  "producer": {
+    "agent": "Render Validate Agent",
+    "version": "1.0.0",
+    "renderer": "fallback-png"
+  },
+  "inputs": [
+    {
+      "artifact": "diagram-specs",
+      "path": "docs/contracts/examples/valid/diagram-specs.json",
+      "schema_version": "1.0.0"
+    }
+  ],
+  "diagrams": [
+    {
+      "diagram_id": "DG001",
+      "title": "海图综合态势展示流程图",
+      "kind": "function_flow",
+      "mermaid_path": "working/agent-system/staging/diagrams/DG001.mmd",
+      "image_path": "working/agent-system/render-validate-example-output-2/diagrams/DG001.png",
+      "source_requirement_ids": [
+        "T001"
+      ],
+      "description": "展示海图数据读取、匹配和图层控制流程。",
+      "render_status": "fallback_rendered",
+      "assembly_allowed": true,
+      "image_check": {
+        "exists": true,
+        "width": 1200,
+        "height": 800,
+        "file_size_bytes": 9901,
+        "blank_risk": "low"
+      },
+      "errors": [
+        {
+          "message": "未找到 Mermaid CLI 渲染器，已生成降级 PNG。",
+          "recoverable": true,
+          "suggested_action": "安装 @mermaid-js/mermaid-cli 或通过 --renderer-command 指定渲染器以获得原生图。"
+        }
+      ],
+      "review_notes": [
+        "render_status=fallback_rendered：原生 Mermaid 渲染不可用或失败，已生成降级 PNG，需人工关注。"
+      ]
+    }
+  ],
+  "render_summary": {
+    "total": 1,
+    "native_rendered": 0,
+    "fallback_rendered": 1,
+    "failed": 0,
+    "blocked": 0
+  }
+}

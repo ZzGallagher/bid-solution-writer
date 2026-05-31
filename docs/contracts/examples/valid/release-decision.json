@@ -1,0 +1,50 @@
+{
+  "schema_version": "1.0.0",
+  "artifact": "release-decision",
+  "run_id": "RUN-20260530-210000",
+  "generated_at": "2026-05-30T21:00:00+08:00",
+  "producer": {
+    "agent": "Review Gate Agent",
+    "version": "1.0.0"
+  },
+  "inputs": [
+    {
+      "artifact": "content-blocks",
+      "path": "output/records/content-blocks.json",
+      "schema_version": "1.0.0"
+    }
+  ],
+  "decision": "approved",
+  "allow_word_assembly": true,
+  "quality_gates": [
+    {
+      "gate_id": "G001",
+      "name": "需求覆盖检查",
+      "status": "passed",
+      "message": "关键需求已覆盖。"
+    }
+  ],
+  "issues": [],
+  "confirm_items": [
+    {
+      "item_id": "CF001",
+      "title": "投标人名称",
+      "source": {
+        "artifact": "content-blocks.json",
+        "id": "CB001"
+      },
+      "status": "open",
+      "note": "保留 CONFIRM 占位符。"
+    }
+  ],
+  "review_items": [],
+  "coverage_summary": {
+    "requirements_total": 1,
+    "requirements_covered": 1,
+    "requirements_uncovered": 0,
+    "scoring_items_total": 1,
+    "scoring_items_covered": 1,
+    "diagram_total": 1,
+    "diagram_assembly_allowed": 1
+  }
+}

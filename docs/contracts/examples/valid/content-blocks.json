@@ -1,0 +1,42 @@
+{
+  "schema_version": "1.0.0",
+  "artifact": "content-blocks",
+  "run_id": "RUN-20260530-210000",
+  "generated_at": "2026-05-30T21:00:00+08:00",
+  "producer": {
+    "agent": "Content Agent",
+    "version": "1.0.0"
+  },
+  "inputs": [
+    {
+      "artifact": "design-blueprint",
+      "path": "output/records/design-blueprint.json",
+      "schema_version": "1.0.0"
+    }
+  ],
+  "blocks": [
+    {
+      "block_id": "CB001",
+      "placeholder": "【GEN:功能设计章节】",
+      "section_id": "SEC001",
+      "type": "paragraphs",
+      "content": [
+        "本模块围绕标准电子海图接入、图层控制和显示交互形成完整的功能响应。"
+      ],
+      "source_requirement_ids": ["T001"],
+      "scoring_item_ids": ["S001"],
+      "diagram_ids": ["DG001"],
+      "status": "generated"
+    }
+  ],
+  "review_items": [],
+  "confirm_items": [
+    {
+      "item_id": "CF001",
+      "block_id": "CB001",
+      "message": "投标人名称需人工确认。",
+      "source_ids": [],
+      "status": "confirm_required"
+    }
+  ]
+}

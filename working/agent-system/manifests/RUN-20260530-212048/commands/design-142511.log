@@ -1,0 +1,14 @@
+stage=design
+owner=Design Agent
+returncode=0
+command="D:\Program Files\Python310\python.exe" D:\Projects\bid-solution-writer\working\agents\design_agent.py --workspace D:\Projects\bid-solution-writer --records-dir D:\Projects\bid-solution-writer\output\records --template-dir D:\Projects\bid-solution-writer\templates --output-dir D:\Projects\bid-solution-writer\output\records
+
+## stdout
+Design Agent completed: RUN-20260530-212048
+staging: D:\Projects\bid-solution-writer\working\agent-system\staging\design\RUN-20260530-212048
+published: D:\Projects\bid-solution-writer\working\agent-system\published\design\RUN-20260530-212048
+output: D:\Projects\bid-solution-writer\output\records
+
+
+## stderr
+

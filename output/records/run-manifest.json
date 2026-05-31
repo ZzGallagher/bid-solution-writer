@@ -1,0 +1,199 @@
+{
+  "schema_version": "1.0.0",
+  "artifact": "run-manifest",
+  "run_id": "RUN-20260531-142632",
+  "generated_at": "2026-05-31T20:35:17+08:00",
+  "producer": {
+    "agent": "Coordinator Agent",
+    "version": "1.0.0"
+  },
+  "inputs": [
+    {
+      "input_id": "IN001",
+      "path": "input/技术要求.docx",
+      "kind": "technical_requirements",
+      "sha256": "eb03e77f033e7acabd40117ec9606f13715735a0a28114291fc3f0eff6f7455c"
+    },
+    {
+      "input_id": "IN002",
+      "path": "input/商务要求.docx",
+      "kind": "business_requirements",
+      "sha256": "75b7f5cc356b3e72b8369097c5a2265cde0416f2d6fb025c7766f9e90d600d5b"
+    },
+    {
+      "input_id": "IN003",
+      "path": "input/技术评分表.docx",
+      "kind": "scoring_table",
+      "sha256": "969485cf0f1ef201830eab8dc0d1f8868936f9bc6672e0430dce41ef5e6dcf29"
+    },
+    {
+      "input_id": "IN004",
+      "path": "templates/投标方案模板.docx",
+      "kind": "template",
+      "sha256": "fbacc3e73c12bad38c47881856261340b6c3e506fe693d06907ba7fb9135e6d2"
+    }
+  ],
+  "stages": [
+    {
+      "stage_id": "requirements",
+      "agent": "Requirement Evidence Agent",
+      "status": "planned",
+      "staging_path": "working/agent-system/staging/requirements/RUN-20260531-142632",
+      "published_path": "working/agent-system/published/requirements/RUN-20260531-142632"
+    },
+    {
+      "stage_id": "design",
+      "agent": "Design Agent",
+      "status": "planned",
+      "staging_path": "working/agent-system/staging/design/RUN-20260531-142632",
+      "published_path": "working/agent-system/published/design/RUN-20260531-142632"
+    },
+    {
+      "stage_id": "content",
+      "agent": "Content Agent",
+      "status": "published",
+      "staging_path": "working/agent-system/staging/content/RUN-20260531-142632",
+      "published_path": "working/agent-system/published/content/RUN-20260531-142632",
+      "started_at": "2026-05-31T20:35:17+08:00",
+      "finished_at": "2026-05-31T20:35:17+08:00"
+    },
+    {
+      "stage_id": "diagrams",
+      "agent": "Mermaid Agent + Render Validate Agent",
+      "status": "published",
+      "staging_path": "working/agent-system/staging/diagrams/RUN-20260531-142632",
+      "published_path": "working/agent-system/published/diagrams/RUN-20260531-142632",
+      "started_at": "2026-05-31T20:35:17+08:00",
+      "finished_at": "2026-05-31T20:37:38+08:00"
+    },
+    {
+      "stage_id": "review",
+      "agent": "Review Gate Agent",
+      "status": "published",
+      "staging_path": "working/agent-system/staging/review/RUN-20260531-142632",
+      "published_path": "working/agent-system/published/review/RUN-20260531-142632",
+      "started_at": "2026-05-31T20:37:38+08:00",
+      "finished_at": "2026-05-31T20:37:38+08:00"
+    },
+    {
+      "stage_id": "assembly",
+      "agent": "Word Layout Agent",
+      "status": "published",
+      "staging_path": "working/agent-system/staging/assembly/RUN-20260531-142632",
+      "published_path": "working/agent-system/published/assembly/RUN-20260531-142632",
+      "started_at": "2026-05-31T20:37:38+08:00",
+      "finished_at": "2026-05-31T20:37:39+08:00"
+    }
+  ],
+  "outputs": [
+    {
+      "artifact": "requirements",
+      "path": "output/records/requirements.json"
+    },
+    {
+      "artifact": "requirements-matrix",
+      "path": "output/records/requirements-matrix.json"
+    },
+    {
+      "artifact": "requirements-matrix",
+      "path": "output/records/requirements-matrix.md"
+    },
+    {
+      "artifact": "confirm-candidates",
+      "path": "output/records/confirm-candidates.md"
+    },
+    {
+      "artifact": "extraction-warnings",
+      "path": "output/records/extraction-warnings.md"
+    },
+    {
+      "artifact": "design-blueprint",
+      "path": "output/records/design-blueprint.json"
+    },
+    {
+      "artifact": "section-plan",
+      "path": "output/records/section-plan.md"
+    },
+    {
+      "artifact": "diagram-plan",
+      "path": "output/records/diagram-plan.json"
+    },
+    {
+      "artifact": "diagram-plan",
+      "path": "output/records/diagram-plan.md"
+    },
+    {
+      "artifact": "content-blocks",
+      "path": "output/records/content-blocks.json"
+    },
+    {
+      "artifact": "content-preview",
+      "path": "output/records/content-preview.md"
+    },
+    {
+      "artifact": "content-review-notes",
+      "path": "output/records/content-review-notes.md"
+    },
+    {
+      "artifact": "diagram-specs",
+      "path": "output/records/diagram-specs.json"
+    },
+    {
+      "artifact": "diagram-descriptions",
+      "path": "output/records/diagram-descriptions.md"
+    },
+    {
+      "artifact": "diagram-manifest",
+      "path": "output/records/diagram-manifest.json"
+    },
+    {
+      "artifact": "diagram-render-log",
+      "path": "output/records/diagram-render-log.md"
+    },
+    {
+      "artifact": "release-decision",
+      "path": "output/records/release-decision.json"
+    },
+    {
+      "artifact": "review-report",
+      "path": "output/records/review-report.md"
+    },
+    {
+      "artifact": "coverage-check",
+      "path": "output/records/coverage-check.md"
+    },
+    {
+      "artifact": "人工确认清单",
+      "path": "output/records/人工确认清单.md"
+    },
+    {
+      "artifact": "复核清单",
+      "path": "output/records/复核清单.md"
+    },
+    {
+      "artifact": "assembly-manifest",
+      "path": "output/records/assembly-manifest.json"
+    },
+    {
+      "artifact": "assembly-log",
+      "path": "output/records/assembly-log.md"
+    },
+    {
+      "artifact": "placeholder-fill-log",
+      "path": "output/records/placeholder-fill-log.md"
+    },
+    {
+      "artifact": "residual-placeholder-check",
+      "path": "output/records/residual-placeholder-check.md"
+    },
+    {
+      "artifact": "final-docx",
+      "path": "output/validation11/电子海图显示与信息系统设计方案_V1.00_20260531.docx"
+    },
+    {
+      "artifact": "run-manifest",
+      "path": "output/records/run-manifest.json"
+    }
+  ],
+  "recovery_pointer": "无阻断；可从任一后续阶段按需重跑。"
+}
