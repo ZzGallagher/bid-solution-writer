@@ -1,37 +1,25 @@
 # Coordinator Log
 
-- Run ID: `RUN-20260601-150909`
-- Generated At: `2026-06-01T15:09:09+08:00`
+- Run ID: `RUN-20260601-201558`
+- Generated At: `2026-06-01T20:28:10+08:00`
 - Exit Status: `success`
 
 ## Stage Status
 
 | Stage | Agent | Status | Recovery |
 |---|---|---|---|
-| requirements | Requirement Evidence Agent | published | - |
-| design | Design Agent | published | - |
-| content | Content Agent | published | - |
-| diagrams | Mermaid Agent + Render Validate Agent | published | - |
-| review | Review Gate Agent | published | - |
+| requirements | Requirement Evidence Agent | planned | - |
+| design | Design Agent | planned | - |
+| content | Content Agent | planned | - |
+| diagrams | Mermaid Agent + Render Validate Agent | planned | - |
+| review | Review Gate Agent | planned | - |
 | assembly | Word Layout Agent | published | - |
 
 ## Events
 
-- Coordinator started run RUN-20260601-144624.
-- Running stage requirements, attempt 1/1.
-- Requirement Evidence Agent finished stage requirements with code 0; log: working/agent-system/manifests/RUN-20260601-144624/commands/requirements-150909.log.
-- Run ID aligned from RUN-20260601-144624 to upstream artifact RUN-20260601-150909.
-- Running stage design, attempt 1/1.
-- Design Agent finished stage design with code 0; log: working/agent-system/manifests/RUN-20260601-150909/commands/design-150909.log.
-- Running stage content, attempt 1/1.
-- Content Agent finished stage content with code 0; log: working/agent-system/manifests/RUN-20260601-150909/commands/content-151309.log.
-- Running stage diagrams, attempt 1/1.
-- Mermaid Agent finished stage diagrams with code 0; log: working/agent-system/manifests/RUN-20260601-150909/commands/diagrams-151542.log.
-- Render Validate Agent finished stage diagrams with code 0; log: working/agent-system/manifests/RUN-20260601-150909/commands/diagrams-152014.log.
-- Running stage review, attempt 1/1.
-- Review Gate Agent finished stage review with code 0; log: working/agent-system/manifests/RUN-20260601-150909/commands/review-152014.log.
+- Coordinator started run RUN-20260601-201558.
 - Running stage assembly, attempt 1/1.
-- Word Layout Agent finished stage assembly with code 0; log: working/agent-system/manifests/RUN-20260601-150909/commands/assembly-152014.log.
+- Word Layout Agent finished stage assembly with code 0; log: working/agent-system/manifests/RUN-20260601-201558/commands/assembly-202810.log.
 
 ## Outputs
 
@@ -60,5 +48,6 @@
 - assembly-log: `output/records/assembly-log.md`
 - placeholder-fill-log: `output/records/placeholder-fill-log.md`
 - residual-placeholder-check: `output/records/residual-placeholder-check.md`
-- final-docx: `output/海图综合态势展示设计方案_V1.00_20260601.docx`
+- final-docx: `output/高压线路无人机巡检方案_V1.00_20260514.docx`
+- final-docx: `output/高压线路无人机巡检方案设计方案_V1.00_20260601.docx`
 - run-manifest: `output/records/run-manifest.json`

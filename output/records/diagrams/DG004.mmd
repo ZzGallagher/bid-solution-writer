@@ -1,10 +1,25 @@
 flowchart TB
-A[可见光影像] --> B[可见光缺陷识别模块：深度学习模型识别]
-C[红外图像] --> D[红外热点分析模块：温度矩阵解析]
-B --> E[缺陷框选标注]
-D --> F[异常发热缺陷识别]
-E --> G[缺陷记录]
-F --> G
-G --> H[模型训练管理模块：人工复核样本回流]
-H --> B
-H --> D
+    A["待匹配影像空间元数据"]
+    B("空间坐标匹配数据加载")
+    C("规则解析与标准化处理")
+    D("业务目标识别与结果计算")
+    E{"一致性校验与人工复核"}
+    F["生成空间坐标匹配结果"]
+    G[("线路杆塔空间索引库")]
+
+    A --> B
+    B --> C
+    C --> D
+    D --> E
+    E --> F
+    F --> G
+
+    classDef source fill:#f5f5f5,stroke:#999999,color:#111111,stroke-width:1px;
+    classDef process fill:#f2f2f2,stroke:#999999,color:#111111,stroke-width:1px;
+    classDef decision fill:#f2f2f2,stroke:#999999,color:#111111,stroke-width:1px;
+    classDef storage fill:#f5f5f5,stroke:#999999,color:#111111,stroke-width:1px;
+
+    class A,F source;
+    class B,C,D process;
+    class E decision;
+    class G storage;

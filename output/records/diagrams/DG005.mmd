@@ -1,7 +1,25 @@
 flowchart TB
-A[LiDAR点云数据] --> B[点云渲染与可视化模块：轻量化渲染]
-B --> C[三维可视化展示]
-C --> D[空间距离测算模块：导线/地面/植被模型提取]
-D --> E[计算交跨距离与树障安全距离]
-E --> F[三维空间标注危险点]
-F --> G[安全距离分析完成]
+    A["已匹配至特定杆塔的影像数据"]
+    B("部件级数据挂载数据加载")
+    C("规则解析与标准化处理")
+    D("业务目标识别与结果计算")
+    E{"一致性校验与人工复核"}
+    F["生成部件级数据挂载结果"]
+    G[("部件级数字资产库")]
+
+    A --> B
+    B --> C
+    C --> D
+    D --> E
+    E --> F
+    F --> G
+
+    classDef source fill:#f5f5f5,stroke:#999999,color:#111111,stroke-width:1px;
+    classDef process fill:#f2f2f2,stroke:#999999,color:#111111,stroke-width:1px;
+    classDef decision fill:#f2f2f2,stroke:#999999,color:#111111,stroke-width:1px;
+    classDef storage fill:#f5f5f5,stroke:#999999,color:#111111,stroke-width:1px;
+
+    class A,F source;
+    class B,C,D process;
+    class E decision;
+    class G storage;

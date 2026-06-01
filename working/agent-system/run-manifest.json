@@ -1,8 +1,8 @@
 {
   "schema_version": "1.0.0",
   "artifact": "run-manifest",
-  "run_id": "RUN-20260601-150909",
-  "generated_at": "2026-06-01T15:09:09+08:00",
+  "run_id": "RUN-20260601-201558",
+  "generated_at": "2026-06-01T20:28:10+08:00",
   "producer": {
     "agent": "Coordinator Agent",
     "version": "1.0.0"
@@ -17,7 +17,7 @@
       "input_id": "IN002",
       "path": "input/方案撰写要求.md",
       "kind": "writing_requirements_markdown",
-      "sha256": "9247884d480b532d9bf89193e024868c2776f278c19abe673c5cd6fdfcc48df5"
+      "sha256": "e6545e0e0cab3f79256e82c58ce91d8cb807b1629f5bdc4470aa6e2ccd93fd4b"
     },
     {
       "input_id": "IN003",
@@ -30,56 +30,46 @@
     {
       "stage_id": "requirements",
       "agent": "Requirement Evidence Agent",
-      "status": "published",
-      "staging_path": "working/agent-system/staging/requirements/RUN-20260601-150909",
-      "published_path": "working/agent-system/published/requirements/RUN-20260601-150909",
-      "started_at": "2026-06-01T15:09:09+08:00",
-      "finished_at": "2026-06-01T15:09:09+08:00"
+      "status": "planned",
+      "staging_path": "working/agent-system/staging/requirements/RUN-20260601-201558",
+      "published_path": "working/agent-system/published/requirements/RUN-20260601-201558"
     },
     {
       "stage_id": "design",
       "agent": "Design Agent",
-      "status": "published",
-      "staging_path": "working/agent-system/staging/design/RUN-20260601-150909",
-      "published_path": "working/agent-system/published/design/RUN-20260601-150909",
-      "started_at": "2026-06-01T15:09:09+08:00",
-      "finished_at": "2026-06-01T15:09:09+08:00"
+      "status": "planned",
+      "staging_path": "working/agent-system/staging/design/RUN-20260601-201558",
+      "published_path": "working/agent-system/published/design/RUN-20260601-201558"
     },
     {
       "stage_id": "content",
       "agent": "Content Agent",
-      "status": "published",
-      "staging_path": "working/agent-system/staging/content/RUN-20260601-150909",
-      "published_path": "working/agent-system/published/content/RUN-20260601-150909",
-      "started_at": "2026-06-01T15:09:10+08:00",
-      "finished_at": "2026-06-01T15:13:09+08:00"
+      "status": "planned",
+      "staging_path": "working/agent-system/staging/content/RUN-20260601-201558",
+      "published_path": "working/agent-system/published/content/RUN-20260601-201558"
     },
     {
       "stage_id": "diagrams",
       "agent": "Mermaid Agent + Render Validate Agent",
-      "status": "published",
-      "staging_path": "working/agent-system/staging/diagrams/RUN-20260601-150909",
-      "published_path": "working/agent-system/published/diagrams/RUN-20260601-150909",
-      "started_at": "2026-06-01T15:13:09+08:00",
-      "finished_at": "2026-06-01T15:20:14+08:00"
+      "status": "planned",
+      "staging_path": "working/agent-system/staging/diagrams/RUN-20260601-201558",
+      "published_path": "working/agent-system/published/diagrams/RUN-20260601-201558"
     },
     {
       "stage_id": "review",
       "agent": "Review Gate Agent",
-      "status": "published",
-      "staging_path": "working/agent-system/staging/review/RUN-20260601-150909",
-      "published_path": "working/agent-system/published/review/RUN-20260601-150909",
-      "started_at": "2026-06-01T15:20:14+08:00",
-      "finished_at": "2026-06-01T15:20:14+08:00"
+      "status": "planned",
+      "staging_path": "working/agent-system/staging/review/RUN-20260601-201558",
+      "published_path": "working/agent-system/published/review/RUN-20260601-201558"
     },
     {
       "stage_id": "assembly",
       "agent": "Word Layout Agent",
       "status": "published",
-      "staging_path": "working/agent-system/staging/assembly/RUN-20260601-150909",
-      "published_path": "working/agent-system/published/assembly/RUN-20260601-150909",
-      "started_at": "2026-06-01T15:20:14+08:00",
-      "finished_at": "2026-06-01T15:20:14+08:00"
+      "staging_path": "working/agent-system/staging/assembly/RUN-20260601-201558",
+      "published_path": "working/agent-system/published/assembly/RUN-20260601-201558",
+      "started_at": "2026-06-01T20:28:10+08:00",
+      "finished_at": "2026-06-01T20:28:10+08:00"
     }
   ],
   "outputs": [
@@ -185,7 +175,11 @@
     },
     {
       "artifact": "final-docx",
-      "path": "output/海图综合态势展示设计方案_V1.00_20260601.docx"
+      "path": "output/高压线路无人机巡检方案_V1.00_20260514.docx"
+    },
+    {
+      "artifact": "final-docx",
+      "path": "output/高压线路无人机巡检方案设计方案_V1.00_20260601.docx"
     },
     {
       "artifact": "run-manifest",

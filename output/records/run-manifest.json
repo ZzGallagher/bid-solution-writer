@@ -1,0 +1,9 @@
+{
+  "run_id": "RUN-20260601-234716",
+  "status": "generated",
+  "input": "input\\高压线路无人机巡检方案技术要求.md",
+  "template": "output\\示例输出.docx",
+  "output": "output\\高压线路无人机巡检方案设计方案.docx",
+  "records_dir": "output\\records",
+  "failed_diagrams": []
+}

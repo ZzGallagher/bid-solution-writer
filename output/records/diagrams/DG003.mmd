@@ -1,6 +1,25 @@
 flowchart TB
-A[影像元数据：GPS坐标/位姿] --> B[空间坐标匹配模块：GIS空间运算]
-B --> C[判定所属线路段及杆塔]
-C --> D[部件级数据挂载模块：空间解算/图像特征匹配]
-D --> E[影像归档至部件逻辑节点]
-E --> F[资产映射完成]
+    A["已导入巡检影像与遥测数据"]
+    B("元数据提取与标准化数据加载")
+    C("规则解析与标准化处理")
+    D("业务目标识别与结果计算")
+    E{"一致性校验与人工复核"}
+    F["生成元数据提取与标准化结果"]
+    G[("标准元数据资源库")]
+
+    A --> B
+    B --> C
+    C --> D
+    D --> E
+    E --> F
+    F --> G
+
+    classDef source fill:#f5f5f5,stroke:#999999,color:#111111,stroke-width:1px;
+    classDef process fill:#f2f2f2,stroke:#999999,color:#111111,stroke-width:1px;
+    classDef decision fill:#f2f2f2,stroke:#999999,color:#111111,stroke-width:1px;
+    classDef storage fill:#f5f5f5,stroke:#999999,color:#111111,stroke-width:1px;
+
+    class A,F source;
+    class B,C,D process;
+    class E decision;
+    class G storage;

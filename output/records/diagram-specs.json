@@ -1,242 +1,137 @@
 {
-  "schema_version": "1.0.0",
-  "artifact": "diagram-specs",
-  "run_id": "RUN-20260601-163451",
-  "generated_at": "2026-06-01T16:42:43+08:00",
-  "producer": {
-    "agent": "Mermaid Agent",
-    "version": "1.0.0"
-  },
-  "inputs": [
-    {
-      "artifact": "requirements",
-      "path": "output/records/requirements.json",
-      "schema_version": "1.0.0"
-    },
-    {
-      "artifact": "design-blueprint",
-      "path": "output/records/design-blueprint.json",
-      "schema_version": "1.0.0"
-    },
-    {
-      "artifact": "diagram-plan",
-      "path": "output/records/diagram-plan.json",
-      "schema_version": "1.0.0"
-    }
-  ],
+  "run_id": "RUN-20260601-234716",
   "diagrams": [
     {
       "diagram_id": "DG001",
-      "title": "系统总体架构图",
+      "title": "系统架构图",
       "kind": "architecture",
-      "mermaid_path": "output/records/diagrams/DG001.mmd",
-      "mermaid": "flowchart TB\nsubgraph L1[数据接入与解析层]\nM1[数据导入模块]\nM2[元数据提取模块]\nend\nsubgraph L2[资产映射与空间分析层]\nM3[空间坐标匹配模块]\nM4[部件级数据挂载模块]\nend\nsubgraph L3[人工智能分析层]\nM5[可见光缺陷识别模块]\nM6[红外热点分析模块]\nM7[模型训练管理模块]\nend\nsubgraph L4[点云数据处理层]\nM8[点云渲染与可视化模块]\nM9[空间距离测算模块]\nend\nsubgraph L5[缺陷管理与业务协同层]\nM10[人机协同复核模块]\nM11[工单流转管控模块]\nend\nL1 --> L2\nL2 --> L3\nL3 --> L4\nL4 --> L5",
-      "source_requirement_ids": [
-        "T001",
-        "Q001",
-        "Q002",
-        "Q003",
-        "Q004",
-        "Q005",
-        "T002",
-        "T003",
-        "T004",
-        "Q006",
-        "T005"
-      ],
-      "related_section_ids": [
-        "SEC001",
-        "SEC002",
-        "SEC003",
-        "SEC004"
-      ],
-      "related_module_ids": [
-        "M001",
-        "M002",
-        "M003",
-        "M004",
-        "M005",
-        "M006",
-        "M007",
-        "M008",
-        "M009",
-        "M010",
-        "M011"
-      ],
-      "description": "系统总体架构图，展示五层分层架构及核心模块，数据自下而上逐层流转。",
-      "node_trace": [
-        {
-          "node_id": "A",
-          "label": "系统总体架构图",
-          "source_requirement_ids": [
-            "T001"
-          ]
-        }
-      ],
-      "status": "generated",
-      "review_notes": []
+      "section_id": "3.1",
+      "mermaid": "flowchart TB\n    subgraph L1[\"数据采集接入层\"]\n        direction LR\n        L1A[\"可见光图像接入\"] ~~~ L1B[\"红外热像接入\"] ~~~ L1C[\"视频流接入\"] ~~~ L1D[\"LiDAR点云接入\"] ~~~ L1E[\"离线导入/API推送\"]\n    end\n\n    subgraph L2[\"数据治理与资产映射层\"]\n        direction LR\n        L2A[\"元数据提取模块\"] ~~~ L2B[\"格式清洗模块\"] ~~~ L2C[\"空间坐标匹配模块\"] ~~~ L2D[\"线路杆塔关联模块\"] ~~~ L2E[\"部件级挂载模块\"]\n    end\n\n    subgraph L3[\"智能分析服务层\"]\n        direction LR\n        L3A[\"可见光缺陷识别模块\"] ~~~ L3B[\"红外热点分析模块\"] ~~~ L3C[\"模型训练管理模块\"] ~~~ L3D[\"点云三维重建模块\"] ~~~ L3E[\"空间距离测算模块\"]\n    end\n\n    subgraph L4[\"业务协同应用层\"]\n        direction LR\n        L4A[\"人机协同复核模块\"] ~~~ L4B[\"缺陷评级管理模块\"] ~~~ L4C[\"消缺建议生成模块\"] ~~~ L4D[\"PMS工单流转模块\"]\n    end\n\n    subgraph L5[\"基础支撑保障层\"]\n        direction LR\n        L5A[\"统一存储模块\"] ~~~ L5B[\"GIS服务模块\"] ~~~ L5C[\"接口集成模块\"] ~~~ L5D[\"权限安全模块\"] ~~~ L5E[\"日志审计与运行监控模块\"]\n    end\n\n    L1 --> L2\n    L2 --> L3\n    L3 --> L4\n    L4 --> L5\n\n    classDef module fill:#ffffff,stroke:#999999,stroke-width:1px,color:#111111;\n    class L1A,L1B,L1C,L1D,L1E,L2A,L2B,L2C,L2D,L2E,L3A,L3B,L3C,L3D,L3E,L4A,L4B,L4C,L4D,L5A,L5B,L5C,L5D,L5E module;\n\n    style L1 fill:#eeeeee,stroke:#999999,stroke-width:1px,color:#111111;\n    style L2 fill:#eeeeee,stroke:#999999,stroke-width:1px,color:#111111;\n    style L3 fill:#eeeeee,stroke:#999999,stroke-width:1px,color:#111111;\n    style L4 fill:#eeeeee,stroke:#999999,stroke-width:1px,color:#111111;\n    style L5 fill:#eeeeee,stroke:#999999,stroke-width:1px,color:#111111;\n",
+      "mermaid_path": "output\\records\\diagrams\\DG001.mmd",
+      "image_path": "output\\records\\diagrams\\DG001.png",
+      "render_status": "internal_rendered",
+      "error": null
     },
     {
       "diagram_id": "DG002",
-      "title": "多源异构数据接入与解析流程图",
+      "title": "多模式数据导入流程图",
       "kind": "function_flow",
-      "mermaid_path": "output/records/diagrams/DG002.mmd",
-      "mermaid": "flowchart TB\nA[可见光/红外/视频/LiDAR数据] --> B[数据导入模块：批量导入/存储挂载/API]\nB --> C[元数据提取模块：EXIF及遥测数据提取]\nC --> D[数据格式清洗]\nD --> E[标准化入库]\nE --> F[数据准备完成]",
-      "source_requirement_ids": [
-        "T001",
-        "Q001"
-      ],
-      "related_section_ids": [
-        "SEC003",
-        "SEC007",
-        "SEC008"
-      ],
-      "related_module_ids": [
-        "M001",
-        "M002"
-      ],
-      "description": "多源异构数据接入与解析流程图，从数据导入到元数据提取与标准化入库。",
-      "node_trace": [
-        {
-          "node_id": "A",
-          "label": "多源异构数据接入与解析流程图",
-          "source_requirement_ids": [
-            "T001"
-          ]
-        }
-      ],
-      "status": "generated",
-      "review_notes": []
+      "section_id": "3.2.1.1",
+      "mermaid": "flowchart TB\n    A[\"离线物理介质\"]\n    B[\"外部对象存储挂载\"]\n    C[\"标准API协议推送\"]\n\n    D[\"统一数据接入网关\"]\n    E{\"数据校验与路由分发\"}\n\n    F[(\"分布式图像存储池\")]\n    G[(\"大容量对象存储池\")]\n    H[(\"流媒体存储集群\")]\n\n    A --> D\n    B --> D\n    C --> D\n    D --> E\n    E -->|可见光/红外影像| F\n    E -->|LiDAR点云文件| G\n    E -->|无人机视频流| H\n\n    classDef source fill:#f5f5f5,stroke:#999999,color:#111111,stroke-width:1px;\n    classDef process fill:#f2f2f2,stroke:#999999,color:#111111,stroke-width:1px;\n    classDef decision fill:#f2f2f2,stroke:#999999,color:#111111,stroke-width:1px;\n    classDef storage fill:#f5f5f5,stroke:#999999,color:#111111,stroke-width:1px;\n\n    class A,B,C source;\n    class D process;\n    class E decision;\n    class F,G,H storage;\n",
+      "mermaid_path": "output\\records\\diagrams\\DG002.mmd",
+      "image_path": "output\\records\\diagrams\\DG002.png",
+      "render_status": "internal_rendered",
+      "error": null
     },
     {
       "diagram_id": "DG003",
-      "title": "输电资产台账与空间位置映射流程图",
+      "title": "元数据提取与标准化流程图",
       "kind": "function_flow",
-      "mermaid_path": "output/records/diagrams/DG003.mmd",
-      "mermaid": "flowchart TB\nA[影像元数据：GPS坐标/位姿] --> B[空间坐标匹配模块：GIS空间运算]\nB --> C[判定所属线路段及杆塔]\nC --> D[部件级数据挂载模块：空间解算/图像特征匹配]\nD --> E[影像归档至部件逻辑节点]\nE --> F[资产映射完成]",
-      "source_requirement_ids": [
-        "Q002",
-        "Q003"
-      ],
-      "related_section_ids": [
-        "SEC003",
-        "SEC007",
-        "SEC008"
-      ],
-      "related_module_ids": [
-        "M003",
-        "M004"
-      ],
-      "description": "输电资产台账与空间位置映射流程图，利用GPS和位姿信息匹配杆塔并挂载至部件。",
-      "node_trace": [
-        {
-          "node_id": "A",
-          "label": "输电资产台账与空间位置映射流程图",
-          "source_requirement_ids": [
-            "Q002"
-          ]
-        }
-      ],
-      "status": "generated",
-      "review_notes": []
+      "section_id": "3.2.1.2",
+      "mermaid": "flowchart TB\n    A[\"已导入巡检影像与遥测数据\"]\n    B(\"元数据提取与标准化数据加载\")\n    C(\"规则解析与标准化处理\")\n    D(\"业务目标识别与结果计算\")\n    E{\"一致性校验与人工复核\"}\n    F[\"生成元数据提取与标准化结果\"]\n    G[(\"标准元数据资源库\")]\n\n    A --> B\n    B --> C\n    C --> D\n    D --> E\n    E --> F\n    F --> G\n\n    classDef source fill:#f5f5f5,stroke:#999999,color:#111111,stroke-width:1px;\n    classDef process fill:#f2f2f2,stroke:#999999,color:#111111,stroke-width:1px;\n    classDef decision fill:#f2f2f2,stroke:#999999,color:#111111,stroke-width:1px;\n    classDef storage fill:#f5f5f5,stroke:#999999,color:#111111,stroke-width:1px;\n\n    class A,F source;\n    class B,C,D process;\n    class E decision;\n    class G storage;\n",
+      "mermaid_path": "output\\records\\diagrams\\DG003.mmd",
+      "image_path": "output\\records\\diagrams\\DG003.png",
+      "render_status": "internal_rendered",
+      "error": null
     },
     {
       "diagram_id": "DG004",
-      "title": "人工智能视觉分析中台流程图",
+      "title": "空间坐标匹配流程图",
       "kind": "function_flow",
-      "mermaid_path": "output/records/diagrams/DG004.mmd",
-      "mermaid": "flowchart TB\nA[可见光影像] --> B[可见光缺陷识别模块：深度学习模型识别]\nC[红外图像] --> D[红外热点分析模块：温度矩阵解析]\nB --> E[缺陷框选标注]\nD --> F[异常发热缺陷识别]\nE --> G[缺陷记录]\nF --> G\nG --> H[模型训练管理模块：人工复核样本回流]\nH --> B\nH --> D",
-      "source_requirement_ids": [
-        "Q004",
-        "Q005",
-        "T002"
-      ],
-      "related_section_ids": [
-        "SEC003",
-        "SEC007",
-        "SEC008"
-      ],
-      "related_module_ids": [
-        "M005",
-        "M006",
-        "M007"
-      ],
-      "description": "人工智能视觉分析中台流程图，包括可见光缺陷识别、红外热点分析及模型训练管理。",
-      "node_trace": [
-        {
-          "node_id": "A",
-          "label": "人工智能视觉分析中台流程图",
-          "source_requirement_ids": [
-            "Q004"
-          ]
-        }
-      ],
-      "status": "generated",
-      "review_notes": []
+      "section_id": "3.2.2.1",
+      "mermaid": "flowchart TB\n    A[\"待匹配影像空间元数据\"]\n    B(\"空间坐标匹配数据加载\")\n    C(\"规则解析与标准化处理\")\n    D(\"业务目标识别与结果计算\")\n    E{\"一致性校验与人工复核\"}\n    F[\"生成空间坐标匹配结果\"]\n    G[(\"线路杆塔空间索引库\")]\n\n    A --> B\n    B --> C\n    C --> D\n    D --> E\n    E --> F\n    F --> G\n\n    classDef source fill:#f5f5f5,stroke:#999999,color:#111111,stroke-width:1px;\n    classDef process fill:#f2f2f2,stroke:#999999,color:#111111,stroke-width:1px;\n    classDef decision fill:#f2f2f2,stroke:#999999,color:#111111,stroke-width:1px;\n    classDef storage fill:#f5f5f5,stroke:#999999,color:#111111,stroke-width:1px;\n\n    class A,F source;\n    class B,C,D process;\n    class E decision;\n    class G storage;\n",
+      "mermaid_path": "output\\records\\diagrams\\DG004.mmd",
+      "image_path": "output\\records\\diagrams\\DG004.png",
+      "render_status": "internal_rendered",
+      "error": null
     },
     {
       "diagram_id": "DG005",
-      "title": "三维点云数据处理与分析流程图",
+      "title": "部件级数据挂载流程图",
       "kind": "function_flow",
-      "mermaid_path": "output/records/diagrams/DG005.mmd",
-      "mermaid": "flowchart TB\nA[LiDAR点云数据] --> B[点云渲染与可视化模块：轻量化渲染]\nB --> C[三维可视化展示]\nC --> D[空间距离测算模块：导线/地面/植被模型提取]\nD --> E[计算交跨距离与树障安全距离]\nE --> F[三维空间标注危险点]\nF --> G[安全距离分析完成]",
-      "source_requirement_ids": [
-        "T003",
-        "T004"
-      ],
-      "related_section_ids": [
-        "SEC003",
-        "SEC007",
-        "SEC008"
-      ],
-      "related_module_ids": [
-        "M008",
-        "M009"
-      ],
-      "description": "三维点云数据处理与分析流程图，从点云渲染到空间距离测算并标注危险点。",
-      "node_trace": [
-        {
-          "node_id": "A",
-          "label": "三维点云数据处理与分析流程图",
-          "source_requirement_ids": [
-            "T003"
-          ]
-        }
-      ],
-      "status": "generated",
-      "review_notes": []
+      "section_id": "3.2.2.2",
+      "mermaid": "flowchart TB\n    A[\"已匹配至特定杆塔的影像数据\"]\n    B(\"部件级数据挂载数据加载\")\n    C(\"规则解析与标准化处理\")\n    D(\"业务目标识别与结果计算\")\n    E{\"一致性校验与人工复核\"}\n    F[\"生成部件级数据挂载结果\"]\n    G[(\"部件级数字资产库\")]\n\n    A --> B\n    B --> C\n    C --> D\n    D --> E\n    E --> F\n    F --> G\n\n    classDef source fill:#f5f5f5,stroke:#999999,color:#111111,stroke-width:1px;\n    classDef process fill:#f2f2f2,stroke:#999999,color:#111111,stroke-width:1px;\n    classDef decision fill:#f2f2f2,stroke:#999999,color:#111111,stroke-width:1px;\n    classDef storage fill:#f5f5f5,stroke:#999999,color:#111111,stroke-width:1px;\n\n    class A,F source;\n    class B,C,D process;\n    class E decision;\n    class G storage;\n",
+      "mermaid_path": "output\\records\\diagrams\\DG005.mmd",
+      "image_path": "output\\records\\diagrams\\DG005.png",
+      "render_status": "internal_rendered",
+      "error": null
     },
     {
       "diagram_id": "DG006",
-      "title": "缺陷管理与业务协同流程图",
+      "title": "可见光缺陷识别流程图",
       "kind": "function_flow",
-      "mermaid_path": "output/records/diagrams/DG006.mmd",
-      "mermaid": "flowchart TB\nA[AI初筛缺陷记录] --> B[人机协同复核模块：阅片审核修正评级]\nB --> C[人工审核结果]\nC --> D{缺陷等级判断}\nD -->|紧急| E[自动生成消缺建议]\nD -->|一般| E\nE --> F[工单流转管控模块：触发生产系统工单]\nF --> G[缺陷闭环处理完成]",
-      "source_requirement_ids": [
-        "Q006",
-        "T005"
-      ],
-      "related_section_ids": [
-        "SEC003",
-        "SEC007",
-        "SEC008"
-      ],
-      "related_module_ids": [
-        "M010",
-        "M011"
-      ],
-      "description": "缺陷管理与业务协同流程图，人机协同复核与工单流转闭环。",
-      "node_trace": [
-        {
-          "node_id": "A",
-          "label": "缺陷管理与业务协同流程图",
-          "source_requirement_ids": [
-            "Q006"
-          ]
-        }
-      ],
-      "status": "generated",
-      "review_notes": []
+      "section_id": "3.2.3.1",
+      "mermaid": "flowchart TB\n    A[\"可见光巡检影像\"]\n    B(\"可见光缺陷识别数据加载\")\n    C(\"规则解析与标准化处理\")\n    D(\"业务目标识别与结果计算\")\n    E{\"一致性校验与人工复核\"}\n    F[\"生成可见光缺陷识别结果\"]\n    G[(\"可见光缺陷结果库\")]\n\n    A --> B\n    B --> C\n    C --> D\n    D --> E\n    E --> F\n    F --> G\n\n    classDef source fill:#f5f5f5,stroke:#999999,color:#111111,stroke-width:1px;\n    classDef process fill:#f2f2f2,stroke:#999999,color:#111111,stroke-width:1px;\n    classDef decision fill:#f2f2f2,stroke:#999999,color:#111111,stroke-width:1px;\n    classDef storage fill:#f5f5f5,stroke:#999999,color:#111111,stroke-width:1px;\n\n    class A,F source;\n    class B,C,D process;\n    class E decision;\n    class G storage;\n",
+      "mermaid_path": "output\\records\\diagrams\\DG006.mmd",
+      "image_path": "output\\records\\diagrams\\DG006.png",
+      "render_status": "internal_rendered",
+      "error": null
+    },
+    {
+      "diagram_id": "DG007",
+      "title": "红外热点分析流程图",
+      "kind": "function_flow",
+      "section_id": "3.2.3.2",
+      "mermaid": "flowchart TB\n    A[\"红外热像与温度矩阵\"]\n    B(\"红外热点分析数据加载\")\n    C(\"规则解析与标准化处理\")\n    D(\"业务目标识别与结果计算\")\n    E{\"一致性校验与人工复核\"}\n    F[\"生成红外热点分析结果\"]\n    G[(\"红外热缺陷结果库\")]\n\n    A --> B\n    B --> C\n    C --> D\n    D --> E\n    E --> F\n    F --> G\n\n    classDef source fill:#f5f5f5,stroke:#999999,color:#111111,stroke-width:1px;\n    classDef process fill:#f2f2f2,stroke:#999999,color:#111111,stroke-width:1px;\n    classDef decision fill:#f2f2f2,stroke:#999999,color:#111111,stroke-width:1px;\n    classDef storage fill:#f5f5f5,stroke:#999999,color:#111111,stroke-width:1px;\n\n    class A,F source;\n    class B,C,D process;\n    class E decision;\n    class G storage;\n",
+      "mermaid_path": "output\\records\\diagrams\\DG007.mmd",
+      "image_path": "output\\records\\diagrams\\DG007.png",
+      "render_status": "internal_rendered",
+      "error": null
+    },
+    {
+      "diagram_id": "DG008",
+      "title": "模型训练与管理流程图",
+      "kind": "function_flow",
+      "section_id": "3.2.3.3",
+      "mermaid": "flowchart TB\n    A[\"人工复核修正样本\"]\n    B(\"模型训练与管理数据加载\")\n    C(\"规则解析与标准化处理\")\n    D(\"业务目标识别与结果计算\")\n    E{\"一致性校验与人工复核\"}\n    F[\"生成模型训练与管理结果\"]\n    G[(\"模型版本与样本库\")]\n\n    A --> B\n    B --> C\n    C --> D\n    D --> E\n    E --> F\n    F --> G\n\n    classDef source fill:#f5f5f5,stroke:#999999,color:#111111,stroke-width:1px;\n    classDef process fill:#f2f2f2,stroke:#999999,color:#111111,stroke-width:1px;\n    classDef decision fill:#f2f2f2,stroke:#999999,color:#111111,stroke-width:1px;\n    classDef storage fill:#f5f5f5,stroke:#999999,color:#111111,stroke-width:1px;\n\n    class A,F source;\n    class B,C,D process;\n    class E decision;\n    class G storage;\n",
+      "mermaid_path": "output\\records\\diagrams\\DG008.mmd",
+      "image_path": "output\\records\\diagrams\\DG008.png",
+      "render_status": "internal_rendered",
+      "error": null
+    },
+    {
+      "diagram_id": "DG009",
+      "title": "通道三维重建流程图",
+      "kind": "function_flow",
+      "section_id": "3.2.4.1",
+      "mermaid": "flowchart TB\n    A[\"LiDAR点云与航迹数据\"]\n    B(\"通道三维重建数据加载\")\n    C(\"规则解析与标准化处理\")\n    D(\"业务目标识别与结果计算\")\n    E{\"一致性校验与人工复核\"}\n    F[\"生成通道三维重建结果\"]\n    G[(\"三维通道模型库\")]\n\n    A --> B\n    B --> C\n    C --> D\n    D --> E\n    E --> F\n    F --> G\n\n    classDef source fill:#f5f5f5,stroke:#999999,color:#111111,stroke-width:1px;\n    classDef process fill:#f2f2f2,stroke:#999999,color:#111111,stroke-width:1px;\n    classDef decision fill:#f2f2f2,stroke:#999999,color:#111111,stroke-width:1px;\n    classDef storage fill:#f5f5f5,stroke:#999999,color:#111111,stroke-width:1px;\n\n    class A,F source;\n    class B,C,D process;\n    class E decision;\n    class G storage;\n",
+      "mermaid_path": "output\\records\\diagrams\\DG009.mmd",
+      "image_path": "output\\records\\diagrams\\DG009.png",
+      "render_status": "internal_rendered",
+      "error": null
+    },
+    {
+      "diagram_id": "DG010",
+      "title": "空间距离测算流程图",
+      "kind": "function_flow",
+      "section_id": "3.2.4.2",
+      "mermaid": "flowchart TB\n    A[\"导线/地面/植被点云模型\"]\n    B(\"空间距离测算数据加载\")\n    C(\"规则解析与标准化处理\")\n    D(\"业务目标识别与结果计算\")\n    E{\"一致性校验与人工复核\"}\n    F[\"生成空间距离测算结果\"]\n    G[(\"空间隐患测算结果库\")]\n\n    A --> B\n    B --> C\n    C --> D\n    D --> E\n    E --> F\n    F --> G\n\n    classDef source fill:#f5f5f5,stroke:#999999,color:#111111,stroke-width:1px;\n    classDef process fill:#f2f2f2,stroke:#999999,color:#111111,stroke-width:1px;\n    classDef decision fill:#f2f2f2,stroke:#999999,color:#111111,stroke-width:1px;\n    classDef storage fill:#f5f5f5,stroke:#999999,color:#111111,stroke-width:1px;\n\n    class A,F source;\n    class B,C,D process;\n    class E decision;\n    class G storage;\n",
+      "mermaid_path": "output\\records\\diagrams\\DG010.mmd",
+      "image_path": "output\\records\\diagrams\\DG010.png",
+      "render_status": "internal_rendered",
+      "error": null
+    },
+    {
+      "diagram_id": "DG011",
+      "title": "人机协同复核流程图",
+      "kind": "function_flow",
+      "section_id": "3.2.5.1",
+      "mermaid": "flowchart TB\n    A[\"AI初筛缺陷记录\"]\n    B(\"人机协同复核数据加载\")\n    C(\"规则解析与标准化处理\")\n    D(\"业务目标识别与结果计算\")\n    E{\"一致性校验与人工复核\"}\n    F[\"生成人机协同复核结果\"]\n    G[(\"确认缺陷台账库\")]\n\n    A --> B\n    B --> C\n    C --> D\n    D --> E\n    E --> F\n    F --> G\n\n    classDef source fill:#f5f5f5,stroke:#999999,color:#111111,stroke-width:1px;\n    classDef process fill:#f2f2f2,stroke:#999999,color:#111111,stroke-width:1px;\n    classDef decision fill:#f2f2f2,stroke:#999999,color:#111111,stroke-width:1px;\n    classDef storage fill:#f5f5f5,stroke:#999999,color:#111111,stroke-width:1px;\n\n    class A,F source;\n    class B,C,D process;\n    class E decision;\n    class G storage;\n",
+      "mermaid_path": "output\\records\\diagrams\\DG011.mmd",
+      "image_path": "output\\records\\diagrams\\DG011.png",
+      "render_status": "internal_rendered",
+      "error": null
+    },
+    {
+      "diagram_id": "DG012",
+      "title": "工单流转管控流程图",
+      "kind": "function_flow",
+      "section_id": "3.2.5.2",
+      "mermaid": "flowchart TB\n    A[\"前置业务数据\"]\n    B[\"人工审核结果\"]\n    C[\"外部系统接口\"]\n\n    D[\"工单流转管控处理模块\"]\n    E{\"规则校验与业务分发\"}\n\n    F[(\"业务结果库\")]\n    G[(\"过程记录库\")]\n    H[(\"异常待办池\")]\n\n    A --> D\n    B --> D\n    C --> D\n    D --> E\n    E -->|有效结果| F\n    E -->|过程记录| G\n    E -->|异常数据| H\n\n    classDef source fill:#f5f5f5,stroke:#999999,color:#111111,stroke-width:1px;\n    classDef process fill:#f2f2f2,stroke:#999999,color:#111111,stroke-width:1px;\n    classDef decision fill:#f2f2f2,stroke:#999999,color:#111111,stroke-width:1px;\n    classDef storage fill:#f5f5f5,stroke:#999999,color:#111111,stroke-width:1px;\n\n    class A,B,C source;\n    class D process;\n    class E decision;\n    class F,G,H storage;\n",
+      "mermaid_path": "output\\records\\diagrams\\DG012.mmd",
+      "image_path": "output\\records\\diagrams\\DG012.png",
+      "render_status": "internal_rendered",
+      "error": null
     }
   ]
 }

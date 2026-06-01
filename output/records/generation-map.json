@@ -1,0 +1,370 @@
+{
+  "run_id": "RUN-20260601-234716",
+  "project_name": "高压线路无人机巡检方案",
+  "writing_workflow": {
+    "name": "confirmed_solution_writing_workflow",
+    "steps": [
+      "先读取技术要求与示例输出，识别章节结构、样式基准和每个章节的内容来源。",
+      "将章节划分为两类：需求分析类章节直接摘录 Markdown 原文，设计类章节按用户给出的说明和实际任务调用外接 API 生成。",
+      "每次生成正文时都围绕当前章节编号、原始需求片段、已确认输出方式和禁写内容构造提示词，不把需求简单复述成方案。",
+      "生成架构设计时同时生成架构图；生成功能设计时按每个子功能点分别生成正文和一张简单流程图。",
+      "所有 Mermaid 图先保存可修改的 .mmd 源码，再渲染 PNG 插入 Word，并在记录文件中建立章节、内容块和图表 ID 的映射。",
+      "已经确认完成的章节写入目标 Word，3.3 之后的后续章节暂时只保留模板标题和空实现，等待下一轮流程继续补齐。"
+    ],
+    "source": "本流程来自本轮人工确认的方案撰写问答过程，应作为后续自动化写作的默认流程。"
+  },
+  "sections": [
+    {
+      "section_id": "1",
+      "title": "概述",
+      "type": "heading1",
+      "diagram_id": null
+    },
+    {
+      "section_id": "1.1",
+      "title": "建设背景",
+      "type": "heading2",
+      "diagram_id": null
+    },
+    {
+      "section_id": "1.1.content",
+      "title": "建设背景正文",
+      "type": "paragraphs",
+      "diagram_id": null
+    },
+    {
+      "section_id": "1.2",
+      "title": "编写依据",
+      "type": "heading2",
+      "diagram_id": null
+    },
+    {
+      "section_id": "1.2.content",
+      "title": "编写依据正文",
+      "type": "paragraphs",
+      "diagram_id": null
+    },
+    {
+      "section_id": "2",
+      "title": "需求分析",
+      "type": "heading1",
+      "diagram_id": null
+    },
+    {
+      "section_id": "2.1",
+      "title": "功能需求",
+      "type": "heading2",
+      "diagram_id": null
+    },
+    {
+      "section_id": "2.1.content",
+      "title": "功能需求正文",
+      "type": "paragraphs",
+      "diagram_id": null
+    },
+    {
+      "section_id": "2.2",
+      "title": "性能要求",
+      "type": "heading2",
+      "diagram_id": null
+    },
+    {
+      "section_id": "2.2.content",
+      "title": "性能要求正文",
+      "type": "paragraphs",
+      "diagram_id": null
+    },
+    {
+      "section_id": "2.3",
+      "title": "非功能性要求",
+      "type": "heading2",
+      "diagram_id": null
+    },
+    {
+      "section_id": "2.3.content",
+      "title": "非功能性要求正文",
+      "type": "paragraphs",
+      "diagram_id": null
+    },
+    {
+      "section_id": "3",
+      "title": "软件设计",
+      "type": "heading1",
+      "diagram_id": null
+    },
+    {
+      "section_id": "3.1",
+      "title": "架构设计",
+      "type": "heading2",
+      "diagram_id": null
+    },
+    {
+      "section_id": "3.1.content",
+      "title": "架构设计正文",
+      "type": "paragraphs",
+      "diagram_id": null
+    },
+    {
+      "section_id": "3.1.diagram.note",
+      "title": "系统架构图说明",
+      "type": "paragraphs",
+      "diagram_id": null
+    },
+    {
+      "section_id": "3.1.diagram",
+      "title": "系统架构图",
+      "type": "diagram",
+      "diagram_id": "DG001"
+    },
+    {
+      "section_id": "3.2",
+      "title": "功能设计",
+      "type": "heading2",
+      "diagram_id": null
+    },
+    {
+      "section_id": "3.2.1",
+      "title": "多源异构数据接入与解析引擎",
+      "type": "heading3",
+      "diagram_id": null
+    },
+    {
+      "section_id": "3.2.1.1",
+      "title": "多模式数据导入",
+      "type": "heading4",
+      "diagram_id": null
+    },
+    {
+      "section_id": "3.2.1.1.content",
+      "title": "多模式数据导入",
+      "type": "paragraphs",
+      "diagram_id": null
+    },
+    {
+      "section_id": "3.2.1.1.diagram",
+      "title": "多模式数据导入流程图",
+      "type": "diagram",
+      "diagram_id": "DG002"
+    },
+    {
+      "section_id": "3.2.1.2",
+      "title": "元数据提取与标准化",
+      "type": "heading4",
+      "diagram_id": null
+    },
+    {
+      "section_id": "3.2.1.2.content",
+      "title": "元数据提取与标准化",
+      "type": "paragraphs",
+      "diagram_id": null
+    },
+    {
+      "section_id": "3.2.1.2.diagram",
+      "title": "元数据提取与标准化流程图",
+      "type": "diagram",
+      "diagram_id": "DG003"
+    },
+    {
+      "section_id": "3.2.2",
+      "title": "输电资产台账与空间位置映射",
+      "type": "heading3",
+      "diagram_id": null
+    },
+    {
+      "section_id": "3.2.2.1",
+      "title": "空间坐标匹配",
+      "type": "heading4",
+      "diagram_id": null
+    },
+    {
+      "section_id": "3.2.2.1.content",
+      "title": "空间坐标匹配",
+      "type": "paragraphs",
+      "diagram_id": null
+    },
+    {
+      "section_id": "3.2.2.1.diagram",
+      "title": "空间坐标匹配流程图",
+      "type": "diagram",
+      "diagram_id": "DG004"
+    },
+    {
+      "section_id": "3.2.2.2",
+      "title": "部件级数据挂载",
+      "type": "heading4",
+      "diagram_id": null
+    },
+    {
+      "section_id": "3.2.2.2.content",
+      "title": "部件级数据挂载",
+      "type": "paragraphs",
+      "diagram_id": null
+    },
+    {
+      "section_id": "3.2.2.2.diagram",
+      "title": "部件级数据挂载流程图",
+      "type": "diagram",
+      "diagram_id": "DG005"
+    },
+    {
+      "section_id": "3.2.3",
+      "title": "人工智能视觉分析中台",
+      "type": "heading3",
+      "diagram_id": null
+    },
+    {
+      "section_id": "3.2.3.1",
+      "title": "可见光缺陷识别",
+      "type": "heading4",
+      "diagram_id": null
+    },
+    {
+      "section_id": "3.2.3.1.content",
+      "title": "可见光缺陷识别",
+      "type": "paragraphs",
+      "diagram_id": null
+    },
+    {
+      "section_id": "3.2.3.1.diagram",
+      "title": "可见光缺陷识别流程图",
+      "type": "diagram",
+      "diagram_id": "DG006"
+    },
+    {
+      "section_id": "3.2.3.2",
+      "title": "红外热点分析",
+      "type": "heading4",
+      "diagram_id": null
+    },
+    {
+      "section_id": "3.2.3.2.content",
+      "title": "红外热点分析",
+      "type": "paragraphs",
+      "diagram_id": null
+    },
+    {
+      "section_id": "3.2.3.2.diagram",
+      "title": "红外热点分析流程图",
+      "type": "diagram",
+      "diagram_id": "DG007"
+    },
+    {
+      "section_id": "3.2.3.3",
+      "title": "模型训练与管理",
+      "type": "heading4",
+      "diagram_id": null
+    },
+    {
+      "section_id": "3.2.3.3.content",
+      "title": "模型训练与管理",
+      "type": "paragraphs",
+      "diagram_id": null
+    },
+    {
+      "section_id": "3.2.3.3.diagram",
+      "title": "模型训练与管理流程图",
+      "type": "diagram",
+      "diagram_id": "DG008"
+    },
+    {
+      "section_id": "3.2.4",
+      "title": "三维点云数据处理与分析",
+      "type": "heading3",
+      "diagram_id": null
+    },
+    {
+      "section_id": "3.2.4.1",
+      "title": "通道三维重建",
+      "type": "heading4",
+      "diagram_id": null
+    },
+    {
+      "section_id": "3.2.4.1.content",
+      "title": "通道三维重建",
+      "type": "paragraphs",
+      "diagram_id": null
+    },
+    {
+      "section_id": "3.2.4.1.diagram",
+      "title": "通道三维重建流程图",
+      "type": "diagram",
+      "diagram_id": "DG009"
+    },
+    {
+      "section_id": "3.2.4.2",
+      "title": "空间距离测算",
+      "type": "heading4",
+      "diagram_id": null
+    },
+    {
+      "section_id": "3.2.4.2.content",
+      "title": "空间距离测算",
+      "type": "paragraphs",
+      "diagram_id": null
+    },
+    {
+      "section_id": "3.2.4.2.diagram",
+      "title": "空间距离测算流程图",
+      "type": "diagram",
+      "diagram_id": "DG010"
+    },
+    {
+      "section_id": "3.2.5",
+      "title": "缺陷管理与业务协同",
+      "type": "heading3",
+      "diagram_id": null
+    },
+    {
+      "section_id": "3.2.5.1",
+      "title": "人机协同复核",
+      "type": "heading4",
+      "diagram_id": null
+    },
+    {
+      "section_id": "3.2.5.1.content",
+      "title": "人机协同复核",
+      "type": "paragraphs",
+      "diagram_id": null
+    },
+    {
+      "section_id": "3.2.5.1.diagram",
+      "title": "人机协同复核流程图",
+      "type": "diagram",
+      "diagram_id": "DG011"
+    },
+    {
+      "section_id": "3.2.5.2",
+      "title": "工单流转管控",
+      "type": "heading4",
+      "diagram_id": null
+    },
+    {
+      "section_id": "3.2.5.2.content",
+      "title": "工单流转管控",
+      "type": "paragraphs",
+      "diagram_id": null
+    },
+    {
+      "section_id": "3.2.5.2.diagram",
+      "title": "工单流转管控流程图",
+      "type": "diagram",
+      "diagram_id": "DG012"
+    },
+    {
+      "section_id": "3.3",
+      "title": "性能设计",
+      "type": "heading2",
+      "diagram_id": null
+    },
+    {
+      "section_id": "3.3.content",
+      "title": "性能设计正文",
+      "type": "paragraphs",
+      "diagram_id": null
+    }
+  ],
+  "rules": {
+    "completed_until": "3.3 性能设计",
+    "remaining_sections": "3.3 后续章节仅保留标题，代码留空。"
+  }
+}

@@ -1,26 +1,39 @@
 flowchart TB
-subgraph L1[数据接入与解析层]
-M1[数据导入模块]
-M2[元数据提取模块]
-end
-subgraph L2[资产映射与空间分析层]
-M3[空间坐标匹配模块]
-M4[部件级数据挂载模块]
-end
-subgraph L3[人工智能分析层]
-M5[可见光缺陷识别模块]
-M6[红外热点分析模块]
-M7[模型训练管理模块]
-end
-subgraph L4[点云数据处理层]
-M8[点云渲染与可视化模块]
-M9[空间距离测算模块]
-end
-subgraph L5[缺陷管理与业务协同层]
-M10[人机协同复核模块]
-M11[工单流转管控模块]
-end
-L1 --> L2
-L2 --> L3
-L3 --> L4
-L4 --> L5
+    subgraph L1["数据采集接入层"]
+        direction LR
+        L1A["可见光图像接入"] ~~~ L1B["红外热像接入"] ~~~ L1C["视频流接入"] ~~~ L1D["LiDAR点云接入"] ~~~ L1E["离线导入/API推送"]
+    end
+
+    subgraph L2["数据治理与资产映射层"]
+        direction LR
+        L2A["元数据提取模块"] ~~~ L2B["格式清洗模块"] ~~~ L2C["空间坐标匹配模块"] ~~~ L2D["线路杆塔关联模块"] ~~~ L2E["部件级挂载模块"]
+    end
+
+    subgraph L3["智能分析服务层"]
+        direction LR
+        L3A["可见光缺陷识别模块"] ~~~ L3B["红外热点分析模块"] ~~~ L3C["模型训练管理模块"] ~~~ L3D["点云三维重建模块"] ~~~ L3E["空间距离测算模块"]
+    end
+
+    subgraph L4["业务协同应用层"]
+        direction LR
+        L4A["人机协同复核模块"] ~~~ L4B["缺陷评级管理模块"] ~~~ L4C["消缺建议生成模块"] ~~~ L4D["PMS工单流转模块"]
+    end
+
+    subgraph L5["基础支撑保障层"]
+        direction LR
+        L5A["统一存储模块"] ~~~ L5B["GIS服务模块"] ~~~ L5C["接口集成模块"] ~~~ L5D["权限安全模块"] ~~~ L5E["日志审计与运行监控模块"]
+    end
+
+    L1 --> L2
+    L2 --> L3
+    L3 --> L4
+    L4 --> L5
+
+    classDef module fill:#ffffff,stroke:#999999,stroke-width:1px,color:#111111;
+    class L1A,L1B,L1C,L1D,L1E,L2A,L2B,L2C,L2D,L2E,L3A,L3B,L3C,L3D,L3E,L4A,L4B,L4C,L4D,L5A,L5B,L5C,L5D,L5E module;
+
+    style L1 fill:#eeeeee,stroke:#999999,stroke-width:1px,color:#111111;
+    style L2 fill:#eeeeee,stroke:#999999,stroke-width:1px,color:#111111;
+    style L3 fill:#eeeeee,stroke:#999999,stroke-width:1px,color:#111111;
+    style L4 fill:#eeeeee,stroke:#999999,stroke-width:1px,color:#111111;
+    style L5 fill:#eeeeee,stroke:#999999,stroke-width:1px,color:#111111;

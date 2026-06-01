@@ -1,199 +1,74 @@
-# 投标方案生成工具
+# 高压线路无人机巡检方案自动化生成工具
 
-本项目用于根据 `input/` 中已人工审核的 Markdown 需求资料和 `templates/` 中的 Word 模板生成投标方案初稿。
+本项目已精简为一条面向当前方案撰写流程的自动化链路：读取
+`input/高压线路无人机巡检方案技术要求.md`，参考
+`output/示例输出.docx` 的版式和章节结构，自动生成并装配：
 
-## 技术路线
+- `1.1 建设背景`
+- `2.1 功能需求`
+- `2.2 性能要求`
+- `2.3 非功能性要求`
+- `3.1 架构设计`
+- `3.2 功能设计`
+- `3.3 性能设计`
 
-当前已完成的阶段入口：
+`3.3` 之后的章节暂时只保留标题，后续再继续扩展生成逻辑。
 
-- `working/agents/requirement_evidence_agent.py`：需求证据抽取。
-- `working/agents/design_agent.py`：设计蓝图、模块、章节和图表计划。
-- `working/agents/content_agent.py`：正文内容块生成。
-- `working/agents/mermaid_agent.py`：根据图表计划生成 Mermaid 源码和 `diagram-specs.json`。
-- `working/agents/render_validate_agent.py`：渲染校验 Mermaid，输出 PNG、渲染日志和 `diagram-manifest.json`。
-- `working/agents/review_gate_agent.py`：发布前审核 Gate。
-- `working/agents/word_layout_agent.py`：审核通过后复制 Word 模板、填充占位符并输出最终 `.docx` 与装配记录。
+## 写作流程
 
-需求证据抽取阶段：
+自动化链路固化本轮人工确认过的方案撰写流程：
 
-1. 读取 `input/技术要求.md` 和 `input/方案撰写要求.md`；如果技术文件带项目前缀，也可使用唯一匹配的 `*技术要求.md`。
-2. 将 `技术要求.md` 解析为功能、性能、非功能、接口等软件需求。
-3. 将 `方案撰写要求.md` 解析为 `writing_requirements`，每条要求必须扩写进入最终方案。
-4. 将抽取结果写入 `output/records/requirements.json`，并记录 `source_mode=markdown_only`。
-5. 生成 `output/records/requirements-matrix.json` 和 `output/records/requirements-matrix.md`，建立“技术要求/撰写要求 -> 方案章节”的映射。
-6. 输出 `output/records/confirm-candidates.md` 和 `output/records/extraction-warnings.md`。
-7. 同一 run 的阶段产物先写入 `working/agent-system/staging/requirements/<run_id>/`，校验通过后发布到 `working/agent-system/published/requirements/<run_id>/` 和 `output/records/`。
-
-Design Agent 阶段：
-
-1. 读取 `output/records/requirements.json` 和 `requirements-matrix.json`。
-2. 扫描 `templates/投标方案模板.docx` 中的 `GEN`、`REVIEW`、`CONFIRM` 占位符。
-3. 规划系统分层、功能模块、章节结构、图表清单、需求 ID 覆盖映射，并为方案撰写要求自动匹配章节。
-4. 输出 `design-blueprint.json`、`section-plan.md`、`diagram-plan.json` 和 `diagram-plan.md`。
-5. 同一 run 的阶段产物先写入 `working/agent-system/staging/design/<run_id>/`，校验通过后发布到 `working/agent-system/published/design/<run_id>/` 和 `output/records/`。
-
-Content Agent 阶段：
-
-1. 读取 `output/records/requirements.json`、`requirements-matrix.json`、`design-blueprint.json` 和 `section-plan.md`。
-2. 通过统一入口 `working/agents/llm_client.py` 的 `call_llm_api(payload)` 生成 `GEN` / `REVIEW` 正文草稿；`--allow-local-draft` 会直接使用确定性本地草稿，不访问外部 LLM。
-3. 为每个内容块绑定需求 ID、评分项 ID 或方案撰写要求 ID，保留 `CONFIRM` 占位符，并把 `REVIEW` / `CONFIRM` 事项写入清单。
-4. 对 `writing_requirements` 中的每条方案撰写要求进行扩写，不能只摘要或遗漏；低置信度自动映射进入复核清单。
-5. 输出 `content-blocks.json`、`content-preview.md` 和 `content-review-notes.md`。
-6. 同一 run 的阶段产物先写入 `working/agent-system/staging/content/<run_id>/`，校验通过后发布到 `working/agent-system/published/content/<run_id>/` 和 `output/records/`。
-
-Mermaid Agent 阶段：
-
-1. 读取 `output/records/requirements.json`、`design-blueprint.json` 和 `diagram-plan.json`。
-2. 生产模式通过统一入口 `working/agents/llm_client.py` 的 `call_llm_api(payload)` 生成 Mermaid 源码。
-3. 开发验收可使用 `--allow-local-draft` 生成确定性的本地图表草稿，不依赖外部 LLM 或网络。
-4. 输出 `diagram-specs.json`、`diagram-descriptions.md` 和 `output/records/diagrams/*.mmd`。
-5. 同一 run 的阶段产物先写入 `working/agent-system/staging/diagrams/<run_id>/`，校验通过后发布到 `working/agent-system/published/diagrams/<run_id>/` 和 `output/records/`。
-
-Render Validate Agent 阶段：
-
-1. 读取 `output/records/diagram-specs.json` 和对应 `output/records/diagrams/*.mmd`。
-2. 优先调用 Mermaid CLI 兼容渲染器 `mmdc`，也可通过 `--renderer-command` 指定渲染器。
-3. 对 Mermaid 源码做基础语法检查，记录原生渲染失败原因。
-4. 渲染器缺失或失败时生成降级 PNG，并明确标记 `render_status=fallback_rendered`。
-5. 检查 PNG 是否存在、尺寸、文件大小和空白图风险。
-6. 输出 `diagram-manifest.json`、`diagram-render-log.md` 和 `output/records/diagrams/*.png`。
-7. 同一 run 的阶段产物先写入 `working/agent-system/staging/diagrams/<run_id>/`，校验通过后发布到 `working/agent-system/published/diagrams/<run_id>/` 和 `output/records/`。
-
-Review Gate 阶段：
-
-1. 读取 `output/records/requirements.json`、`requirements-matrix.json`、`design-blueprint.json`、`content-blocks.json` 和 `diagram-manifest.json`。
-2. 检查未覆盖技术要求、未扩写方案撰写要求、未响应评分项、虚构事实、`CONFIRM` 错误替换、`REVIEW` 未入清单、图文不一致、Mermaid 降级未标记和占位符残留。
-3. 输出 `release-decision.json`、`review-report.md`、`coverage-check.md`、`人工确认清单.md` 和 `复核清单.md`。
-4. 只有 `decision=approved` 且 `allow_word_assembly=true` 时，后续 Word Layout Agent 才允许继续。
-
-Word Layout Agent 阶段：
-
-1. 读取 `templates/投标方案模板.docx`、`content-blocks.json`、`diagram-manifest.json`、`requirements.json` 和 `release-decision.json`。
-2. 严格检查 Review Gate 是否放行；未放行时只输出 blocked 装配记录，不生成最终 Word。
-3. 替换 `COPY`、`GEN` 和 `REVIEW` 占位符，插入段落、表格和允许装配的图片，保留 `CONFIRM` 占位符。
-4. 输出 `output/<项目名称>设计方案_V1.00_<YYYYMMDD>.docx`、`assembly-manifest.json`、`placeholder-fill-log.md`、`assembly-log.md` 和 `residual-placeholder-check.md`。
-5. 同一 run 的阶段产物先写入 `working/agent-system/staging/assembly/<run_id>/`，校验通过后发布到 `working/agent-system/published/assembly/<run_id>/` 和 `output/records/`。
-
-## 数据流
-
-```text
-input/技术要求.md
-input/方案撰写要求.md
-  -> Markdown 权威事实源解析
-  -> requirements.json
-  -> requirements-matrix.json
-  -> requirements-matrix.md
-  -> design-blueprint.json
-  -> section-plan.md
-  -> diagram-plan.json
-  -> diagram-specs.json
-  -> diagram-manifest.json
-  -> content-blocks.json
-  -> content-preview.md
-  -> content-review-notes.md
-  -> confirm-candidates.md
-  -> extraction-warnings.md
-  -> release-decision.json
-  -> assembly-manifest.json
-  -> output/*.docx
-```
-
-## 占位符处理规则
-
-- `COPY`：从 Markdown 权威输入摘录或整理，不扩写事实。
-- `GEN`：根据结构化技术要求、方案撰写要求、评分项和模板上下文生成方案正文。
-- `REVIEW`：可以生成初稿，但进入复核清单。
-- `CONFIRM`：保留在 Word 中，进入人工确认清单，不自动编造。
+1. 先读取技术要求与示例输出，识别章节结构、样式基准和每个章节的内容来源。
+2. 将章节划分为两类：需求分析类章节直接摘录 Markdown 原文，设计类章节按用户给出的说明和实际任务调用外接 API 生成。
+3. 每次生成正文时都围绕当前章节编号、原始需求片段、已确认输出方式和禁写内容构造提示词，不把需求简单复述成方案。
+4. 生成架构设计时同时生成架构图；生成功能设计时按每个子功能点分别生成正文和一张简单流程图。
+5. 所有 Mermaid 图先保存可修改的 `.mmd` 源码，再渲染 PNG 插入 Word，并在记录文件中建立章节、内容块和图表 ID 的映射。
+6. 已经确认完成的章节写入目标 Word，`3.3` 之后的后续章节暂时只保留模板标题和空实现，等待下一轮流程继续补齐。
 
 ## 运行
 
-```powershell
-python working\agents\requirement_evidence_agent.py
-```
-
-运行 Design Agent：
+生产模式会调用 `.env` 中配置的外接 API：
 
 ```powershell
-python working\agents\design_agent.py
+python -m bid_solution_writer generate `
+  --input input\高压线路无人机巡检方案技术要求.md `
+  --template output\示例输出.docx `
+  --output output\高压线路无人机巡检方案设计方案.docx
 ```
 
-运行 Content Agent：
+离线验证可使用本地草稿，不访问外接 API：
 
 ```powershell
-python working\agents\content_agent.py
+python -m bid_solution_writer generate --allow-local-draft
 ```
 
-首次使用前，只需要在 `working/agents/llm_client.py` 的 `call_llm_api(payload)` 中填写唯一的 LLM API 调用。仅用于格式验证或离线闭环时，可运行：
+如果 Mermaid CLI 不在 `PATH` 中，可指定渲染器：
 
 ```powershell
-python working\agents\content_agent.py --allow-local-draft
+python -m bid_solution_writer generate --renderer-command working\tools\mmdc-npx.cmd
 ```
 
-运行 Mermaid Agent：
+## 输出
+
+生成记录统一写入 `output/records/`：
+
+- `generation-map.json`：章节、来源、生成方式、图表 ID 映射。
+- `content-blocks.json`：所有正文段落和章节归属。
+- `diagram-specs.json`：图表标题、类型、Mermaid 源码路径和渲染状态。
+- `diagrams/*.mmd`：Mermaid 源代码，供人工修改。
+- `diagrams/*.png`：渲染后插入 Word 的图片。
+- `run-manifest.json`：本次生成输入、输出、状态和错误信息。
+
+## 设计约束
+
+- 动态正文只通过 `bid_solution_writer.llm_client.call_llm_api()` 调用外接 API。
+- 需求分析章节直接摘录 Markdown 原文，不改写。
+- 架构图采用“分层灰底容器 + 内部横向白色模块框 + 层间单向箭头”样式。
+- 软件功能流程图采用浅色、简洁、可读样式，并根据功能逻辑选择汇聚分流或纵向处理流程。
+- Mermaid 渲染失败时保留 `.mmd` 并停止 Word 装配，不静默插入错误图。
+
+## 测试
 
 ```powershell
-python working\agents\mermaid_agent.py
+python -m pytest
 ```
-
-同一个 `working/agents/llm_client.py` 入口也负责 Mermaid 生成。本地闭环验证可运行：
-
-```powershell
-python working\agents\mermaid_agent.py --allow-local-draft
-```
-
-运行 Render Validate Agent：
-
-```powershell
-python working\agents\render_validate_agent.py
-```
-
-如果 Mermaid CLI 不在 `PATH` 中，可以指定渲染器：
-
-```powershell
-python working\agents\render_validate_agent.py --renderer-command C:\path\to\mmdc.cmd
-```
-
-运行 Review Gate：
-
-```powershell
-python working\agents\review_gate_agent.py
-```
-
-运行 Word Layout Agent：
-
-```powershell
-python working\agents\word_layout_agent.py
-```
-
-Word Layout Agent 只有在 `output/records/release-decision.json` 中 `decision=approved` 且 `allow_word_assembly=true` 时才会生成最终 `.docx`。如果审核未通过，它会返回退出码 `2` 并输出装配日志与 manifest，便于定位恢复点。
-
-这些阶段仅使用 Python 标准库，不需要安装第三方依赖。
-
-运行 Coordinator Agent：
-
-```powershell
-python working\agents\coordinator_agent.py
-```
-
-本地闭环全流程测试命令：
-
-```powershell
-python working\agents\coordinator_agent.py --allow-local-draft --renderer-command __missing_mmdc__
-```
-
-该命令会依次生成并发布 `run-manifest.json`、`requirements.json`、`design-blueprint.json`、`content-blocks.json`、`diagram-specs.json`、`diagram-manifest.json`、`release-decision.json`、`assembly-manifest.json` 和最终 `.docx`。`--renderer-command __missing_mmdc__` 用于本地测试时跳过原生 Mermaid CLI，直接生成已标记的 fallback PNG；生产模式仍建议接入真实 LLM 和 Mermaid CLI。
-
-常用恢复与验证命令：
-
-```powershell
-# 只写 run-manifest 和 coordinator-log，不执行子 Agent
-python working\agents\coordinator_agent.py --plan-only
-
-# 从某个阶段恢复重跑
-python working\agents\coordinator_agent.py --retry-from content --allow-local-draft
-
-# 只运行单个阶段
-python working\agents\coordinator_agent.py --only-stage review
-```
-
-Coordinator Agent 负责统一记录 `run-manifest.json`、阶段状态、staging/published 路径、失败重试和 Review Gate 阻断后的返回路由。它不会直接生成正文、Mermaid 语义或修改 Word 正文含义。
