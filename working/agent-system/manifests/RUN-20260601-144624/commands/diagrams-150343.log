@@ -1,0 +1,13 @@
+stage=diagrams
+owner=Mermaid Agent
+returncode=0
+command="D:\Program Files\Python310\python.exe" G:\#.Project\bid-solution-writer\working\agents\mermaid_agent.py --workspace G:\#.Project\bid-solution-writer --records-dir G:\#.Project\bid-solution-writer\output\records --output-dir G:\#.Project\bid-solution-writer\output\records
+
+## stdout
+Mermaid Agent completed: RUN-20260601-144624
+Staging: G:\#.Project\bid-solution-writer\working\agent-system\staging\diagrams\RUN-20260601-144624
+Published: G:\#.Project\bid-solution-writer\working\agent-system\published\diagrams\RUN-20260601-144624
+
+
+## stderr
+

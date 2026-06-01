@@ -1,0 +1,1852 @@
+{
+  "schema_version": "1.0.0",
+  "artifact": "diagram-specs",
+  "run_id": "RUN-20260601-150909",
+  "generated_at": "2026-06-01T15:13:09+08:00",
+  "producer": {
+    "agent": "Mermaid Agent",
+    "version": "1.0.0"
+  },
+  "inputs": [
+    {
+      "artifact": "requirements",
+      "path": "output/records/requirements.json",
+      "schema_version": "1.0.0"
+    },
+    {
+      "artifact": "design-blueprint",
+      "path": "output/records/design-blueprint.json",
+      "schema_version": "1.0.0"
+    },
+    {
+      "artifact": "diagram-plan",
+      "path": "output/records/diagram-plan.json",
+      "schema_version": "1.0.0"
+    }
+  ],
+  "diagrams": [
+    {
+      "diagram_id": "DG001",
+      "title": "总体架构蓝图",
+      "kind": "architecture",
+      "mermaid_path": "output/records/diagrams/DG001.mmd",
+      "mermaid": "flowchart TB\n    subgraph L001[\"显示交互与态势呈现层\"]\n        M002[\"电子海图显示与图层控制\"]\n        M003[\"目标信息融合与态势叠加\"]\n        M006[\"人机交互与个性化配置\"]\n    end\n    subgraph L002[\"导航业务与安全决策层\"]\n        M004[\"航线规划与航行监控\"]\n        M005[\"安全告警与风险预警\"]\n    end\n    subgraph L003[\"数据接入与标准化处理层\"]\n        M008[\"数据维护与接口管理\"]\n    end\n    subgraph L004[\"平台运行与部署支撑层\"]\n        M007[\"平台适配与模块化运行\"]\n    end\n    subgraph L005[\"质量安全与交付保障层\"]\n        M001[\"安全与保密控制\"]\n        M009[\"性能与技术指标响应\"]\n    end\n    L001 --> L002 --> L003 --> L004 --> L005",
+      "source_requirement_ids": [
+        "T029",
+        "T030",
+        "T031",
+        "Q013",
+        "Q002",
+        "Q005",
+        "Q010",
+        "T034",
+        "Q001",
+        "Q007",
+        "Q009",
+        "T035",
+        "T036",
+        "T037"
+      ],
+      "related_section_ids": [
+        "SEC002",
+        "SEC003",
+        "SEC004",
+        "SEC006",
+        "SEC010",
+        "SEC001",
+        "SEC007",
+        "SEC008",
+        "SEC011",
+        "SEC018",
+        "SEC023",
+        "SEC024",
+        "SEC025",
+        "SEC034",
+        "SEC016",
+        "SEC027",
+        "SEC028",
+        "SEC029",
+        "SEC030"
+      ],
+      "related_module_ids": [],
+      "description": "系统总体架构分为五层：显示交互与态势呈现层、导航业务与安全决策层、数据接入与标准化处理层、平台运行与部署支撑层、质量安全与交付保障层。各层之间通过标准化接口交互，实现分层解耦。",
+      "node_trace": [
+        {
+          "node_id": "A",
+          "label": "总体架构蓝图",
+          "source_requirement_ids": [
+            "T029"
+          ]
+        }
+      ],
+      "status": "generated",
+      "review_notes": []
+    },
+    {
+      "diagram_id": "DG002",
+      "title": "功能模块划分图",
+      "kind": "architecture",
+      "mermaid_path": "output/records/diagrams/DG002.mmd",
+      "mermaid": "flowchart TB\n    START[\"系统功能模块\"]\n    START --- M002[\"电子海图显示与图层控制\"]\n    START --- M003[\"目标信息融合与态势叠加\"]\n    START --- M004[\"航线规划与航行监控\"]\n    START --- M005[\"安全告警与风险预警\"]\n    START --- M006[\"人机交互与个性化配置\"]\n    START --- M008[\"数据维护与接口管理\"]\n    START --- M007[\"平台适配与模块化运行\"]\n    START --- M001[\"安全与保密控制\"]\n    START --- M009[\"性能与技术指标响应\"]",
+      "source_requirement_ids": [
+        "T001",
+        "T002",
+        "T003",
+        "T004",
+        "T005",
+        "T006",
+        "T007",
+        "T008",
+        "T009",
+        "T010",
+        "T011",
+        "T012",
+        "T013",
+        "T014",
+        "T015",
+        "T016",
+        "T017",
+        "T018",
+        "T019",
+        "T020",
+        "T021",
+        "T022",
+        "T023",
+        "T024",
+        "T025",
+        "T026",
+        "T027",
+        "T028",
+        "T029",
+        "T030",
+        "T031",
+        "T032",
+        "T033",
+        "T034",
+        "Q001",
+        "Q007",
+        "T035",
+        "T036",
+        "T037",
+        "T038"
+      ],
+      "related_section_ids": [
+        "SEC007",
+        "SEC008",
+        "SEC001",
+        "SEC011",
+        "SEC018",
+        "SEC023",
+        "SEC024",
+        "SEC025",
+        "SEC034",
+        "SEC016",
+        "SEC027",
+        "SEC028",
+        "SEC029",
+        "SEC030",
+        "SEC002",
+        "SEC003",
+        "SEC004",
+        "SEC006",
+        "SEC017",
+        "SEC010",
+        "SEC005",
+        "SEC012",
+        "SEC013",
+        "SEC014",
+        "SEC019",
+        "SEC026",
+        "SEC033"
+      ],
+      "related_module_ids": [],
+      "description": "系统功能模块划分为电子海图显示与图层控制、目标信息融合与态势叠加、航线规划与航行监控、安全告警与风险预警、人机交互与个性化配置、数据维护与接口管理、平台适配与模块化运行、安全与保密控制、性能与技术指标响应等模块。",
+      "node_trace": [
+        {
+          "node_id": "A",
+          "label": "功能模块划分图",
+          "source_requirement_ids": [
+            "T001"
+          ]
+        }
+      ],
+      "status": "generated",
+      "review_notes": []
+    },
+    {
+      "diagram_id": "DG003",
+      "title": "核心业务流程图",
+      "kind": "business_flow",
+      "mermaid_path": "output/records/diagrams/DG003.mmd",
+      "mermaid": "flowchart TB\n    A[\"电子海图加载与显示\"] --> B[\"目标信息融合\"]\n    B --> C[\"航线规划与安全检查\"]\n    C --> D[\"航行监控与预警\"]\n    D --> E[\"告警处置与记录\"]",
+      "source_requirement_ids": [
+        "T001",
+        "T002",
+        "T003",
+        "T004",
+        "T005",
+        "T006",
+        "T007",
+        "T008",
+        "T009",
+        "T010",
+        "T011",
+        "T012",
+        "T013",
+        "T014",
+        "T015",
+        "T016",
+        "T017",
+        "T018",
+        "T019",
+        "T020",
+        "T021",
+        "T022",
+        "T023",
+        "T024",
+        "T025",
+        "T028",
+        "T032",
+        "Q001",
+        "Q007",
+        "T035",
+        "T036",
+        "T037"
+      ],
+      "related_section_ids": [
+        "SEC001",
+        "SEC007",
+        "SEC008",
+        "SEC011",
+        "SEC018",
+        "SEC023",
+        "SEC024",
+        "SEC025",
+        "SEC034",
+        "SEC016",
+        "SEC027",
+        "SEC028",
+        "SEC029",
+        "SEC030",
+        "SEC005",
+        "SEC010",
+        "SEC012",
+        "SEC013",
+        "SEC014",
+        "SEC019",
+        "SEC026",
+        "SEC033"
+      ],
+      "related_module_ids": [],
+      "description": "核心业务流程：电子海图加载与显示 → 目标信息融合（AIS/雷达） → 航线规划与安全检查 → 航行监控与预警 → 告警处置与记录。",
+      "node_trace": [
+        {
+          "node_id": "A",
+          "label": "核心业务流程图",
+          "source_requirement_ids": [
+            "T001"
+          ]
+        }
+      ],
+      "status": "generated",
+      "review_notes": []
+    },
+    {
+      "diagram_id": "DG004",
+      "title": "数据流与接口关系图",
+      "kind": "data_flow",
+      "mermaid_path": "output/records/diagrams/DG004.mmd",
+      "mermaid": "flowchart TB\n    subgraph SENSOR[\"传感器设备\"]\n        GPS[\"GPS/北斗\"]\n        RADAR[\"雷达\"]\n        AIS[\"AIS\"]\n    end\n    subGRAPH DATA[\"数据接入与标准化处理层\"]\n        PARSE[\"协议解析与坐标对齐\"]\n        DB[\"数据库读写\"]\n        FILE[\"文件系统\"]\n    end\n    subgraph NAV[\"导航业务与安全决策层\"]\n        FUSION[\"目标融合\"]\n        PLAN[\"航线规划\"]\n        ALARM[\"告警管理\"]\n    end\n    subgraph DISP[\"显示交互与态势呈现层\"]\n        MAP[\"海图显示\"]\n        HMI[\"人机交互\"]\n    end\n    GPS --> PARSE\n    RADAR --> PARSE\n    AIS --> PARSE\n    PARSE --> FUSION\n    FUSION --> ALARM\n    PLAN --> MAP\n    ALARM --> HMI\n    DB --> PARSE\n    FILE --> PARSE",
+      "source_requirement_ids": [
+        "T001",
+        "T005",
+        "T021",
+        "T023",
+        "T031",
+        "T032",
+        "T033",
+        "T034",
+        "P001",
+        "P003",
+        "P004",
+        "Q001",
+        "Q004",
+        "Q007",
+        "Q009",
+        "T035",
+        "T036",
+        "T037",
+        "T038",
+        "T039",
+        "T040",
+        "T041"
+      ],
+      "related_section_ids": [
+        "SEC001",
+        "SEC007",
+        "SEC008",
+        "SEC011",
+        "SEC018",
+        "SEC023",
+        "SEC024",
+        "SEC025",
+        "SEC027",
+        "SEC028",
+        "SEC029",
+        "SEC030",
+        "SEC002",
+        "SEC003",
+        "SEC004",
+        "SEC010",
+        "SEC034",
+        "SEC016",
+        "SEC009",
+        "SEC005",
+        "SEC012",
+        "SEC013",
+        "SEC014",
+        "SEC019",
+        "SEC015",
+        "SEC017",
+        "SEC026",
+        "SEC033",
+        "SEC031",
+        "SEC032"
+      ],
+      "related_module_ids": [],
+      "description": "数据流与接口关系：传感器设备（GPS、雷达、AIS）通过NMEA协议接入数据接入与标准化处理层，经解析后供导航业务层使用，并最终通过显示交互层呈现给用户。文件系统和数据库提供数据读写支持。",
+      "node_trace": [
+        {
+          "node_id": "A",
+          "label": "数据流与接口关系图",
+          "source_requirement_ids": [
+            "T001"
+          ]
+        }
+      ],
+      "status": "generated",
+      "review_notes": []
+    },
+    {
+      "diagram_id": "DG005",
+      "title": "部署与运行支撑图",
+      "kind": "deployment",
+      "mermaid_path": "output/records/diagrams/DG005.mmd",
+      "mermaid": "flowchart TB\n    subgraph HARDWARE[\"硬件平台\"]\n        Loong[\"龙芯\"]\n        FT[\"飞腾\"]\n        RK[\"瑞芯微\"]\n    end\n    subgraph OS[\"操作系统\"]\n        KY[\"麒麟\"]\n        UB[\"Ubuntu\"]\n    end\n    subgraph MODULE[\"运行支撑模块\"]\n        ADAPT[\"平台适配与模块化运行\"]\n        COOP[\"多设备协同调度\"]\n        PERF[\"性能监控\"]\n    end\n    Loong --> ADAPT\n    FT --> ADAPT\n    RK --> ADAPT\n    KY --> ADAPT\n    UB --> ADAPT\n    ADAPT --> COOP\n    COOP --> PERF",
+      "source_requirement_ids": [
+        "P001",
+        "P002",
+        "P003",
+        "P004",
+        "P005",
+        "P006",
+        "P007",
+        "T029",
+        "Q001",
+        "Q002",
+        "Q005",
+        "Q010"
+      ],
+      "related_section_ids": [
+        "SEC009",
+        "SEC001",
+        "SEC002",
+        "SEC003",
+        "SEC004",
+        "SEC006",
+        "SEC007",
+        "SEC008",
+        "SEC017",
+        "SEC018",
+        "SEC023",
+        "SEC024",
+        "SEC025",
+        "SEC013",
+        "SEC026",
+        "SEC030",
+        "SEC033",
+        "SEC034",
+        "SEC031",
+        "SEC005",
+        "SEC010",
+        "SEC011",
+        "SEC012",
+        "SEC014",
+        "SEC016",
+        "SEC019",
+        "SEC027",
+        "SEC028",
+        "SEC029"
+      ],
+      "related_module_ids": [],
+      "description": "部署与运行支撑：系统支持龙芯、飞腾、瑞芯微等硬件平台和麒麟、Ubuntu等操作系统，通过平台适配与模块化运行模块实现跨平台兼容和多设备协同。",
+      "node_trace": [
+        {
+          "node_id": "A",
+          "label": "部署与运行支撑图",
+          "source_requirement_ids": [
+            "P001"
+          ]
+        }
+      ],
+      "status": "generated",
+      "review_notes": []
+    },
+    {
+      "diagram_id": "DG006",
+      "title": "安全与质量保障流程图",
+      "kind": "security",
+      "mermaid_path": "output/records/diagrams/DG006.mmd",
+      "mermaid": "flowchart TB\n    A[\"角色与权限授权\"] --> B[\"网络安全部署\"]\n    B --> C[\"操作审计与日志记录\"]\n    C --> D[\"安全测试与验证\"]\n    D --> E[\"验收交付与售后保障\"]\n    A --> F[\"保密要求与知识产权\"]\n    F --> E",
+      "source_requirement_ids": [
+        "T011",
+        "T012",
+        "T016",
+        "T017",
+        "T018",
+        "T020",
+        "T028",
+        "T033",
+        "Q001",
+        "Q002",
+        "Q003",
+        "Q004",
+        "Q005",
+        "Q006",
+        "Q007",
+        "Q008",
+        "Q009",
+        "Q010",
+        "T035",
+        "Q011",
+        "Q012",
+        "Q013"
+      ],
+      "related_section_ids": [
+        "SEC001",
+        "SEC007",
+        "SEC008",
+        "SEC016",
+        "SEC018",
+        "SEC023",
+        "SEC027",
+        "SEC028",
+        "SEC029",
+        "SEC030",
+        "SEC011",
+        "SEC024",
+        "SEC025",
+        "SEC034",
+        "SEC005",
+        "SEC010",
+        "SEC012",
+        "SEC013",
+        "SEC014",
+        "SEC019",
+        "SEC006",
+        "SEC017",
+        "SEC015",
+        "SEC026",
+        "SEC033",
+        "SEC031",
+        "SEC032",
+        "SEC002",
+        "SEC003",
+        "SEC004"
+      ],
+      "related_module_ids": [],
+      "description": "安全与质量保障流程：从权限授权、网络安全部署、操作审计、安全测试到验收交付和售后保障，形成闭环控制。",
+      "node_trace": [
+        {
+          "node_id": "A",
+          "label": "安全与质量保障流程图",
+          "source_requirement_ids": [
+            "T011"
+          ]
+        }
+      ],
+      "status": "generated",
+      "review_notes": []
+    },
+    {
+      "diagram_id": "DG007",
+      "title": "T001 海图综合态势展示-标准符合性功能流程图",
+      "kind": "function_flow",
+      "mermaid_path": "output/records/diagrams/DG007.mmd",
+      "mermaid": "flowchart TB\nA[开始] --> B[输入海图数据S-57/S-63]\nB --> C{标准符合性检查}\nC -->|通过| D[输出符合性结果]\nC -->|失败| E[记录异常]\nD --> F[结束]\nE --> F",
+      "source_requirement_ids": [
+        "T001"
+      ],
+      "related_section_ids": [
+        "SEC001",
+        "SEC007",
+        "SEC008",
+        "SEC011",
+        "SEC018",
+        "SEC023",
+        "SEC024",
+        "SEC025"
+      ],
+      "related_module_ids": [],
+      "description": "说明海图综合态势展示-标准符合性的输入、处理、输出与异常记录流程。",
+      "node_trace": [
+        {
+          "node_id": "A",
+          "label": "T001 海图综合态势展示-标准符合性功能流程图",
+          "source_requirement_ids": [
+            "T001"
+          ]
+        }
+      ],
+      "status": "generated",
+      "review_notes": []
+    },
+    {
+      "diagram_id": "DG008",
+      "title": "T002 海图综合态势展示功能流程图",
+      "kind": "function_flow",
+      "mermaid_path": "output/records/diagrams/DG008.mmd",
+      "mermaid": "flowchart TB\nA[开始] --> B[加载电子海图]\nB --> C[自动匹配与选择]\nC --> D[缩放/漫游]\nD --> E[图层控制]\nE --> F[输出显示]\nF --> G[结束]",
+      "source_requirement_ids": [
+        "T002"
+      ],
+      "related_section_ids": [
+        "SEC001",
+        "SEC007",
+        "SEC008",
+        "SEC011",
+        "SEC018",
+        "SEC023",
+        "SEC024",
+        "SEC025"
+      ],
+      "related_module_ids": [],
+      "description": "说明海图综合态势展示的输入、处理、输出与异常记录流程。",
+      "node_trace": [
+        {
+          "node_id": "A",
+          "label": "T002 海图综合态势展示功能流程图",
+          "source_requirement_ids": [
+            "T002"
+          ]
+        }
+      ],
+      "status": "generated",
+      "review_notes": []
+    },
+    {
+      "diagram_id": "DG009",
+      "title": "T003 海图综合态势展示功能流程图",
+      "kind": "function_flow",
+      "mermaid_path": "output/records/diagrams/DG009.mmd",
+      "mermaid": "flowchart TB\nA[开始] --> B[选择配色模式]\nB --> C{白天/黄昏/夜晚}\nC -->|白天| D[默认亮度]\nC -->|黄昏| E[降低亮度]\nC -->|夜晚| F[最低亮度]\nD --> G[显示海图]\nE --> G\nF --> G\nG --> H[结束]",
+      "source_requirement_ids": [
+        "T003"
+      ],
+      "related_section_ids": [
+        "SEC001",
+        "SEC007",
+        "SEC008",
+        "SEC011",
+        "SEC018",
+        "SEC023",
+        "SEC024",
+        "SEC025"
+      ],
+      "related_module_ids": [],
+      "description": "说明海图综合态势展示的输入、处理、输出与异常记录流程。",
+      "node_trace": [
+        {
+          "node_id": "A",
+          "label": "T003 海图综合态势展示功能流程图",
+          "source_requirement_ids": [
+            "T003"
+          ]
+        }
+      ],
+      "status": "generated",
+      "review_notes": []
+    },
+    {
+      "diagram_id": "DG010",
+      "title": "T004 海图综合态势展示功能流程图",
+      "kind": "function_flow",
+      "mermaid_path": "output/records/diagrams/DG010.mmd",
+      "mermaid": "flowchart TB\nA[开始] --> B[选择方位模式]\nB --> C{正北向上/船艏向上}\nC -->|正北| D[固定北向]\nC -->|船艏| E[动态旋转]\nD --> F[选择位移模式]\nE --> F\nF --> G{真实位移/相对位移}\nG -->|真实| H[绝对轨迹]\nG -->|相对| I[相对轨迹]\nH --> J[显示海图]\nI --> J\nJ --> K[结束]",
+      "source_requirement_ids": [
+        "T004"
+      ],
+      "related_section_ids": [
+        "SEC001",
+        "SEC007",
+        "SEC008",
+        "SEC011",
+        "SEC018",
+        "SEC023",
+        "SEC024",
+        "SEC025"
+      ],
+      "related_module_ids": [],
+      "description": "说明海图综合态势展示的输入、处理、输出与异常记录流程。",
+      "node_trace": [
+        {
+          "node_id": "A",
+          "label": "T004 海图综合态势展示功能流程图",
+          "source_requirement_ids": [
+            "T004"
+          ]
+        }
+      ],
+      "status": "generated",
+      "review_notes": []
+    },
+    {
+      "diagram_id": "DG011",
+      "title": "T005 AIS/雷达等目标信息的处理与显示功能流程图",
+      "kind": "function_flow",
+      "mermaid_path": "output/records/diagrams/DG011.mmd",
+      "mermaid": "flowchart TB\nA[开始] --> B[接收雷达/AIS数据]\nB --> C[OpenGL处理]\nC --> D[坐标对齐]\nD --> E[目标解析]\nE --> F[叠加到海图]\nF --> G[显示目标]\nG --> H[结束]",
+      "source_requirement_ids": [
+        "T005"
+      ],
+      "related_section_ids": [
+        "SEC001",
+        "SEC007",
+        "SEC008",
+        "SEC011",
+        "SEC018",
+        "SEC023",
+        "SEC024",
+        "SEC025"
+      ],
+      "related_module_ids": [],
+      "description": "说明AIS/雷达等目标信息的处理与显示的输入、处理、输出与异常记录流程。",
+      "node_trace": [
+        {
+          "node_id": "A",
+          "label": "T005 AIS/雷达等目标信息的处理与显示功能流程图",
+          "source_requirement_ids": [
+            "T005"
+          ]
+        }
+      ],
+      "status": "generated",
+      "review_notes": []
+    },
+    {
+      "diagram_id": "DG012",
+      "title": "T006 AIS/雷达等目标信息的处理与显示功能流程图",
+      "kind": "function_flow",
+      "mermaid_path": "output/records/diagrams/DG012.mmd",
+      "mermaid": "flowchart TB\nA[开始] --> B[接收目标数据]\nB --> C[生成AIS/雷达符号]\nC --> D[位置匹配]\nD --> E[叠加到海图]\nE --> F[输出显示]\nF --> G[结束]",
+      "source_requirement_ids": [
+        "T006"
+      ],
+      "related_section_ids": [
+        "SEC001",
+        "SEC007",
+        "SEC008",
+        "SEC011",
+        "SEC018",
+        "SEC023",
+        "SEC024",
+        "SEC025",
+        "SEC034"
+      ],
+      "related_module_ids": [],
+      "description": "说明AIS/雷达等目标信息的处理与显示的输入、处理、输出与异常记录流程。",
+      "node_trace": [
+        {
+          "node_id": "A",
+          "label": "T006 AIS/雷达等目标信息的处理与显示功能流程图",
+          "source_requirement_ids": [
+            "T006"
+          ]
+        }
+      ],
+      "status": "generated",
+      "review_notes": []
+    },
+    {
+      "diagram_id": "DG013",
+      "title": "T007 AIS/雷达等目标信息的处理与显示功能流程图",
+      "kind": "function_flow",
+      "mermaid_path": "output/records/diagrams/DG013.mmd",
+      "mermaid": "flowchart TB\nA[开始] --> B[接收AIS/雷达原始数据]\nB --> C[解析目标关键信息]\nC --> D[融合ARPA跟踪预测]\nD --> E[可选显示目标信息]\nE --> F[结束]\nB --> G[数据异常处理]\nG --> H[记录异常日志]\nH --> F",
+      "source_requirement_ids": [
+        "T007"
+      ],
+      "related_section_ids": [
+        "SEC001",
+        "SEC007",
+        "SEC008",
+        "SEC011",
+        "SEC018",
+        "SEC023",
+        "SEC034"
+      ],
+      "related_module_ids": [],
+      "description": "AIS/雷达目标信息处理与显示流程，包括输入、解析、融合、显示及异常处理。",
+      "node_trace": [
+        {
+          "node_id": "A",
+          "label": "T007 AIS/雷达等目标信息的处理与显示功能流程图",
+          "source_requirement_ids": [
+            "T007"
+          ]
+        }
+      ],
+      "status": "generated",
+      "review_notes": []
+    },
+    {
+      "diagram_id": "DG014",
+      "title": "T008 AIS/雷达等目标信息的处理与显示功能流程图",
+      "kind": "function_flow",
+      "mermaid_path": "output/records/diagrams/DG014.mmd",
+      "mermaid": "flowchart TB\nA[开始] --> B[加载基础海图]\nB --> C[接收GIS要素数据]\nC --> D[解析GIS要素类型]\nD --> E[叠加显示电子围栏]\nE --> F[叠加显示风险区域]\nF --> G[更新图形显示]\nG --> H[结束]\nC --> I[数据格式错误处理]\nI --> J[记录错误并提示]\nJ --> H",
+      "source_requirement_ids": [
+        "T008"
+      ],
+      "related_section_ids": [
+        "SEC001",
+        "SEC007",
+        "SEC008",
+        "SEC011",
+        "SEC018",
+        "SEC023"
+      ],
+      "related_module_ids": [],
+      "description": "GIS要素叠加显示流程，支持电子围栏、风险区域等自定义要素叠加。",
+      "node_trace": [
+        {
+          "node_id": "A",
+          "label": "T008 AIS/雷达等目标信息的处理与显示功能流程图",
+          "source_requirement_ids": [
+            "T008"
+          ]
+        }
+      ],
+      "status": "generated",
+      "review_notes": []
+    },
+    {
+      "diagram_id": "DG015",
+      "title": "T009 AIS/雷达等目标信息的处理与显示功能流程图",
+      "kind": "function_flow",
+      "mermaid_path": "output/records/diagrams/DG015.mmd",
+      "mermaid": "flowchart TB\nA[开始] --> B[获取潮汐/海流/气象数据]\nB --> C[获取临时通告数据]\nC --> D[数据解析与对齐]\nD --> E[叠加显示潮汐流信息]\nE --> F[叠加显示临时通告]\nF --> G[更新海图显示]\nG --> H[结束]\nD --> I[数据解析异常]\nI --> J[异常处理并提示]\nJ --> H",
+      "source_requirement_ids": [
+        "T009"
+      ],
+      "related_section_ids": [
+        "SEC001",
+        "SEC007",
+        "SEC008",
+        "SEC011",
+        "SEC018",
+        "SEC023"
+      ],
+      "related_module_ids": [],
+      "description": "潮汐、海流、气象信息及临时通告叠加显示流程。",
+      "node_trace": [
+        {
+          "node_id": "A",
+          "label": "T009 AIS/雷达等目标信息的处理与显示功能流程图",
+          "source_requirement_ids": [
+            "T009"
+          ]
+        }
+      ],
+      "status": "generated",
+      "review_notes": []
+    },
+    {
+      "diagram_id": "DG016",
+      "title": "T010 航线规划功能流程图",
+      "kind": "function_flow",
+      "mermaid_path": "output/records/diagrams/DG016.mmd",
+      "mermaid": "flowchart TB\nA[开始] --> B[选择设计方式]\nB --> C{手动或自动?}\nC --> |手动| D[添加/删除/拖动航向点]\nC --> |自动| E[自动生成航向点]\nD --> F[排序航段]\nE --> F\nF --> G[完成航线设计]\nG --> H[结束]\nD --> I[操作异常处理]\nI --> F",
+      "source_requirement_ids": [
+        "T010"
+      ],
+      "related_section_ids": [
+        "SEC001",
+        "SEC007",
+        "SEC008",
+        "SEC018",
+        "SEC023"
+      ],
+      "related_module_ids": [],
+      "description": "航线规划流程，支持手动/自动设计，包括添加、删除、拖动、排序航向点。",
+      "node_trace": [
+        {
+          "node_id": "A",
+          "label": "T010 航线规划功能流程图",
+          "source_requirement_ids": [
+            "T010"
+          ]
+        }
+      ],
+      "status": "generated",
+      "review_notes": []
+    },
+    {
+      "diagram_id": "DG017",
+      "title": "T011 航线规划功能流程图",
+      "kind": "function_flow",
+      "mermaid_path": "output/records/diagrams/DG017.mmd",
+      "mermaid": "flowchart TB\nA[开始] --> B[载入航线数据]\nB --> C[获取航行环境数据]\nC --> D[执行安全检查]\nD --> E{是否存在风险?}\nE --> |是| F[记录并提示风险类型]\nE --> |否| G[标记航线安全]\nF --> H[生成安全报告]\nG --> H\nH --> I[结束]",
+      "source_requirement_ids": [
+        "T011"
+      ],
+      "related_section_ids": [
+        "SEC001",
+        "SEC007",
+        "SEC008",
+        "SEC016",
+        "SEC018",
+        "SEC023",
+        "SEC027",
+        "SEC028",
+        "SEC029",
+        "SEC030"
+      ],
+      "related_module_ids": [],
+      "description": "航线自动安全检查流程，提示浅水、禁航区或危险物等风险。",
+      "node_trace": [
+        {
+          "node_id": "A",
+          "label": "T011 航线规划功能流程图",
+          "source_requirement_ids": [
+            "T011"
+          ]
+        }
+      ],
+      "status": "generated",
+      "review_notes": []
+    },
+    {
+      "diagram_id": "DG018",
+      "title": "T012 航线规划功能流程图",
+      "kind": "function_flow",
+      "mermaid_path": "output/records/diagrams/DG018.mmd",
+      "mermaid": "flowchart TB\nA[开始] --> B[选择需要设置的航线]\nB --> C[设定吃水深度]\nC --> D[设定安全等深线]\nD --> E[设定偏航阈值]\nE --> F[设定船舶尺寸]\nF --> G[保存安全参数]\nG --> H[结束]\nF --> I[参数校验失败]\nI --> J[提示重新输入]\nJ --> C",
+      "source_requirement_ids": [
+        "T012"
+      ],
+      "related_section_ids": [
+        "SEC001",
+        "SEC007",
+        "SEC008",
+        "SEC016",
+        "SEC018",
+        "SEC023",
+        "SEC027",
+        "SEC028",
+        "SEC029",
+        "SEC030"
+      ],
+      "related_module_ids": [],
+      "description": "航线安全参数设定流程，包括吃水、安全等深线、偏航阈值等参数的设置。",
+      "node_trace": [
+        {
+          "node_id": "A",
+          "label": "T012 航线规划功能流程图",
+          "source_requirement_ids": [
+            "T012"
+          ]
+        }
+      ],
+      "status": "generated",
+      "review_notes": []
+    },
+    {
+      "diagram_id": "DG019",
+      "title": "T013 航线规划功能流程图",
+      "kind": "function_flow",
+      "mermaid_path": "output/records/diagrams/DG019.mmd",
+      "mermaid": "flowchart TB\nA[用户输入起点和终点] --> B[系统获取经纬度]\nB --> C[计算真距离和方位]\nC --> D[计算航行时间ETA]\nD --> E[输出计算结果]",
+      "source_requirement_ids": [
+        "T013"
+      ],
+      "related_section_ids": [
+        "SEC001",
+        "SEC007",
+        "SEC008",
+        "SEC018",
+        "SEC023"
+      ],
+      "related_module_ids": [],
+      "description": "航线规划功能流程图：说明航线规划中航行计算（真距离、方位、ETA）的输入、处理与输出流程。",
+      "node_trace": [
+        {
+          "node_id": "A",
+          "label": "T013 航线规划功能流程图",
+          "source_requirement_ids": [
+            "T013"
+          ]
+        }
+      ],
+      "status": "generated",
+      "review_notes": []
+    },
+    {
+      "diagram_id": "DG020",
+      "title": "T014 航线规划功能流程图",
+      "kind": "function_flow",
+      "mermaid_path": "output/records/diagrams/DG020.mmd",
+      "mermaid": "flowchart TB\nA[接收GPS/DGPS数据] --> B[解算船位]\nB --> C[叠加船位到海图]\nC --> D[读取计划航线]\nD --> E[比较船位与计划航线]\nE --> F{是否偏航?}\nF -->|是| G[记录偏航事件]\nF -->|否| H[继续监控]",
+      "source_requirement_ids": [
+        "T014"
+      ],
+      "related_section_ids": [
+        "SEC001",
+        "SEC007",
+        "SEC008",
+        "SEC018",
+        "SEC023"
+      ],
+      "related_module_ids": [],
+      "description": "航线规划功能流程图：说明航线规划中实时船位叠加与计划航线监控流程。",
+      "node_trace": [
+        {
+          "node_id": "A",
+          "label": "T014 航线规划功能流程图",
+          "source_requirement_ids": [
+            "T014"
+          ]
+        }
+      ],
+      "status": "generated",
+      "review_notes": []
+    },
+    {
+      "diagram_id": "DG021",
+      "title": "T015 航线规划功能流程图",
+      "kind": "function_flow",
+      "mermaid_path": "output/records/diagrams/DG021.mmd",
+      "mermaid": "flowchart TB\nA[传感器实时采集] --> B[数据预处理]\nB --> C[存储船位/速度/航向]\nC --> D[检测报警事件]\nD --> E{有报警?}\nE -->|是| F[存储报警事件]\nE -->|否| G[继续采集]\nF --> H[更新历史航迹数据库]\nG --> A",
+      "source_requirement_ids": [
+        "T015"
+      ],
+      "related_section_ids": [
+        "SEC001",
+        "SEC007",
+        "SEC008",
+        "SEC018",
+        "SEC023"
+      ],
+      "related_module_ids": [],
+      "description": "航线规划功能流程图：说明历史航迹、船位、速度、航向和报警事件的连续记录与存储流程。",
+      "node_trace": [
+        {
+          "node_id": "A",
+          "label": "T015 航线规划功能流程图",
+          "source_requirement_ids": [
+            "T015"
+          ]
+        }
+      ],
+      "status": "generated",
+      "review_notes": []
+    },
+    {
+      "diagram_id": "DG022",
+      "title": "T016 安全等深线与水深告警功能流程图",
+      "kind": "function_flow",
+      "mermaid_path": "output/records/diagrams/DG022.mmd",
+      "mermaid": "flowchart TB\nA[用户输入船舶吃水] --> B[输入富裕水深]\nB --> C[系统计算安全等深线]\nC --> D[设置安全轮廓线]\nD --> E[在海图上显示]",
+      "source_requirement_ids": [
+        "T016"
+      ],
+      "related_section_ids": [
+        "SEC001",
+        "SEC007",
+        "SEC008",
+        "SEC016",
+        "SEC018",
+        "SEC023",
+        "SEC027",
+        "SEC028",
+        "SEC029",
+        "SEC030"
+      ],
+      "related_module_ids": [],
+      "description": "安全等深线与水深告警功能流程图：说明安全等深线设置流程（输入吃水、富裕水深，自动计算并设置）。",
+      "node_trace": [
+        {
+          "node_id": "A",
+          "label": "T016 安全等深线与水深告警功能流程图",
+          "source_requirement_ids": [
+            "T016"
+          ]
+        }
+      ],
+      "status": "generated",
+      "review_notes": []
+    },
+    {
+      "diagram_id": "DG023",
+      "title": "T017 安全等深线与水深告警功能流程图",
+      "kind": "function_flow",
+      "mermaid_path": "output/records/diagrams/DG023.mmd",
+      "mermaid": "flowchart TB\nA[读取海图水深数据] --> B[对比安全等深线]\nB --> C{水深 < 安全等深线?}\nC -->|是| D[着色为蓝色（警示）]\nC -->|否| E[着色为白色（安全）]\nD --> F[更新海图显示]\nE --> F",
+      "source_requirement_ids": [
+        "T017"
+      ],
+      "related_section_ids": [
+        "SEC001",
+        "SEC007",
+        "SEC008",
+        "SEC011",
+        "SEC016",
+        "SEC018",
+        "SEC023",
+        "SEC024",
+        "SEC025",
+        "SEC027",
+        "SEC028",
+        "SEC029",
+        "SEC030"
+      ],
+      "related_module_ids": [],
+      "description": "安全等深线与水深告警功能流程图：说明海图上安全水域着色流程（浅于安全等深线标蓝，安全水域标白）。",
+      "node_trace": [
+        {
+          "node_id": "A",
+          "label": "T017 安全等深线与水深告警功能流程图",
+          "source_requirement_ids": [
+            "T017"
+          ]
+        }
+      ],
+      "status": "generated",
+      "review_notes": []
+    },
+    {
+      "diagram_id": "DG024",
+      "title": "T018 安全等深线与水深告警功能流程图",
+      "kind": "function_flow",
+      "mermaid_path": "output/records/diagrams/DG024.mmd",
+      "mermaid": "flowchart TB\nA[实时监测船位] --> B[获取当前水深]\nB --> C[判断是否进入不安全水域]\nC --> D{即将进入?}\nD -->|是| E[触发声光告警]\nD -->|否| F[继续监测]\nE --> G[记录告警事件]\nG --> F",
+      "source_requirement_ids": [
+        "T018"
+      ],
+      "related_section_ids": [
+        "SEC001",
+        "SEC007",
+        "SEC008",
+        "SEC016",
+        "SEC018",
+        "SEC023",
+        "SEC027",
+        "SEC028",
+        "SEC029",
+        "SEC030"
+      ],
+      "related_module_ids": [],
+      "description": "安全等深线与水深告警功能流程图：说明船舶进入不安全水域时声光告警触发流程。",
+      "node_trace": [
+        {
+          "node_id": "A",
+          "label": "T018 安全等深线与水深告警功能流程图",
+          "source_requirement_ids": [
+            "T018"
+          ]
+        }
+      ],
+      "status": "generated",
+      "review_notes": []
+    },
+    {
+      "diagram_id": "DG025",
+      "title": "T019 安全等深线与水深告警功能流程图",
+      "kind": "function_flow",
+      "mermaid_path": "output/records/diagrams/DG025.mmd",
+      "mermaid": "flowchart TB\nA[开始] --> B[接收船舶位置与禁航区数据]\nB --> C[判断是否穿越/进入预设区域]\nC --> D{是/否}\nD -- 是 --> E[触发报警]\nE --> F[记录异常]\nF --> G[结束]\nD -- 否 --> G",
+      "source_requirement_ids": [
+        "T019"
+      ],
+      "related_section_ids": [
+        "SEC001",
+        "SEC007",
+        "SEC008",
+        "SEC018",
+        "SEC023",
+        "SEC027",
+        "SEC028",
+        "SEC029",
+        "SEC030"
+      ],
+      "related_module_ids": [],
+      "description": "说明安全等深线与水深告警的输入、处理、输出与异常记录流程。",
+      "node_trace": [
+        {
+          "node_id": "A",
+          "label": "T019 安全等深线与水深告警功能流程图",
+          "source_requirement_ids": [
+            "T019"
+          ]
+        }
+      ],
+      "status": "generated",
+      "review_notes": []
+    },
+    {
+      "diagram_id": "DG026",
+      "title": "T020 安全等深线与水深告警功能流程图",
+      "kind": "function_flow",
+      "mermaid_path": "output/records/diagrams/DG026.mmd",
+      "mermaid": "flowchart TB\nA[开始] --> B[接收船舶运动与危险物数据]\nB --> C[预测未来安全矢量]\nC --> D[判断是否接近孤立危险物或浅水区]\nD --> E{是/否}\nE -- 是 --> F[触发报警]\nF --> G[记录异常]\nG --> H[结束]\nE -- 否 --> H",
+      "source_requirement_ids": [
+        "T020"
+      ],
+      "related_section_ids": [
+        "SEC001",
+        "SEC007",
+        "SEC008",
+        "SEC016",
+        "SEC018",
+        "SEC023",
+        "SEC027",
+        "SEC028",
+        "SEC029",
+        "SEC030"
+      ],
+      "related_module_ids": [],
+      "description": "说明安全等深线与水深告警的输入、处理、输出与异常记录流程。",
+      "node_trace": [
+        {
+          "node_id": "A",
+          "label": "T020 安全等深线与水深告警功能流程图",
+          "source_requirement_ids": [
+            "T020"
+          ]
+        }
+      ],
+      "status": "generated",
+      "review_notes": []
+    },
+    {
+      "diagram_id": "DG027",
+      "title": "T021 安全等深线与水深告警功能流程图",
+      "kind": "function_flow",
+      "mermaid_path": "output/records/diagrams/DG027.mmd",
+      "mermaid": "flowchart TB\nA[开始] --> B[接收AIS/雷达目标数据]\nB --> C[计算CPA/TCPA]\nC --> D[比较风险阈值]\nD --> E{是否超阈值}\nE -- 是 --> F[触发碰撞预警]\nF --> G[记录异常]\nG --> H[结束]\nE -- 否 --> H",
+      "source_requirement_ids": [
+        "T021"
+      ],
+      "related_section_ids": [
+        "SEC001",
+        "SEC007",
+        "SEC008",
+        "SEC011",
+        "SEC018",
+        "SEC023",
+        "SEC024",
+        "SEC025",
+        "SEC027",
+        "SEC028",
+        "SEC029",
+        "SEC030"
+      ],
+      "related_module_ids": [],
+      "description": "说明安全等深线与水深告警的输入、处理、输出与异常记录流程。",
+      "node_trace": [
+        {
+          "node_id": "A",
+          "label": "T021 安全等深线与水深告警功能流程图",
+          "source_requirement_ids": [
+            "T021"
+          ]
+        }
+      ],
+      "status": "generated",
+      "review_notes": []
+    },
+    {
+      "diagram_id": "DG028",
+      "title": "T022 航行监控导航与安全预警功能流程图",
+      "kind": "function_flow",
+      "mermaid_path": "output/records/diagrams/DG028.mmd",
+      "mermaid": "flowchart TB\nA[开始] --> B[获取计划航线与实时位置]\nB --> C[计算偏航距离]\nC --> D[与偏航阈值XTD比较]\nD --> E{是否超阈值}\nE -- 是 --> F[发出偏航告警]\nF --> G[记录异常]\nG --> H[结束]\nE -- 否 --> H",
+      "source_requirement_ids": [
+        "T022"
+      ],
+      "related_section_ids": [
+        "SEC001",
+        "SEC007",
+        "SEC008",
+        "SEC018",
+        "SEC023",
+        "SEC027",
+        "SEC028",
+        "SEC029",
+        "SEC030"
+      ],
+      "related_module_ids": [],
+      "description": "说明航行监控导航与安全预警的输入、处理、输出与异常记录流程。",
+      "node_trace": [
+        {
+          "node_id": "A",
+          "label": "T022 航行监控导航与安全预警功能流程图",
+          "source_requirement_ids": [
+            "T022"
+          ]
+        }
+      ],
+      "status": "generated",
+      "review_notes": []
+    },
+    {
+      "diagram_id": "DG029",
+      "title": "T023 航行监控导航与安全预警功能流程图",
+      "kind": "function_flow",
+      "mermaid_path": "output/records/diagrams/DG029.mmd",
+      "mermaid": "flowchart TB\nA[开始] --> B[监控各传感器与系统状态]\nB --> C[检测故障或异常事件]\nC --> D{是否存在故障}\nD -- 是 --> E[故障分类与记录]\nE --> F[发出系统级告警]\nF --> G[结束]\nD -- 否 --> G",
+      "source_requirement_ids": [
+        "T023"
+      ],
+      "related_section_ids": [
+        "SEC001",
+        "SEC007",
+        "SEC008",
+        "SEC011",
+        "SEC018",
+        "SEC023",
+        "SEC024",
+        "SEC025",
+        "SEC027",
+        "SEC028",
+        "SEC029",
+        "SEC030"
+      ],
+      "related_module_ids": [],
+      "description": "说明航行监控导航与安全预警的输入、处理、输出与异常记录流程。",
+      "node_trace": [
+        {
+          "node_id": "A",
+          "label": "T023 航行监控导航与安全预警功能流程图",
+          "source_requirement_ids": [
+            "T023"
+          ]
+        }
+      ],
+      "status": "generated",
+      "review_notes": []
+    },
+    {
+      "diagram_id": "DG030",
+      "title": "T024 航行监控导航与安全预警功能流程图",
+      "kind": "function_flow",
+      "mermaid_path": "output/records/diagrams/DG030.mmd",
+      "mermaid": "flowchart TB\nA[开始] --> B[接收报警事件]\nB --> C[按IMO/IHO规范判断优先级]\nC --> D{紧急/警报/指示}\nD -- 紧急 --> E[红色声光紧急报警]\nD -- 警报 --> F[橙色声光警报]\nD -- 指示 --> G[黄色声光指示]\nE --> H[记录异常]\nF --> H\nG --> H\nH --> I[结束]",
+      "source_requirement_ids": [
+        "T024"
+      ],
+      "related_section_ids": [
+        "SEC001",
+        "SEC007",
+        "SEC008",
+        "SEC018",
+        "SEC023",
+        "SEC027",
+        "SEC028",
+        "SEC029",
+        "SEC030"
+      ],
+      "related_module_ids": [],
+      "description": "说明航行监控导航与安全预警的输入、处理、输出与异常记录流程。",
+      "node_trace": [
+        {
+          "node_id": "A",
+          "label": "T024 航行监控导航与安全预警功能流程图",
+          "source_requirement_ids": [
+            "T024"
+          ]
+        }
+      ],
+      "status": "generated",
+      "review_notes": []
+    },
+    {
+      "diagram_id": "DG031",
+      "title": "T025 航行监控导航与安全预警功能流程图",
+      "kind": "function_flow",
+      "mermaid_path": "output/records/diagrams/DG031.mmd",
+      "mermaid": "flowchart TB\nA[开始] --> B[接收传感器/海图数据]\nB --> C[检测告警条件]\nC --> D{是否触发告警？}\nD -->|是| E[生成告警列表]\nD -->|否| B\nE --> F[船员确认告警]\nF --> G[消除告警]\nG --> H[记录日志与异常]\nH --> I[结束]",
+      "source_requirement_ids": [
+        "T025"
+      ],
+      "related_section_ids": [
+        "SEC001",
+        "SEC007",
+        "SEC008",
+        "SEC018",
+        "SEC023",
+        "SEC027",
+        "SEC028",
+        "SEC029",
+        "SEC030"
+      ],
+      "related_module_ids": [],
+      "description": "航行监控导航与安全预警功能流程图：从传感器数据输入到告警生成、确认、消除及异常记录。",
+      "node_trace": [
+        {
+          "node_id": "A",
+          "label": "T025 航行监控导航与安全预警功能流程图",
+          "source_requirement_ids": [
+            "T025"
+          ]
+        }
+      ],
+      "status": "generated",
+      "review_notes": []
+    },
+    {
+      "diagram_id": "DG032",
+      "title": "T026 个性化设置需求功能流程图",
+      "kind": "function_flow",
+      "mermaid_path": "output/records/diagrams/DG032.mmd",
+      "mermaid": "flowchart TB\nA[开始] --> B[进入设置界面]\nB --> C[选择界面主题]\nC --> D[调整菜单层级]\nD --> E[设置快捷键]\nE --> F[保存配置]\nF --> G[结束]",
+      "source_requirement_ids": [
+        "T026"
+      ],
+      "related_section_ids": [
+        "SEC001",
+        "SEC007",
+        "SEC008",
+        "SEC018",
+        "SEC023"
+      ],
+      "related_module_ids": [],
+      "description": "个性化设置需求功能流程图：图形化界面设置、菜单层级简化和快捷键访问流程。",
+      "node_trace": [
+        {
+          "node_id": "A",
+          "label": "T026 个性化设置需求功能流程图",
+          "source_requirement_ids": [
+            "T026"
+          ]
+        }
+      ],
+      "status": "generated",
+      "review_notes": []
+    },
+    {
+      "diagram_id": "DG033",
+      "title": "T027 个性化设置需求功能流程图",
+      "kind": "function_flow",
+      "mermaid_path": "output/records/diagrams/DG033.mmd",
+      "mermaid": "flowchart TB\nA[开始] --> B[检测显示分辨率]\nB --> C[适配高分辨率]\nC --> D[调节背景亮度（夜间模式）]\nD --> E[保存亮度设置]\nE --> F[结束]",
+      "source_requirement_ids": [
+        "T027"
+      ],
+      "related_section_ids": [
+        "SEC001",
+        "SEC007",
+        "SEC008",
+        "SEC018",
+        "SEC023"
+      ],
+      "related_module_ids": [],
+      "description": "个性化设置需求功能流程图：高分辨率适配与夜间亮度调节流程。",
+      "node_trace": [
+        {
+          "node_id": "A",
+          "label": "T027 个性化设置需求功能流程图",
+          "source_requirement_ids": [
+            "T027"
+          ]
+        }
+      ],
+      "status": "generated",
+      "review_notes": []
+    },
+    {
+      "diagram_id": "DG034",
+      "title": "T028 个性化设置需求功能流程图",
+      "kind": "function_flow",
+      "mermaid_path": "output/records/diagrams/DG034.mmd",
+      "mermaid": "flowchart TB\nA[开始] --> B[用户发起重要操作（删除航线/修改安全参数）]\nB --> C[弹出确认对话框]\nC --> D{用户确认？}\nD -->|是| E[执行操作]\nD -->|否| F[取消操作]\nE --> G[记录操作日志]\nF --> G\nG --> H[结束]",
+      "source_requirement_ids": [
+        "T028"
+      ],
+      "related_section_ids": [
+        "SEC001",
+        "SEC007",
+        "SEC008",
+        "SEC016",
+        "SEC018",
+        "SEC023",
+        "SEC027",
+        "SEC028",
+        "SEC029",
+        "SEC030"
+      ],
+      "related_module_ids": [],
+      "description": "个性化设置需求功能流程图：重要操作确认对话框流程，防止误操作。",
+      "node_trace": [
+        {
+          "node_id": "A",
+          "label": "T028 个性化设置需求功能流程图",
+          "source_requirement_ids": [
+            "T028"
+          ]
+        }
+      ],
+      "status": "generated",
+      "review_notes": []
+    },
+    {
+      "diagram_id": "DG035",
+      "title": "T029 基础平台与架构要求-跨平台兼容性功能流程图",
+      "kind": "function_flow",
+      "mermaid_path": "output/records/diagrams/DG035.mmd",
+      "mermaid": "flowchart TB\nA[开始] --> B[检测硬件平台（龙芯/飞腾/瑞芯微）]\nB --> C[适配操作系统（麒麟/Ubuntu）]\nC --> D[加载平台适配层]\nD --> E[启动应用程序]\nE --> F[验证长期稳定性]\nF --> G[结束]",
+      "source_requirement_ids": [
+        "T029"
+      ],
+      "related_section_ids": [
+        "SEC001",
+        "SEC002",
+        "SEC003",
+        "SEC004",
+        "SEC006",
+        "SEC007",
+        "SEC008",
+        "SEC017",
+        "SEC018",
+        "SEC023"
+      ],
+      "related_module_ids": [],
+      "description": "基础平台与架构要求-跨平台兼容性功能流程图：支持龙芯/飞腾/瑞芯微和麒麟/Ubuntu的部署与稳定运行。",
+      "node_trace": [
+        {
+          "node_id": "A",
+          "label": "T029 基础平台与架构要求-跨平台兼容性功能流程图",
+          "source_requirement_ids": [
+            "T029"
+          ]
+        }
+      ],
+      "status": "generated",
+      "review_notes": []
+    },
+    {
+      "diagram_id": "DG036",
+      "title": "T030 基础平台与架构要求-多设备协同功能流程图",
+      "kind": "function_flow",
+      "mermaid_path": "output/records/diagrams/DG036.mmd",
+      "mermaid": "flowchart TB\nA[开始] --> B[检测可用设备]\nB --> C[分配设备优先级]\nC --> D[主设备运行]\nD --> E{主设备故障？}\nE -->|是| F[从设备切换为主]\nE -->|否| D\nF --> G[协同工作]\nG --> H[结束]",
+      "source_requirement_ids": [
+        "T030"
+      ],
+      "related_section_ids": [
+        "SEC001",
+        "SEC002",
+        "SEC003",
+        "SEC004",
+        "SEC007",
+        "SEC008",
+        "SEC018",
+        "SEC023"
+      ],
+      "related_module_ids": [],
+      "description": "基础平台与架构要求-多设备协同功能流程图：多设备按优先级协同工作与故障切换流程。",
+      "node_trace": [
+        {
+          "node_id": "A",
+          "label": "T030 基础平台与架构要求-多设备协同功能流程图",
+          "source_requirement_ids": [
+            "T030"
+          ]
+        }
+      ],
+      "status": "generated",
+      "review_notes": []
+    },
+    {
+      "diagram_id": "DG037",
+      "title": "T031 基础平台与架构要求功能流程图",
+      "kind": "function_flow",
+      "mermaid_path": "output/records/diagrams/DG037.mmd",
+      "mermaid": "flowchart TB\nA[硬件平台需求] --> B[模块化架构设计]\nB --> C[预留标准接口]\nC --> D[支持后续接入新型导航传感器或功能模块]",
+      "source_requirement_ids": [
+        "T031"
+      ],
+      "related_section_ids": [
+        "SEC001",
+        "SEC002",
+        "SEC003",
+        "SEC004",
+        "SEC007",
+        "SEC008",
+        "SEC010",
+        "SEC011",
+        "SEC018",
+        "SEC023",
+        "SEC024",
+        "SEC025"
+      ],
+      "related_module_ids": [],
+      "description": "基础平台与架构要求功能流程图：输入硬件平台需求，通过模块化架构设计和标准接口预留，实现可扩展的导航传感器接入。",
+      "node_trace": [
+        {
+          "node_id": "A",
+          "label": "T031 基础平台与架构要求功能流程图",
+          "source_requirement_ids": [
+            "T031"
+          ]
+        }
+      ],
+      "status": "generated",
+      "review_notes": []
+    },
+    {
+      "diagram_id": "DG038",
+      "title": "T032 数据维护与合规功能流程图",
+      "kind": "function_flow",
+      "mermaid_path": "output/records/diagrams/DG038.mmd",
+      "mermaid": "flowchart TB\nA[接收S-63加密海图更新数据] --> B[解析更新数据]\nB --> C[应用更新到海图]\nC --> D[生成更新记录]",
+      "source_requirement_ids": [
+        "T032"
+      ],
+      "related_section_ids": [
+        "SEC001",
+        "SEC007",
+        "SEC008",
+        "SEC011",
+        "SEC018",
+        "SEC023",
+        "SEC024",
+        "SEC025",
+        "SEC034"
+      ],
+      "related_module_ids": [],
+      "description": "数据维护与合规功能流程图：接收S-63加密海图更新数据，解析并应用，生成更新记录。",
+      "node_trace": [
+        {
+          "node_id": "A",
+          "label": "T032 数据维护与合规功能流程图",
+          "source_requirement_ids": [
+            "T032"
+          ]
+        }
+      ],
+      "status": "generated",
+      "review_notes": []
+    },
+    {
+      "diagram_id": "DG039",
+      "title": "T033 数据维护与合规功能流程图",
+      "kind": "function_flow",
+      "mermaid_path": "output/records/diagrams/DG039.mmd",
+      "mermaid": "flowchart TB\nA[定时触发备份] --> B[备份系统内部存储结构SENC]\nB --> C[备份所有航行记录]\nC --> D[验证备份完整性]\nD --> E[记录备份日志]",
+      "source_requirement_ids": [
+        "T033"
+      ],
+      "related_section_ids": [
+        "SEC001",
+        "SEC007",
+        "SEC008",
+        "SEC011",
+        "SEC016",
+        "SEC018",
+        "SEC023",
+        "SEC024",
+        "SEC025",
+        "SEC027",
+        "SEC028",
+        "SEC029",
+        "SEC030",
+        "SEC034"
+      ],
+      "related_module_ids": [],
+      "description": "数据维护与合规功能流程图：定时自动备份SENC和航行记录，确保数据安全。",
+      "node_trace": [
+        {
+          "node_id": "A",
+          "label": "T033 数据维护与合规功能流程图",
+          "source_requirement_ids": [
+            "T033"
+          ]
+        }
+      ],
+      "status": "generated",
+      "review_notes": []
+    },
+    {
+      "diagram_id": "DG040",
+      "title": "T034 数据维护与合规功能流程图",
+      "kind": "function_flow",
+      "mermaid_path": "output/records/diagrams/DG040.mmd",
+      "mermaid": "flowchart TB\nA[软件接口初始化] --> B[遵循NMEA0183/2000协议]\nB --> C[与船载设备建立通信]\nC --> D[数据交换与解析]",
+      "source_requirement_ids": [
+        "T034"
+      ],
+      "related_section_ids": [
+        "SEC001",
+        "SEC007",
+        "SEC008",
+        "SEC010",
+        "SEC011",
+        "SEC018",
+        "SEC023",
+        "SEC024",
+        "SEC025",
+        "SEC034"
+      ],
+      "related_module_ids": [],
+      "description": "数据维护与合规功能流程图：接口遵循NMEA0183/2000协议与船载设备通信。",
+      "node_trace": [
+        {
+          "node_id": "A",
+          "label": "T034 数据维护与合规功能流程图",
+          "source_requirement_ids": [
+            "T034"
+          ]
+        }
+      ],
+      "status": "generated",
+      "review_notes": []
+    },
+    {
+      "diagram_id": "DG041",
+      "title": "T035 内部接口-安全告警与风险接口功能流程图",
+      "kind": "function_flow",
+      "mermaid_path": "output/records/diagrams/DG041.mmd",
+      "mermaid": "flowchart TB\nA[用户操作] --> B{是否重要操作?}\nB -->|是| C[弹出确认对话框]\nC --> D[用户二次确认]\nD --> E[执行操作]\nB -->|否| F[直接执行操作]\nE --> G[完成]\nF --> G",
+      "source_requirement_ids": [
+        "T035"
+      ],
+      "related_section_ids": [
+        "SEC001",
+        "SEC007",
+        "SEC008",
+        "SEC010",
+        "SEC011",
+        "SEC016",
+        "SEC018",
+        "SEC024",
+        "SEC025",
+        "SEC027",
+        "SEC028",
+        "SEC029",
+        "SEC030"
+      ],
+      "related_module_ids": [],
+      "description": "内部接口-安全告警与风险接口功能流程图：操作触发后提供视觉听觉反馈，重要操作需二次确认。",
+      "node_trace": [
+        {
+          "node_id": "A",
+          "label": "T035 内部接口-安全告警与风险接口功能流程图",
+          "source_requirement_ids": [
+            "T035"
+          ]
+        }
+      ],
+      "status": "generated",
+      "review_notes": []
+    },
+    {
+      "diagram_id": "DG042",
+      "title": "T036 内部接口-航线规划与监控接口功能流程图",
+      "kind": "function_flow",
+      "mermaid_path": "output/records/diagrams/DG042.mmd",
+      "mermaid": "flowchart TB\nA[进入航线规划界面] --> B[点击图标启动编辑]\nB --> C[在海图上绘制/编辑航点]\nC --> D[图形化界面操作支持]\nD --> E[完成航线规划]",
+      "source_requirement_ids": [
+        "T036"
+      ],
+      "related_section_ids": [
+        "SEC001",
+        "SEC007",
+        "SEC008",
+        "SEC010",
+        "SEC011",
+        "SEC018",
+        "SEC024",
+        "SEC025"
+      ],
+      "related_module_ids": [],
+      "description": "内部接口-航线规划与监控接口功能流程图：通过图形化界面在海图上进行航点绘制和编辑。",
+      "node_trace": [
+        {
+          "node_id": "A",
+          "label": "T036 内部接口-航线规划与监控接口功能流程图",
+          "source_requirement_ids": [
+            "T036"
+          ]
+        }
+      ],
+      "status": "generated",
+      "review_notes": []
+    },
+    {
+      "diagram_id": "DG043",
+      "title": "T037 内部接口-数据库数据读写接口功能流程图",
+      "kind": "function_flow",
+      "mermaid_path": "output/records/diagrams/DG043.mmd",
+      "mermaid": "flowchart TB\nA[开始] --> B[接收S-57/S-63海图数据]\nB --> C[解析ENC数据]\nC --> D[转换为SENC内部格式]\nD --> E[接收S-63更新数据]\nE --> F[应用更新]\nF --> G[存储到数据库]\nG --> H[输出SENC]\nH --> I[异常记录]\nI --> J[结束]",
+      "source_requirement_ids": [
+        "T037"
+      ],
+      "related_section_ids": [
+        "SEC001",
+        "SEC007",
+        "SEC008",
+        "SEC010",
+        "SEC011",
+        "SEC018",
+        "SEC024",
+        "SEC025"
+      ],
+      "related_module_ids": [],
+      "description": "内部接口-数据库数据读写接口功能流程图，展示从接收S-57/S-63海图数据到转换为SENC并存储的流程，包含异常记录。",
+      "node_trace": [
+        {
+          "node_id": "A",
+          "label": "T037 内部接口-数据库数据读写接口功能流程图",
+          "source_requirement_ids": [
+            "T037"
+          ]
+        }
+      ],
+      "status": "generated",
+      "review_notes": []
+    },
+    {
+      "diagram_id": "DG044",
+      "title": "T038 内部接口-海图显示与态势融合接口功能流程图",
+      "kind": "function_flow",
+      "mermaid_path": "output/records/diagrams/DG044.mmd",
+      "mermaid": "flowchart TB\nA[开始] --> B[用户操作菜单/按钮]\nB --> C[识别操作类型]\nC --> D[调用显示更新函数]\nD --> E[渲染海图或态势]\nE --> F[叠加目标AIS/雷达]\nF --> G[显示更新]\nG --> H[异常记录]\nH --> I[结束]",
+      "source_requirement_ids": [
+        "T038"
+      ],
+      "related_section_ids": [
+        "SEC001",
+        "SEC007",
+        "SEC008",
+        "SEC010",
+        "SEC011",
+        "SEC018",
+        "SEC024",
+        "SEC025"
+      ],
+      "related_module_ids": [],
+      "description": "内部接口-海图显示与态势融合接口功能流程图，描述用户操作到海图显示更新的处理过程，包含异常记录。",
+      "node_trace": [
+        {
+          "node_id": "A",
+          "label": "T038 内部接口-海图显示与态势融合接口功能流程图",
+          "source_requirement_ids": [
+            "T038"
+          ]
+        }
+      ],
+      "status": "generated",
+      "review_notes": []
+    },
+    {
+      "diagram_id": "DG045",
+      "title": "T039 外部接口-外部数据与文件系统功能流程图",
+      "kind": "function_flow",
+      "mermaid_path": "output/records/diagrams/DG045.mmd",
+      "mermaid": "flowchart TB\nA[开始] --> B[检测外部设备接入]\nB --> C[读取数据CSV/XML]\nC --> D[格式解析]\nD --> E[导入系统或导出文件]\nE --> F[写入外部设备]\nF --> G[异常记录]\nG --> H[结束]",
+      "source_requirement_ids": [
+        "T039"
+      ],
+      "related_section_ids": [
+        "SEC001",
+        "SEC007",
+        "SEC008",
+        "SEC010",
+        "SEC011",
+        "SEC018",
+        "SEC024",
+        "SEC025"
+      ],
+      "related_module_ids": [],
+      "description": "外部接口-外部数据与文件系统功能流程图，展示外部设备数据导入导出流程，包含异常记录。",
+      "node_trace": [
+        {
+          "node_id": "A",
+          "label": "T039 外部接口-外部数据与文件系统功能流程图",
+          "source_requirement_ids": [
+            "T039"
+          ]
+        }
+      ],
+      "status": "generated",
+      "review_notes": []
+    },
+    {
+      "diagram_id": "DG046",
+      "title": "T040 外部接口-传感器与导航设备功能流程图",
+      "kind": "function_flow",
+      "mermaid_path": "output/records/diagrams/DG046.mmd",
+      "mermaid": "flowchart TB\nA[开始] --> B[传感器数据输入NMEA]\nB --> C[解析NMEA协议]\nC --> D[提取位置/航向/速度]\nD --> E[数据融合]\nE --> F[更新船舶位置显示]\nF --> G[与其他系统交互]\nG --> H[异常记录]\nH --> I[结束]",
+      "source_requirement_ids": [
+        "T040"
+      ],
+      "related_section_ids": [
+        "SEC001",
+        "SEC007",
+        "SEC008",
+        "SEC010",
+        "SEC011",
+        "SEC018",
+        "SEC024",
+        "SEC025"
+      ],
+      "related_module_ids": [],
+      "description": "外部接口-传感器与导航设备功能流程图，描述NMEA数据解析到船舶位置更新的流程，包含异常记录。",
+      "node_trace": [
+        {
+          "node_id": "A",
+          "label": "T040 外部接口-传感器与导航设备功能流程图",
+          "source_requirement_ids": [
+            "T040"
+          ]
+        }
+      ],
+      "status": "generated",
+      "review_notes": []
+    },
+    {
+      "diagram_id": "DG047",
+      "title": "T041 外部接口-人机交互与控制HMI功能流程图",
+      "kind": "function_flow",
+      "mermaid_path": "output/records/diagrams/DG047.mmd",
+      "mermaid": "flowchart TB\nA[开始] --> B[输入事件触摸/鼠标/键盘]\nB --> C[事件映射]\nC --> D[执行对应功能]\nD --> E[更新界面]\nE --> F[保存配置]\nF --> G[异常记录]\nG --> H[结束]",
+      "source_requirement_ids": [
+        "T041"
+      ],
+      "related_section_ids": [
+        "SEC001",
+        "SEC007",
+        "SEC008",
+        "SEC010",
+        "SEC011",
+        "SEC018",
+        "SEC024",
+        "SEC025"
+      ],
+      "related_module_ids": [],
+      "description": "外部接口-人机交互与控制HMI功能流程图，展示多种输入方式到功能执行的流程，包含异常记录。",
+      "node_trace": [
+        {
+          "node_id": "A",
+          "label": "T041 外部接口-人机交互与控制HMI功能流程图",
+          "source_requirement_ids": [
+            "T041"
+          ]
+        }
+      ],
+      "status": "generated",
+      "review_notes": []
+    }
+  ]
+}

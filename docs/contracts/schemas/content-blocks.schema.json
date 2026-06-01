@@ -22,6 +22,7 @@
     "non_empty": { "type": "string", "minLength": 1 },
     "req_id": { "type": "string", "pattern": "^(T|P|Q|B|D)[0-9]{3}$" },
     "score_id": { "type": "string", "pattern": "^S[0-9]{3}$" },
+    "writing_id": { "type": "string", "pattern": "^WR[0-9]{3}$" },
     "producer": {
       "type": "object",
       "required": ["agent", "version"],
@@ -47,13 +48,13 @@
     },
     "block": {
       "type": "object",
-      "required": ["block_id", "placeholder", "section_id", "type", "content", "source_requirement_ids", "scoring_item_ids", "status"],
+      "required": ["block_id", "placeholder", "section_id", "type", "content", "source_requirement_ids", "scoring_item_ids", "writing_requirement_ids", "status"],
       "additionalProperties": false,
       "properties": {
         "block_id": { "type": "string", "pattern": "^CB[0-9]{3}$" },
         "placeholder": { "$ref": "#/$defs/non_empty" },
         "section_id": { "type": "string", "pattern": "^SEC[0-9]{3}$" },
-        "type": { "enum": ["paragraphs", "table", "list", "heading", "diagram_reference", "confirm_placeholder", "review_text"] },
+        "type": { "enum": ["paragraphs", "table", "list", "heading", "diagram_reference", "confirm_placeholder", "review_text", "rich_content"] },
         "content": {
           "oneOf": [
             { "type": "array", "items": { "$ref": "#/$defs/non_empty" } },
@@ -64,6 +65,7 @@
         },
         "source_requirement_ids": { "type": "array", "items": { "$ref": "#/$defs/req_id" } },
         "scoring_item_ids": { "type": "array", "items": { "$ref": "#/$defs/score_id" } },
+        "writing_requirement_ids": { "type": "array", "items": { "$ref": "#/$defs/writing_id" } },
         "diagram_ids": { "type": "array", "items": { "type": "string", "pattern": "^DG[0-9]{3}$" } },
         "status": { "enum": ["generated", "review_required", "confirm_required", "blocked"] },
         "risk_flags": {
@@ -107,7 +109,7 @@
         "item_id": { "type": "string", "pattern": "^(RV|CF)[0-9]{3}$" },
         "block_id": { "type": "string", "pattern": "^CB[0-9]{3}$" },
         "message": { "$ref": "#/$defs/non_empty" },
-        "source_ids": { "type": "array", "items": { "type": "string", "pattern": "^(T|P|Q|B|D|S)[0-9]{3}$" } },
+        "source_ids": { "type": "array", "items": { "type": "string", "pattern": "^((T|P|Q|B|D|S)[0-9]{3}|WR[0-9]{3})$" } },
         "status": { "enum": ["review_required", "confirm_required", "resolved", "waived"] }
       }
     }

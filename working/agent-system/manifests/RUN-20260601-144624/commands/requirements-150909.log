@@ -1,0 +1,14 @@
+stage=requirements
+owner=Requirement Evidence Agent
+returncode=0
+command="D:\Program Files\Python310\python.exe" G:\#.Project\bid-solution-writer\working\agents\requirement_evidence_agent.py --workspace G:\#.Project\bid-solution-writer --input-dir G:\#.Project\bid-solution-writer\input --template-dir G:\#.Project\bid-solution-writer\templates --output-dir G:\#.Project\bid-solution-writer\output\records
+
+## stdout
+Requirement Evidence Agent completed: RUN-20260601-150909
+staging: G:\#.Project\bid-solution-writer\working\agent-system\staging\requirements\RUN-20260601-150909
+published: G:\#.Project\bid-solution-writer\working\agent-system\published\requirements\RUN-20260601-150909
+output: G:\#.Project\bid-solution-writer\output\records
+
+
+## stderr
+

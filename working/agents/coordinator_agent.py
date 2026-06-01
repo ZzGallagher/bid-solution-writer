@@ -89,9 +89,8 @@ PRIMARY_ARTIFACT = {
 }
 
 INPUT_FILES = [
-    ("技术要求.docx", "technical_requirements", "input"),
-    ("商务要求.docx", "business_requirements", "input"),
-    ("技术评分表.docx", "scoring_table", "input"),
+    ("技术要求.md", "technical_requirements_markdown", "input"),
+    ("方案撰写要求.md", "writing_requirements_markdown", "input"),
     ("投标方案模板.docx", "template", "template"),
 ]
 
@@ -475,6 +474,12 @@ class CoordinatorAgent:
         errors = []
         for filename, _kind, location in INPUT_FILES:
             path = (self.template_dir if location == "template" else self.input_dir) / filename
+            if path.exists():
+                continue
+            if filename == "技术要求.md" and len(list(self.input_dir.glob("*技术要求.md"))) == 1:
+                continue
+            if filename == "方案撰写要求.md" and len(list(self.input_dir.glob("*方案撰写要求.md"))) == 1:
+                continue
             if not path.exists():
                 errors.append(f"缺少必需输入文件：{self.relative(path)}")
         return errors
@@ -609,7 +614,7 @@ class CoordinatorAgent:
     def recovery_for_stage(self, stage_id: str, owner: str | None = None) -> str:
         actual_owner = owner or STAGE_AGENTS[stage_id]
         if stage_id == "requirements":
-            return "检查 input/*.docx 是否可读取，修复后从 requirements 阶段重跑。"
+            return "检查 input/技术要求.md 与 input/方案撰写要求.md 是否可读取，修复后从 requirements 阶段重跑。"
         if stage_id == "design":
             return "检查 requirements.json 与 requirements-matrix.json，修复后从 design 阶段重跑。"
         if stage_id == "content":

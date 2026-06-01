@@ -1,0 +1,22 @@
+stage=diagrams
+owner=Mermaid Agent
+returncode=1
+command="D:\Program Files\Python310\python.exe" G:\#.Project\bid-solution-writer\working\agents\mermaid_agent.py --workspace G:\#.Project\bid-solution-writer --records-dir G:\#.Project\bid-solution-writer\output\records --output-dir G:\#.Project\bid-solution-writer\output\records
+
+## stdout
+
+
+## stderr
+Traceback (most recent call last):
+  File "G:\#.Project\bid-solution-writer\working\agents\mermaid_agent.py", line 932, in <module>
+    main()
+  File "G:\#.Project\bid-solution-writer\working\agents\mermaid_agent.py", line 925, in main
+    paths = agent.run()
+  File "G:\#.Project\bid-solution-writer\working\agents\mermaid_agent.py", line 84, in run
+    diagrams = self.generate_diagrams_with_llm(requirements, blueprint, diagram_plan, content_blocks)
+  File "G:\#.Project\bid-solution-writer\working\agents\mermaid_agent.py", line 209, in generate_diagrams_with_llm
+    diagrams.extend(self.normalize_llm_response(llm_response, batch_plan))
+  File "G:\#.Project\bid-solution-writer\working\agents\mermaid_agent.py", line 360, in normalize_llm_response
+    raise ValueError(f"LLM API δ���ؼƻ��е�ͼ����{diagram_id}")
+ValueError: LLM API δ���ؼƻ��е�ͼ����DG025
+

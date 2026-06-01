@@ -3,7 +3,7 @@
   "$id": "https://bid-solution-writer.local/schemas/requirements.schema.json",
   "title": "requirements.json",
   "type": "object",
-  "required": ["schema_version", "artifact", "run_id", "generated_at", "producer", "inputs", "project", "requirements", "scoring_items", "delivery_items", "confirm_candidates", "extraction_warnings"],
+  "required": ["schema_version", "artifact", "run_id", "generated_at", "producer", "source_mode", "source_documents", "inputs", "project", "requirements", "writing_requirements", "scoring_items", "delivery_items", "confirm_candidates", "extraction_warnings"],
   "additionalProperties": false,
   "properties": {
     "schema_version": { "const": "1.0.0" },
@@ -11,11 +11,21 @@
     "run_id": { "$ref": "#/$defs/run_id" },
     "generated_at": { "$ref": "#/$defs/date_time" },
     "producer": { "$ref": "#/$defs/producer" },
+    "source_mode": { "const": "markdown_only" },
+    "source_documents": {
+      "type": "array",
+      "minItems": 2,
+      "items": { "$ref": "#/$defs/source_document" }
+    },
     "inputs": { "$ref": "#/$defs/inputs" },
     "project": { "$ref": "#/$defs/project" },
     "requirements": {
       "type": "array",
       "items": { "$ref": "#/$defs/requirement" }
+    },
+    "writing_requirements": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/writing_requirement" }
     },
     "scoring_items": {
       "type": "array",
@@ -40,6 +50,7 @@
     "non_empty": { "type": "string", "minLength": 1 },
     "req_id": { "type": "string", "pattern": "^(T|P|Q|B|D)[0-9]{3}$" },
     "score_id": { "type": "string", "pattern": "^S[0-9]{3}$" },
+    "writing_id": { "type": "string", "pattern": "^WR[0-9]{3}$" },
     "producer": {
       "type": "object",
       "required": ["agent", "version"],
@@ -62,7 +73,18 @@
       "properties": {
         "input_id": { "type": "string", "pattern": "^IN[0-9]{3}$" },
         "path": { "$ref": "#/$defs/non_empty" },
-        "kind": { "enum": ["technical_requirements", "business_requirements", "scoring_table", "template", "rules", "placeholder_spec", "other"] },
+        "kind": { "enum": ["technical_requirements", "writing_requirements", "business_requirements", "scoring_table", "template", "rules", "placeholder_spec", "other"] },
+        "sha256": { "type": "string", "pattern": "^[A-Fa-f0-9]{64}$" }
+      }
+    },
+    "source_document": {
+      "type": "object",
+      "required": ["document_id", "path", "kind", "sha256"],
+      "additionalProperties": false,
+      "properties": {
+        "document_id": { "type": "string", "pattern": "^SRC[0-9]{3}$" },
+        "path": { "$ref": "#/$defs/non_empty" },
+        "kind": { "enum": ["technical_requirements_markdown", "writing_requirements_markdown"] },
         "sha256": { "type": "string", "pattern": "^[A-Fa-f0-9]{64}$" }
       }
     },
@@ -120,6 +142,23 @@
         "score": { "$ref": "#/$defs/score" },
         "response_section": { "$ref": "#/$defs/non_empty" },
         "related_requirement_ids": { "type": "array", "items": { "$ref": "#/$defs/req_id" } },
+        "status": { "enum": ["extracted", "review_required", "confirm_required", "failed"] }
+      }
+    },
+    "writing_requirement": {
+      "type": "object",
+      "required": ["writing_requirement_id", "title", "text", "source", "target_sections", "mandatory_expansion", "mapping_confidence", "coverage_status", "status"],
+      "additionalProperties": false,
+      "properties": {
+        "writing_requirement_id": { "$ref": "#/$defs/writing_id" },
+        "title": { "$ref": "#/$defs/non_empty" },
+        "text": { "$ref": "#/$defs/non_empty" },
+        "source": { "$ref": "#/$defs/source_ref" },
+        "keywords": { "type": "array", "items": { "$ref": "#/$defs/non_empty" } },
+        "target_sections": { "type": "array", "items": { "$ref": "#/$defs/non_empty" } },
+        "mandatory_expansion": { "type": "boolean" },
+        "mapping_confidence": { "enum": ["high", "medium", "low"] },
+        "coverage_status": { "enum": ["planned", "review_required", "confirm_required", "uncovered"] },
         "status": { "enum": ["extracted", "review_required", "confirm_required", "failed"] }
       }
     },

@@ -14,6 +14,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
 import re
 import shutil
 from datetime import datetime
@@ -33,6 +34,8 @@ SECTION_ID_RE = re.compile(r"^SEC[0-9]{3}$")
 MODULE_ID_RE = re.compile(r"^M[0-9]{3}$")
 NODE_ID_RE = re.compile(r"^[A-Za-z][A-Za-z0-9_]{0,31}$")
 FLOWCHART_RE = re.compile(r"^\s*flowchart\s+(TB|TD)\b", re.IGNORECASE)
+DEFAULT_LLM_BATCH_SIZE = int(os.environ.get("MERMAID_LLM_BATCH_SIZE", "6"))
+MIN_PRIMARY_FUNCTION_FLOW_DIAGRAMS = 5
 
 ALLOWED_KINDS = {
     "architecture",
@@ -75,14 +78,10 @@ class MermaidAgent:
         diagram_plan = self.extract_diagram_plan(diagram_plan_doc, blueprint)
         self.validate_inputs(requirements, blueprint, diagram_plan_doc, diagram_plan)
 
-        llm_request = self.build_llm_request(requirements, blueprint, diagram_plan, content_blocks)
-        try:
-            llm_response = call_llm_api(llm_request)
-        except NotImplementedError:
-            if not self.allow_local_draft:
-                raise
-            llm_response = self.local_draft_response(requirements, blueprint, diagram_plan, content_blocks)
-        diagrams = self.normalize_llm_response(llm_response, diagram_plan)
+        if self.allow_local_draft:
+            raise RuntimeError("Mermaid Agent 已禁用 --allow-local-draft；目标图表必须通过 API 生成 Mermaid 源码。")
+        else:
+            diagrams = self.generate_diagrams_with_llm(requirements, blueprint, diagram_plan, content_blocks)
 
         staging_dir = self.workspace / "working" / "agent-system" / "staging" / "diagrams" / self.run_id
         published_dir = self.workspace / "working" / "agent-system" / "published" / "diagrams" / self.run_id
@@ -185,6 +184,77 @@ class MermaidAgent:
                 if module_id not in known_modules or not MODULE_ID_RE.match(str(module_id)):
                     raise ValueError(f"{diagram_id} references unknown module ID: {module_id}")
 
+        architecture_count = sum(1 for item in diagram_plan if item.get("kind") == "architecture" and ("架构" in str(item.get("title", ""))))
+        function_flow_count = sum(1 for item in diagram_plan if item.get("kind") == "function_flow")
+        if architecture_count < 1:
+            raise ValueError("diagram-plan.json 缺少系统总体架构图。")
+        if function_flow_count < MIN_PRIMARY_FUNCTION_FLOW_DIAGRAMS:
+            raise ValueError(f"diagram-plan.json 一级功能流程图不足：{function_flow_count}/{MIN_PRIMARY_FUNCTION_FLOW_DIAGRAMS}")
+
+    def generate_diagrams_with_llm(
+        self,
+        requirements: dict[str, Any],
+        blueprint: dict[str, Any],
+        diagram_plan: list[dict[str, Any]],
+        content_blocks: dict[str, Any] | None = None,
+    ) -> list[dict[str, Any]]:
+        batch_size = max(1, DEFAULT_LLM_BATCH_SIZE)
+        diagrams: list[dict[str, Any]] = []
+        total_batches = (len(diagram_plan) + batch_size - 1) // batch_size
+        for batch_index, start in enumerate(range(0, len(diagram_plan), batch_size), 1):
+            batch_plan = diagram_plan[start : start + batch_size]
+            llm_request = self.build_llm_request(requirements, blueprint, batch_plan, content_blocks)
+            llm_request["batch"] = {
+                "batch_index": batch_index,
+                "total_batches": total_batches,
+                "diagram_ids": [item.get("diagram_id") for item in batch_plan],
+            }
+            try:
+                llm_response = call_llm_api(llm_request)
+            except NotImplementedError:
+                raise
+            try:
+                diagrams.extend(self.normalize_llm_response(llm_response, batch_plan))
+            except ValueError:
+                diagrams.extend(
+                    self.generate_diagrams_one_by_one(
+                        requirements,
+                        blueprint,
+                        batch_plan,
+                        content_blocks,
+                        batch_index,
+                        total_batches,
+                    )
+                )
+        return diagrams
+
+    def generate_diagrams_one_by_one(
+        self,
+        requirements: dict[str, Any],
+        blueprint: dict[str, Any],
+        diagram_plan: list[dict[str, Any]],
+        content_blocks: dict[str, Any] | None,
+        parent_batch_index: int,
+        total_batches: int,
+    ) -> list[dict[str, Any]]:
+        diagrams: list[dict[str, Any]] = []
+        for plan in diagram_plan:
+            diagram_id = plan.get("diagram_id")
+            llm_request = self.build_llm_request(requirements, blueprint, [plan], content_blocks)
+            llm_request["batch"] = {
+                "batch_index": parent_batch_index,
+                "total_batches": total_batches,
+                "retry_mode": "single_diagram",
+                "diagram_ids": [diagram_id],
+            }
+            llm_request["rules"].append(f"Return exactly one diagram object and its diagram_id must be {diagram_id}.")
+            try:
+                llm_response = call_llm_api(llm_request)
+            except NotImplementedError:
+                raise
+            diagrams.extend(self.normalize_llm_response(llm_response, [plan]))
+        return diagrams
+
     def build_llm_request(
         self,
         requirements: dict[str, Any],
@@ -220,10 +290,14 @@ class MermaidAgent:
                 "Do not invent vendors, model numbers, staff names, certificates, prices, schedules, or service commitments.",
                 "Every node_trace.source_requirement_ids value must come from that diagram's source_requirement_ids.",
                 "Use stable ASCII node IDs such as A, B, C1, D2; put Chinese business labels in brackets or braces.",
+                "Do not use quoted Mermaid edge labels such as -->|\"label\"|; use -->|label| or omit edge labels.",
+                "For each function_flow diagram, show a complete flow from input data to core processing, result output, validation/review, and business collaboration/closed-loop handling.",
+                "For the architecture diagram, show a concise layered platform architecture based on the generated system architecture text.",
+                "Use high-voltage transmission line UAV inspection domain language; do not use ECDIS, AIS, radar echo/navigation, route planning, NMEA, ship, or crew concepts unless they appear in the input requirements.",
                 "Return JSON only. Do not wrap the response in Markdown fences.",
             ],
             "architecture_diagram_generation_logic": {
-                "applies_to": "kind=architecture and title contains 鎬讳綋鏋舵瀯/鏋舵瀯钃濆浘",
+                "applies_to": "kind=architecture and title contains 总体架构/架构蓝图",
                 "input_text": architecture_text,
                 "prompt": architecture_prompt,
                 "rules": [
@@ -234,7 +308,7 @@ class MermaidAgent:
                 ],
             },
             "project": {
-                "name": blueprint.get("project_name") or requirements.get("project", {}).get("name") or "寰呯‘璁ら」鐩?",
+                "name": blueprint.get("project_name") or requirements.get("project", {}).get("name") or "待确认项目",
                 "run_id": self.run_id,
             },
             "diagram_plan": [
@@ -255,7 +329,7 @@ class MermaidAgent:
                     "diagram_id": item.get("diagram_id"),
                     "prompt": architecture_prompt
                     if self.is_overall_architecture_plan(item)
-                    else "鏍规嵁鍥捐〃璁″垝銆佺浉鍏崇珷鑺傚拰妯″潡淇℃伅鐢熸垚绠€娲佸彲璇荤殑 Mermaid 鍥俱€侻ermaid 浠ｇ爜蹇呴』浣跨敤 flowchart TB 鎴?flowchart TD锛屼笉瑕佷娇鐢?Markdown 浠ｇ爜鍥存爮銆?",
+                    else "根据图表计划、相关章节和模块信息生成简洁可读的 Mermaid 图。Mermaid 代码必须使用 flowchart TB 或 flowchart TD，不要使用 Markdown 代码围栏。",
                     "context_text": architecture_text if self.is_overall_architecture_plan(item) else "",
                 }
                 for item in diagram_plan
@@ -289,16 +363,16 @@ class MermaidAgent:
     def architecture_diagram_prompt(architecture_text: str) -> str:
         return (
             f"{architecture_text}\n\n"
-            "鏍规嵁涓婇潰鐨勬弿杩帮紝鐢熸垚璇ョ郴缁熺殑鏋舵瀯鍥俱€?"
-            "鏋舵瀯鍥句腑鍚勫眰鐨勫瓙妯″潡涓嶅厑璁告湁璺ㄥ眰鐨勮繛绾匡紝閲囩敤mermaid浠ｇ爜鏍煎紡杈撳嚭锛?"
-            "鏋舵瀯鍥惧敖閲忕畝娲併€傛敞鎰忥紝蹇呴』瑕佽€冭檻鏋舵瀯鍥剧殑鍙鎬э紒"
+            "根据上面的描述，生成该系统的架构图。"
+            "架构图中各层的子模块不允许跨层直连，采用 Mermaid 代码格式输出，"
+            "架构图尽量简洁，并优先保证可读性。"
         ).strip()
 
     @staticmethod
     def is_overall_architecture_plan(plan: dict[str, Any]) -> bool:
         title = str(plan.get("title") or "")
         kind = str(plan.get("kind") or "")
-        return kind == "architecture" and ("鎬讳綋鏋舵瀯" in title or "鏋舵瀯钃濆浘" in title)
+        return kind == "architecture" and ("总体架构" in title or "架构蓝图" in title)
 
     @staticmethod
     def architecture_design_text(content_blocks: dict[str, Any]) -> str:
@@ -310,7 +384,7 @@ class MermaidAgent:
                 str(block.get(key, ""))
                 for key in ("placeholder", "section_id")
             )
-            if "鎬讳綋鏋舵瀯璁捐" not in title_text and "鎬讳綋鏋舵瀯" not in title_text:
+            if "总体架构设计" not in title_text and "总体架构" not in title_text:
                 continue
             content = block.get("content")
             if isinstance(content, list):
@@ -321,10 +395,10 @@ class MermaidAgent:
 
     def normalize_llm_response(self, response: dict[str, Any], diagram_plan: list[dict[str, Any]]) -> list[dict[str, Any]]:
         if not isinstance(response, dict):
-            raise ValueError("LLM API 蹇呴』杩斿洖 JSON object/dict銆?")
+            raise ValueError("LLM API 必须返回 JSON object/dict。")
         raw_diagrams = response.get("diagrams")
         if not isinstance(raw_diagrams, list):
-            raise ValueError("LLM API 杩斿洖鍊煎繀椤诲寘鍚?diagrams 鏁扮粍銆?")
+            raise ValueError("LLM API 返回值必须包含 diagrams 数组。")
 
         by_id = {str(item.get("diagram_id", "")): item for item in raw_diagrams if isinstance(item, dict)}
         diagrams = []
@@ -332,7 +406,7 @@ class MermaidAgent:
             diagram_id = plan["diagram_id"]
             raw = by_id.get(diagram_id)
             if raw is None:
-                raise ValueError(f"LLM API 鏈繑鍥炶鍒掍腑鐨勫浘琛細{diagram_id}")
+                raise ValueError(f"LLM API 未返回计划中的图表：{diagram_id}")
 
             mermaid = self.clean_mermaid(str(raw.get("mermaid", "")))
             description = str(raw.get("description", "")).strip() or str(plan.get("purpose", "")).strip()
@@ -382,22 +456,22 @@ class MermaidAgent:
             if self.is_overall_architecture_plan(plan) and architecture_text:
                 nodes = self.local_architecture_nodes(source_ids, architecture_text)
                 mermaid = self.render_local_architecture_mermaid(nodes)
-                description = "鏍规嵁鎬讳綋鏋舵瀯璁捐璇存槑鐢熸垚鐨勭郴缁熸灦鏋勫浘锛岄噰鐢ㄧ畝娲佸垎灞傝〃杈撅紝鍚勫眰瀛愭ā鍧椾笉璺ㄥ眰鐩磋繛銆?"
+                description = "根据总体架构设计说明生成的系统架构图，采用简洁分层表达，各层子模块不跨层直连。"
                 review_notes = [
-                    "鏈浘鐢?--allow-local-draft 鎸夋灦鏋勮璁¤鏄庣敓鎴愶紱鎺ュ叆 LLM 鍚庡簲浣跨敤 architecture_diagram_generation_logic.prompt 鐢熸垚姝ｅ紡鍥俱€?",
-                    "宸叉寜鏈湴瑙勫垯鎺у埗鍚勫眰瀛愭ā鍧椾笉璺ㄥ眰杩炵嚎銆?",
+                    "本图由 --allow-local-draft 按架构设计说明生成；接入 LLM 后应使用 architecture_diagram_generation_logic.prompt 生成正式图。",
+                    "已按本地规则控制各层子模块不跨层连线。",
                 ]
             elif str(plan.get("kind")) == "function_flow" and len(source_ids) == 1:
                 requirement = req_index.get(source_ids[0], {})
                 nodes = self.local_function_flow_nodes(source_ids[0], requirement)
                 mermaid = self.render_local_function_flow_mermaid(nodes)
-                description = f"鏍规嵁{source_ids[0]}鍔熻兘瑕佹眰鐢熸垚鐨勫姛鑳芥祦绋嬪浘锛岃鏄庤緭鍏ャ€佸鐞嗐€佽緭鍑轰笌寮傚父璁板綍銆?"
-                review_notes = ["鏈浘鐢?--allow-local-draft 鎸夊崟鏉″姛鑳借姹傜敓鎴愶紱鎺ュ叆 LLM 鍚庡簲缁撳悎瀵瑰簲鍔熻兘姝ｆ枃鐢熸垚姝ｅ紡娴佺▼鍥俱€?"]
+                description = f"根据{source_ids[0]}功能要求生成的功能流程图，说明输入、处理、输出与异常记录。"
+                review_notes = ["本图由 --allow-local-draft 按单条功能要求生成；接入 LLM 后应结合对应功能正文生成正式流程图。"]
             else:
                 nodes = self.local_draft_nodes(plan, source_ids, module_ids, section_ids, req_index, module_index, section_index)
                 mermaid = self.render_local_mermaid(title, nodes)
-                description = str(plan.get("purpose") or f"{title}鐢ㄤ簬鏈湴闂幆楠岃瘉銆?")
-                review_notes = ["鏈浘鐢?--allow-local-draft 鐢熸垚锛岀敤浜庢棤 LLM 鐜涓嬬殑鍏ㄦ祦绋嬮獙璇侊紝浜や粯鍓嶅缓璁鏍稿浘褰㈣〃杈俱€?"]
+                description = str(plan.get("purpose") or f"{title}用于本地闭环验证。")
+                review_notes = ["本图由 --allow-local-draft 生成，用于无 LLM 环境下的全流程验证，交付前建议复核图形表达。"]
             diagrams.append(
                 {
                     "diagram_id": diagram_id,
@@ -420,20 +494,20 @@ class MermaidAgent:
         title = str(requirement.get("title") or req_id)
         text = str(requirement.get("text") or "")
         source = [req_id]
-        if "娴峰浘" in title or "娴峰浘" in text:
-            labels = ["娴峰浘/鐢ㄦ埛鎿嶄綔杈撳叆", "鏁版嵁瑙ｆ瀽涓庢樉绀烘帶鍒?", "娴峰浘鎬佸娍杈撳嚭", "璁板綍涓庡紓甯告彁绀?"]
-        elif "AIS" in title or "闆疯揪" in title or "ARPA" in text or "鐩爣" in text:
-            labels = ["鐩爣涓庢湰鑸规暟鎹緭鍏?", "鏃剁┖瀵归綈涓庤瀺鍚堝鐞?", "鐩爣鎬佸娍鍙犲姞鏄剧ず", "椋庨櫓鍒ゆ柇涓庤褰?"]
-        elif "鑸嚎" in title or "鑸嚎" in text:
-            labels = ["鑸偣涓庡畨鍏ㄥ弬鏁拌緭鍏?", "鑸嚎缂栬緫涓庡畨鍏ㄦ鏌?", "鑸嚎鐩戞帶缁撴灉杈撳嚭", "鑸抗涓庡憡璀﹁褰?"]
-        elif "鍛婅" in title or "棰勮" in title or "姘存繁" in text or "绛夋繁绾?" in text:
-            labels = ["鑸逛綅/娴峰浘/鐩爣杈撳叆", "瀹夊叏瑙勫垯鍒ゆ柇", "澹板厜鍛婅涓庡垪琛ㄦ彁绀?", "纭娑堣涓庝簨浠惰褰?"]
-        elif "鎺ュ彛" in title or "NMEA" in text or "璁惧" in text:
-            labels = ["澶栭儴璁惧/鏂囦欢杈撳叆", "鍗忚瑙ｆ瀽涓庢帴鍙ｉ€傞厤", "鏍囧噯鏁版嵁瀵硅薄杈撳嚭", "閫氫俊鐘舵€佷笌鏃ュ織璁板綍"]
-        elif "浜や簰" in title or "HMI" in title or "涓€у寲" in title:
-            labels = ["鐢ㄦ埛鎿嶄綔杈撳叆", "鏉冮檺涓庢搷浣滄牎楠?", "鐣岄潰鍙嶉涓庨厤缃繚瀛?", "璇搷浣滈槻鎶よ褰?"]
+        if "海图" in title or "海图" in text:
+            labels = ["海图/用户操作输入", "数据解析与显示控制", "海图态势输出", "记录与异常提示"]
+        elif "AIS" in title or "雷达" in title or "ARPA" in text or "目标" in text:
+            labels = ["目标与本船数据输入", "时空对齐与融合处理", "目标态势叠加显示", "风险判断与记录"]
+        elif "航线" in title or "航线" in text:
+            labels = ["航点与安全参数输入", "航线编辑与安全检查", "航线监控结果输出", "航迹与告警记录"]
+        elif "告警" in title or "预警" in title or "水深" in text or "等深线" in text:
+            labels = ["船位/海图/目标输入", "安全规则判断", "声光告警与列表提示", "确认消警与事件记录"]
+        elif "接口" in title or "NMEA" in text or "设备" in text:
+            labels = ["外部设备/文件输入", "协议解析与接口适配", "标准数据对象输出", "通信状态与日志记录"]
+        elif "交互" in title or "HMI" in title or "个性化" in title:
+            labels = ["用户操作输入", "权限与操作校验", "界面反馈与配置保存", "误操作防护记录"]
         else:
-            labels = ["杈撳叆鏉′欢", "鍔熻兘澶勭悊", "缁撴灉杈撳嚭", "寮傚父涓庢棩蹇楄褰?"]
+            labels = ["输入条件", "功能处理", "结果输出", "异常与日志记录"]
         return [
             {"node_id": chr(ord("A") + index), "label": label, "source_requirement_ids": source}
             for index, label in enumerate(labels)
@@ -451,35 +525,35 @@ class MermaidAgent:
     def local_architecture_nodes(self, source_ids: list[str], architecture_text: str = "") -> list[dict[str, Any]]:
         fallback = source_ids[:4] or ["T001"]
         layer_sources = [source_ids[index : index + 4] or fallback for index in range(0, 20, 4)]
-        if any(keyword in architecture_text for keyword in ("鏃犱汉鏈?", "宸℃", "鏉嗗", "鐐逛簯", "LiDAR")):
+        if any(keyword in architecture_text for keyword in ("无人机", "巡检", "杆塔", "点云", "LiDAR")):
             layer_labels = [
-                "鍩虹璁炬柦涓庢暟鎹祫婧愬眰",
-                "宸℃鏁版嵁鎺ュ叆灞?",
-                "绌洪棿璧勪骇鏄犲皠灞?",
-                "鏅鸿兘鍒嗘瀽鏈嶅姟灞?",
-                "涓氬姟搴旂敤鍗忓悓灞?",
+                "基础设施与数据资源层",
+                "巡检数据接入层",
+                "空间资产映射层",
+                "智能分析服务层",
+                "业务应用协同层",
             ]
             module_labels = [
-                ["瀵硅薄瀛樺偍", "涓氬姟鏁版嵁搴?"],
-                ["宸℃鏁版嵁鎺ュ叆", "鍏冩暟鎹В鏋?"],
-                ["鏉嗗鍖归厤", "閮ㄤ欢鎸傝浇"],
-                ["缂洪櫡璇嗗埆", "鐐逛簯娴嬭窛"],
-                ["浜哄伐澶嶆牳", "宸ュ崟娴佽浆"],
+                ["对象存储", "业务数据库"],
+                ["巡检数据接入", "元数据解析"],
+                ["杆塔匹配", "部件挂载"],
+                ["缺陷识别", "点云测距"],
+                ["人工复核", "工单流转"],
             ]
         else:
             layer_labels = [
-                "鏁版嵁鎺ュ叆涓庢爣鍑嗗寲澶勭悊灞?",
-                "娴峰浘涓庣洰鏍囨€佸娍铻嶅悎灞?",
-                "瀵艰埅涓氬姟涓庡畨鍏ㄥ喅绛栧眰",
-                "鏄剧ず浜や簰涓庢帶鍒跺眰",
-                "骞冲彴杩愯涓庤川閲忎繚闅滃眰",
+                "数据接入与标准化处理层",
+                "海图与目标态势融合层",
+                "导航业务与安全决策层",
+                "显示交互与控制层",
+                "平台运行与质量保障层",
             ]
             module_labels = [
-                ["娴峰浘涓庡鑸暟鎹?", "AIS/闆疯揪/ARPA"],
-                ["娴峰浘瑕佺礌铻嶅悎", "鍔ㄦ€佺洰鏍囩淮鎶?"],
-                ["鑸嚎瑙勫垝", "瀹夊叏鍛婅"],
-                ["娴峰浘娓叉煋", "鍥惧眰鎺у埗"],
-                ["璺ㄥ钩鍙伴€傞厤", "鏃ュ織瀹¤"],
+                ["海图与导航数据", "AIS/雷达/ARPA"],
+                ["海图要素融合", "动态目标维护"],
+                ["航线规划", "安全告警"],
+                ["海图渲染", "图层控制"],
+                ["跨平台适配", "日志审计"],
             ]
         nodes: list[dict[str, Any]] = []
         for layer_index, layer in enumerate(layer_labels, 1):
@@ -532,7 +606,7 @@ class MermaidAgent:
         nodes.append(
             {
                 "node_id": "A",
-                "label": self.clean_label(str(plan.get("title") or "鍥捐〃涓婚")),
+                "label": self.clean_label(str(plan.get("title") or "图表主题")),
                 "source_requirement_ids": fallback_sources,
             }
         )
@@ -679,6 +753,13 @@ class MermaidAgent:
         if not specs.get("diagrams"):
             raise ValueError("diagram-specs has no diagrams")
 
+        architecture_count = sum(1 for diagram in specs["diagrams"] if diagram.get("kind") == "architecture" and "架构" in str(diagram.get("title", "")))
+        function_flow_count = sum(1 for diagram in specs["diagrams"] if diagram.get("kind") == "function_flow")
+        if architecture_count < 1:
+            raise ValueError("diagram-specs 缺少系统总体架构图。")
+        if function_flow_count < MIN_PRIMARY_FUNCTION_FLOW_DIAGRAMS:
+            raise ValueError(f"diagram-specs 一级功能流程图不足：{function_flow_count}/{MIN_PRIMARY_FUNCTION_FLOW_DIAGRAMS}")
+
         for diagram in specs["diagrams"]:
             diagram_id = diagram.get("diagram_id", "")
             if not DIAGRAM_ID_RE.match(diagram_id):
@@ -693,6 +774,9 @@ class MermaidAgent:
                 raise ValueError(f"{diagram_id} missing source_requirement_ids")
             if not self.is_allowed_mermaid(diagram.get("mermaid", "")):
                 raise ValueError(f"{diagram_id} has invalid Mermaid source")
+            pollution = self.domain_pollution_terms(diagram.get("mermaid", "") + " " + diagram.get("description", ""))
+            if pollution:
+                raise ValueError(f"{diagram_id} contains unrelated domain terms: {', '.join(pollution)}")
 
             allowed_sources = set(diagram["source_requirement_ids"])
             for trace in diagram.get("node_trace", []):
@@ -707,14 +791,19 @@ class MermaidAgent:
                     raise ValueError(f"{diagram_id} node {node_id} references unknown IDs: {', '.join(unknown)}")
 
     @staticmethod
+    def domain_pollution_terms(value: str) -> list[str]:
+        forbidden = ("海图", "ECDIS", "AIS", "雷达回波", "ARPA", "NMEA", "航线", "船舶", "船员", "S-57", "S-63", "S-52")
+        return [term for term in forbidden if term in str(value)]
+
+    @staticmethod
     def render_descriptions(specs: dict[str, Any]) -> str:
         lines = [
-            "# Mermaid 鍥捐〃璇存槑",
+            "# Mermaid 图表说明",
             "",
-            f"- Run ID锛歚{specs['run_id']}`",
-            f"- Generated at锛歚{specs['generated_at']}`",
+            f"- Run ID：`{specs['run_id']}`",
+            f"- Generated at：`{specs['generated_at']}`",
             "",
-            "| 鍥捐〃 ID | 鏍囬 | 绫诲瀷 | Mermaid 鏂囦欢 | 鏉ユ簮闇€姹?ID | 璇存槑 |",
+            "| 图表 ID | 标题 | 类型 | Mermaid 文件 | 来源需求 ID | 说明 |",
             "|---|---|---|---|---|---|",
         ]
         for diagram in specs["diagrams"]:
@@ -729,10 +818,10 @@ class MermaidAgent:
                 )
             )
         lines.append("")
-        lines.append("## 澶嶆牳鎻愮ず")
+        lines.append("## 复核提示")
         lines.append("")
         for diagram in specs["diagrams"]:
-            notes = diagram.get("review_notes") or ["鏃犮€?"]
+            notes = diagram.get("review_notes") or ["无。"]
             lines.append(f"### {diagram['diagram_id']} {diagram['title']}")
             for note in notes:
                 lines.append(f"- {note}")
@@ -755,8 +844,8 @@ class MermaidAgent:
                         "category": "delivery",
                         "title": delivery.get("name", delivery_id),
                         "text": delivery.get("name", ""),
-                        "keywords": ["浜や粯", "楠屾敹"],
-                        "target_sections": ["浜や粯鏂规", "椤圭洰瀹炴柦璁″垝"],
+                        "keywords": ["交付", "验收"],
+                        "target_sections": ["交付方案", "项目实施计划"],
                         "status": delivery.get("status", "extracted"),
                         "risk_level": "normal",
                     }
@@ -809,7 +898,7 @@ class MermaidAgent:
         if traces:
             return traces
         fallback_source = list(plan.get("source_requirement_ids", []))[:1]
-        return [{"node_id": "A", "label": str(plan.get("title", "鍥捐〃涓婚")), "source_requirement_ids": fallback_source}]
+        return [{"node_id": "A", "label": str(plan.get("title", "图表主题")), "source_requirement_ids": fallback_source}]
 
     @staticmethod
     def clean_mermaid(value: str) -> str:

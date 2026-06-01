@@ -1,0 +1,510 @@
+{
+  "schema_version": "1.0.0",
+  "artifact": "requirements-matrix",
+  "run_id": "RUN-20260601-163420",
+  "generated_at": "2026-06-01T16:34:20+08:00",
+  "producer": {
+    "agent": "Requirement Evidence Agent",
+    "version": "1.0.0"
+  },
+  "inputs": [
+    {
+      "artifact": "requirements",
+      "path": "output/records/requirements.json",
+      "schema_version": "1.0.0"
+    }
+  ],
+  "rows": [
+    {
+      "source_id": "T001",
+      "source_type": "requirement",
+      "title": "多模式数据导入",
+      "target_sections": [
+        "功能设计",
+        "接口设计"
+      ],
+      "planned_module_ids": [
+        "M001"
+      ],
+      "planned_diagram_ids": [
+        "DG001"
+      ],
+      "coverage_status": "planned",
+      "notes": [
+        "强制/应答条款",
+        "建议在设计阶段规划图表"
+      ]
+    },
+    {
+      "source_id": "Q001",
+      "source_type": "requirement",
+      "title": "元数据提取与标准化",
+      "target_sections": [
+        "质量与安全设计"
+      ],
+      "planned_module_ids": [
+        "M002"
+      ],
+      "planned_diagram_ids": [],
+      "coverage_status": "planned",
+      "notes": []
+    },
+    {
+      "source_id": "Q002",
+      "source_type": "requirement",
+      "title": "空间坐标匹配",
+      "target_sections": [
+        "质量与安全设计"
+      ],
+      "planned_module_ids": [
+        "M003"
+      ],
+      "planned_diagram_ids": [],
+      "coverage_status": "planned",
+      "notes": []
+    },
+    {
+      "source_id": "Q003",
+      "source_type": "requirement",
+      "title": "部件级数据挂载",
+      "target_sections": [
+        "质量与安全设计"
+      ],
+      "planned_module_ids": [
+        "M004"
+      ],
+      "planned_diagram_ids": [],
+      "coverage_status": "planned",
+      "notes": []
+    },
+    {
+      "source_id": "Q004",
+      "source_type": "requirement",
+      "title": "可见光缺陷识别",
+      "target_sections": [
+        "质量与安全设计"
+      ],
+      "planned_module_ids": [
+        "M005"
+      ],
+      "planned_diagram_ids": [],
+      "coverage_status": "planned",
+      "notes": []
+    },
+    {
+      "source_id": "Q005",
+      "source_type": "requirement",
+      "title": "红外热点分析",
+      "target_sections": [
+        "质量与安全设计"
+      ],
+      "planned_module_ids": [
+        "M006"
+      ],
+      "planned_diagram_ids": [],
+      "coverage_status": "planned",
+      "notes": []
+    },
+    {
+      "source_id": "T002",
+      "source_type": "requirement",
+      "title": "模型训练与管理",
+      "target_sections": [
+        "功能设计"
+      ],
+      "planned_module_ids": [
+        "M007"
+      ],
+      "planned_diagram_ids": [
+        "DG002"
+      ],
+      "coverage_status": "planned",
+      "notes": [
+        "建议在设计阶段规划图表"
+      ]
+    },
+    {
+      "source_id": "T003",
+      "source_type": "requirement",
+      "title": "通道三维重建",
+      "target_sections": [
+        "功能设计"
+      ],
+      "planned_module_ids": [
+        "M008"
+      ],
+      "planned_diagram_ids": [
+        "DG003"
+      ],
+      "coverage_status": "planned",
+      "notes": [
+        "建议在设计阶段规划图表"
+      ]
+    },
+    {
+      "source_id": "T004",
+      "source_type": "requirement",
+      "title": "空间距离测算",
+      "target_sections": [
+        "功能设计",
+        "安全设计"
+      ],
+      "planned_module_ids": [
+        "M009"
+      ],
+      "planned_diagram_ids": [
+        "DG004"
+      ],
+      "coverage_status": "planned",
+      "notes": [
+        "建议在设计阶段规划图表"
+      ]
+    },
+    {
+      "source_id": "Q006",
+      "source_type": "requirement",
+      "title": "人机协同复核",
+      "target_sections": [
+        "质量与安全设计"
+      ],
+      "planned_module_ids": [
+        "M010"
+      ],
+      "planned_diagram_ids": [],
+      "coverage_status": "planned",
+      "notes": []
+    },
+    {
+      "source_id": "T005",
+      "source_type": "requirement",
+      "title": "工单流转管控",
+      "target_sections": [
+        "功能设计",
+        "接口设计"
+      ],
+      "planned_module_ids": [
+        "M011"
+      ],
+      "planned_diagram_ids": [
+        "DG005"
+      ],
+      "coverage_status": "planned",
+      "notes": [
+        "建议在设计阶段规划图表"
+      ]
+    },
+    {
+      "source_id": "WR001",
+      "source_type": "writing_requirement",
+      "title": "技术方案对需求应具备全面性、准确性、充分性。",
+      "target_sections": [
+        "需求分析",
+        "总体架构设计"
+      ],
+      "planned_module_ids": [],
+      "planned_diagram_ids": [],
+      "coverage_status": "planned",
+      "notes": [
+        "必须扩写进入最终方案",
+        "自动映射置信度：high"
+      ]
+    },
+    {
+      "source_id": "WR002",
+      "source_type": "writing_requirement",
+      "title": "技术方案内容要求",
+      "target_sections": [
+        "需求分析",
+        "总体架构设计",
+        "部署方案",
+        "安全设计",
+        "关键技术"
+      ],
+      "planned_module_ids": [],
+      "planned_diagram_ids": [],
+      "coverage_status": "planned",
+      "notes": [
+        "必须扩写进入最终方案",
+        "自动映射置信度：high"
+      ]
+    },
+    {
+      "source_id": "WR003",
+      "source_type": "writing_requirement",
+      "title": "系统总体、业务、逻辑、技术、数据架构设计需具备全面性、合理性",
+      "target_sections": [
+        "需求分析",
+        "总体架构设计"
+      ],
+      "planned_module_ids": [],
+      "planned_diagram_ids": [],
+      "coverage_status": "planned",
+      "notes": [
+        "必须扩写进入最终方案",
+        "自动映射置信度：high"
+      ]
+    },
+    {
+      "source_id": "WR004",
+      "source_type": "writing_requirement",
+      "title": "业务和数据处理流程图描述情况应符合需求和逻辑清晰。",
+      "target_sections": [
+        "总体架构设计",
+        "业务与数据流程设计"
+      ],
+      "planned_module_ids": [],
+      "planned_diagram_ids": [],
+      "coverage_status": "planned",
+      "notes": [
+        "必须扩写进入最终方案",
+        "自动映射置信度：high"
+      ]
+    },
+    {
+      "source_id": "WR005",
+      "source_type": "writing_requirement",
+      "title": "系统接口理解的准确性、数据交互设计应具备合理性。",
+      "target_sections": [
+        "需求分析",
+        "接口设计"
+      ],
+      "planned_module_ids": [],
+      "planned_diagram_ids": [],
+      "coverage_status": "planned",
+      "notes": [
+        "必须扩写进入最终方案",
+        "自动映射置信度：high"
+      ]
+    },
+    {
+      "source_id": "WR006",
+      "source_type": "writing_requirement",
+      "title": "部署方案应具备灵活性。",
+      "target_sections": [
+        "部署方案"
+      ],
+      "planned_module_ids": [],
+      "planned_diagram_ids": [],
+      "coverage_status": "planned",
+      "notes": [
+        "必须扩写进入最终方案",
+        "自动映射置信度：high"
+      ]
+    },
+    {
+      "source_id": "WR007",
+      "source_type": "writing_requirement",
+      "title": "项目安全设计应具备针对性、合理性。",
+      "target_sections": [
+        "安全设计"
+      ],
+      "planned_module_ids": [],
+      "planned_diagram_ids": [],
+      "coverage_status": "planned",
+      "notes": [
+        "必须扩写进入最终方案",
+        "自动映射置信度：high"
+      ]
+    },
+    {
+      "source_id": "WR008",
+      "source_type": "writing_requirement",
+      "title": "提供但不限于以下工具",
+      "target_sections": [
+        "需求分析",
+        "开发测试工具"
+      ],
+      "planned_module_ids": [],
+      "planned_diagram_ids": [],
+      "coverage_status": "planned",
+      "notes": [
+        "必须扩写进入最终方案",
+        "自动映射置信度：high"
+      ]
+    },
+    {
+      "source_id": "WR009",
+      "source_type": "writing_requirement",
+      "title": "关键技术分析应具备可行性、合理性、创新性及与需求的相关性。",
+      "target_sections": [
+        "总体架构设计",
+        "关键技术"
+      ],
+      "planned_module_ids": [],
+      "planned_diagram_ids": [],
+      "coverage_status": "planned",
+      "notes": [
+        "必须扩写进入最终方案",
+        "自动映射置信度：high"
+      ]
+    },
+    {
+      "source_id": "WR010",
+      "source_type": "writing_requirement",
+      "title": "实施周期",
+      "target_sections": [
+        "项目实施计划"
+      ],
+      "planned_module_ids": [],
+      "planned_diagram_ids": [],
+      "coverage_status": "planned",
+      "notes": [
+        "必须扩写进入最终方案",
+        "自动映射置信度：high"
+      ]
+    },
+    {
+      "source_id": "WR011",
+      "source_type": "writing_requirement",
+      "title": "项目风险控制",
+      "target_sections": [
+        "质量控制与风险管理"
+      ],
+      "planned_module_ids": [],
+      "planned_diagram_ids": [],
+      "coverage_status": "planned",
+      "notes": [
+        "必须扩写进入最终方案",
+        "自动映射置信度：high"
+      ]
+    },
+    {
+      "source_id": "WR012",
+      "source_type": "writing_requirement",
+      "title": "量控制",
+      "target_sections": [
+        "质量保证与测试方案",
+        "培训与售后服务方案",
+        "项目实施与交付验收"
+      ],
+      "planned_module_ids": [],
+      "planned_diagram_ids": [],
+      "coverage_status": "planned",
+      "notes": [
+        "必须扩写进入最终方案",
+        "自动映射置信度：high"
+      ]
+    },
+    {
+      "source_id": "WR013",
+      "source_type": "writing_requirement",
+      "title": "据培训计划方案进行评审，",
+      "target_sections": [
+        "培训与售后服务方案"
+      ],
+      "planned_module_ids": [],
+      "planned_diagram_ids": [],
+      "coverage_status": "planned",
+      "notes": [
+        "必须扩写进入最终方案",
+        "自动映射置信度：high"
+      ]
+    },
+    {
+      "source_id": "WR014",
+      "source_type": "writing_requirement",
+      "title": "交付（服务）时间",
+      "target_sections": [
+        "部署方案",
+        "项目实施与交付验收"
+      ],
+      "planned_module_ids": [],
+      "planned_diagram_ids": [],
+      "coverage_status": "planned",
+      "notes": [
+        "必须扩写进入最终方案",
+        "自动映射置信度：high"
+      ]
+    },
+    {
+      "source_id": "WR015",
+      "source_type": "writing_requirement",
+      "title": "交付（服务）地点：郑州市内甲方指定地点。-交付（服务）地点",
+      "target_sections": [
+        "项目实施与交付验收"
+      ],
+      "planned_module_ids": [],
+      "planned_diagram_ids": [],
+      "coverage_status": "planned",
+      "notes": [
+        "必须扩写进入最终方案",
+        "自动映射置信度：high"
+      ]
+    },
+    {
+      "source_id": "WR016",
+      "source_type": "writing_requirement",
+      "title": "交付（服务）方式：供应商完成运输、安装、调试等工作。-交付（服务）方式",
+      "target_sections": [
+        "部署方案",
+        "项目实施与交付验收"
+      ],
+      "planned_module_ids": [],
+      "planned_diagram_ids": [],
+      "coverage_status": "planned",
+      "notes": [
+        "必须扩写进入最终方案",
+        "自动映射置信度：high"
+      ]
+    },
+    {
+      "source_id": "WR017",
+      "source_type": "writing_requirement",
+      "title": "售后服务",
+      "target_sections": [
+        "总体架构设计",
+        "质量保证与测试方案",
+        "培训与售后服务方案",
+        "项目实施与交付验收"
+      ],
+      "planned_module_ids": [],
+      "planned_diagram_ids": [],
+      "coverage_status": "planned",
+      "notes": [
+        "必须扩写进入最终方案",
+        "自动映射置信度：high"
+      ]
+    },
+    {
+      "source_id": "WR018",
+      "source_type": "writing_requirement",
+      "title": "免费培训",
+      "target_sections": [
+        "部署方案",
+        "项目实施计划",
+        "培训与售后服务方案",
+        "项目实施与交付验收"
+      ],
+      "planned_module_ids": [],
+      "planned_diagram_ids": [],
+      "coverage_status": "planned",
+      "notes": [
+        "必须扩写进入最终方案",
+        "自动映射置信度：high"
+      ]
+    },
+    {
+      "source_id": "WR019",
+      "source_type": "writing_requirement",
+      "title": "知识产权和保密要求",
+      "target_sections": [
+        "总体架构设计",
+        "安全设计",
+        "安全与保密方案"
+      ],
+      "planned_module_ids": [],
+      "planned_diagram_ids": [],
+      "coverage_status": "planned",
+      "notes": [
+        "必须扩写进入最终方案",
+        "自动映射置信度：high"
+      ]
+    }
+  ],
+  "summary": {
+    "requirements_total": 11,
+    "writing_requirements_total": 19,
+    "scoring_items_total": 0,
+    "uncovered_total": 0
+  }
+}

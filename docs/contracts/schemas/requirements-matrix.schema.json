@@ -19,7 +19,7 @@
     "run_id": { "type": "string", "pattern": "^RUN-[0-9]{8}-[0-9]{6}$" },
     "date_time": { "type": "string", "format": "date-time" },
     "non_empty": { "type": "string", "minLength": 1 },
-    "evidence_id": { "type": "string", "pattern": "^(T|P|Q|B|D|S)[0-9]{3}$" },
+    "evidence_id": { "type": "string", "pattern": "^((T|P|Q|B|D|S)[0-9]{3}|WR[0-9]{3})$" },
     "producer": {
       "type": "object",
       "required": ["agent", "version"],
@@ -48,7 +48,7 @@
       "additionalProperties": false,
       "properties": {
         "source_id": { "$ref": "#/$defs/evidence_id" },
-        "source_type": { "enum": ["requirement", "scoring_item", "delivery_item"] },
+        "source_type": { "enum": ["requirement", "scoring_item", "delivery_item", "writing_requirement"] },
         "title": { "$ref": "#/$defs/non_empty" },
         "target_sections": { "type": "array", "items": { "$ref": "#/$defs/non_empty" } },
         "planned_module_ids": { "type": "array", "items": { "type": "string", "pattern": "^M[0-9]{3}$" } },
@@ -59,10 +59,11 @@
     },
     "summary": {
       "type": "object",
-      "required": ["requirements_total", "scoring_items_total", "uncovered_total"],
+      "required": ["requirements_total", "writing_requirements_total", "scoring_items_total", "uncovered_total"],
       "additionalProperties": false,
       "properties": {
         "requirements_total": { "type": "integer", "minimum": 0 },
+        "writing_requirements_total": { "type": "integer", "minimum": 0 },
         "scoring_items_total": { "type": "integer", "minimum": 0 },
         "uncovered_total": { "type": "integer", "minimum": 0 }
       }

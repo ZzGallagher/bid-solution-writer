@@ -22,6 +22,8 @@ from pathlib import Path
 from typing import Any
 from xml.etree import ElementTree as ET
 
+from llm_client import call_llm_api
+
 
 AGENT_NAME = "Design Agent"
 AGENT_VERSION = "1.0.0"
@@ -30,6 +32,16 @@ WORD_NS = {"w": "http://schemas.openxmlformats.org/wordprocessingml/2006/main"}
 
 REQ_ID_RE = re.compile(r"^(T|P|Q|B|D)[0-9]{3}$")
 SCORE_ID_RE = re.compile(r"^S[0-9]{3}$")
+WRITING_ID_RE = re.compile(r"^WR[0-9]{3}$")
+
+TARGET_PLACEHOLDERS = {
+    "【GEN:总体架构设计】",
+    "【GEN:架构图说明】",
+    "【GEN:功能设计总述】",
+    "【GEN:功能设计章节】",
+}
+
+FORBIDDEN_DOMAIN_TERMS = ("海图", "AIS", "雷达回波", "ARPA", "ECDIS", "S-57", "S-63", "S-52", "NMEA", "航线", "船舶", "船员")
 
 SECTION_TARGETS = [
     {
@@ -293,15 +305,20 @@ class DesignAgent:
         self.placeholders = self.extract_placeholders()
 
         req_items = requirements.get("requirements", [])
+        writing_items = requirements.get("writing_requirements", [])
         scoring_items = requirements.get("scoring_items", [])
         delivery_items = self.delivery_as_requirements(requirements.get("delivery_items", []))
 
-        architecture_layers = self.build_layers(req_items + delivery_items)
-        modules = self.build_modules(req_items + delivery_items, scoring_items, architecture_layers)
-        sections = self.build_sections(req_items + delivery_items, scoring_items)
-        diagram_plan = self.build_diagram_plan(req_items + delivery_items, sections)
+        api_blueprint = self.generate_target_blueprint_with_api(requirements, req_items, scoring_items, writing_items)
+        architecture_layers = api_blueprint["architecture_layers"]
+        modules = api_blueprint["modules"]
+        sections = self.build_sections(req_items + delivery_items, scoring_items, writing_items)
+        sections = self.merge_target_sections(sections, api_blueprint["sections"], req_items, scoring_items, writing_items)
+        self.attach_api_modules_to_sections(sections, modules)
+        diagram_plan = api_blueprint["diagram_plan"]
+        self.retarget_diagram_sections(diagram_plan, sections)
         self.attach_diagrams_to_modules(modules, diagram_plan)
-        coverage_map = self.build_coverage_map(req_items, scoring_items, delivery_items, modules, sections, diagram_plan)
+        coverage_map = self.build_coverage_map(req_items, scoring_items, delivery_items, writing_items, modules, sections, diagram_plan)
 
         blueprint = {
             "schema_version": SCHEMA_VERSION,
@@ -396,6 +413,350 @@ class DesignAgent:
         if rules.exists():
             inputs.append({"artifact": "generation-rules", "path": self.relative(rules), "schema_version": "markdown"})
         return inputs
+
+    def generate_target_blueprint_with_api(
+        self,
+        requirements: dict[str, Any],
+        req_items: list[dict[str, Any]],
+        scoring_items: list[dict[str, Any]],
+        writing_items: list[dict[str, Any]],
+    ) -> dict[str, Any]:
+        function_groups = self.primary_function_groups(req_items)
+        if not function_groups:
+            raise RuntimeError("Design Agent 无法识别一级功能，不能生成架构与功能图表计划。")
+
+        payload = {
+            "task": "generate_design_blueprint",
+            "agent": AGENT_NAME,
+            "schema_version": SCHEMA_VERSION,
+            "project": requirements.get("project", {}),
+            "technical_source_text": self.technical_source_text(requirements),
+            "requirements": [self.design_requirement_brief(item) for item in req_items],
+            "scoring_items": [self.design_scoring_brief(item) for item in scoring_items],
+            "writing_requirements": [self.design_writing_brief(item) for item in writing_items],
+            "template_placeholders": self.placeholders,
+            "primary_function_groups": function_groups,
+            "target_placeholders": sorted(TARGET_PLACEHOLDERS),
+            "rules": [
+                "只生成系统架构、架构图说明、功能设计总述、功能设计章节相关蓝图，不生成建设背景正文，不改变需求分析搬运逻辑。",
+                "architecture_layers、modules、sections、diagram_plan 必须完全根据技术要求抽象，不得套用海图、ECDIS、AIS、雷达、航线、NMEA、船舶等无关领域模板。",
+                "sections 至少覆盖四个占位符：【GEN:总体架构设计】、【GEN:架构图说明】、【GEN:功能设计总述】、【GEN:功能设计章节】。",
+                "diagram_plan 必须包含 1 张系统总体架构图，kind=architecture；并为 primary_function_groups 中每个一级功能生成 1 张流程图，kind=function_flow。",
+                "每张图必须绑定 source_requirement_ids，功能流程图必须绑定该一级功能对应的全部或主要 requirement_id。",
+                "保持现有 schema 字段名称：layer_id/name/responsibility/source_requirement_ids；module_id/name/responsibility/layer_ids/source_requirement_ids/related_scoring_item_ids；section_id/placeholder/title/content_type/source_requirement_ids/related_scoring_item_ids/writing_requirement_ids/module_ids/status；diagram_id/title/kind/purpose/layout_hint/source_requirement_ids/related_section_ids/related_module_ids。",
+                "返回 JSON only，不要 Markdown 代码块。",
+            ],
+            "output_contract": {
+                "architecture_layers": [],
+                "modules": [],
+                "sections": [],
+                "diagram_plan": [],
+            },
+        }
+        response = call_llm_api(payload)
+        return self.normalize_api_blueprint(response, req_items, scoring_items, writing_items, function_groups)
+
+    def normalize_api_blueprint(
+        self,
+        response: Any,
+        req_items: list[dict[str, Any]],
+        scoring_items: list[dict[str, Any]],
+        writing_items: list[dict[str, Any]],
+        function_groups: list[dict[str, Any]],
+    ) -> dict[str, Any]:
+        if not isinstance(response, dict):
+            raise RuntimeError("Design Agent API 必须返回 JSON object。")
+        valid_req_ids = {item["requirement_id"] for item in req_items if item.get("requirement_id")}
+        valid_score_ids = {item["scoring_item_id"] for item in scoring_items if item.get("scoring_item_id")}
+        valid_writing_ids = {item["writing_requirement_id"] for item in writing_items if item.get("writing_requirement_id")}
+
+        layers = self.normalize_api_layers(response.get("architecture_layers"), valid_req_ids)
+        modules = self.normalize_api_modules(response.get("modules"), layers, valid_req_ids, valid_score_ids)
+        sections = self.normalize_api_sections(response.get("sections"), valid_req_ids, valid_score_ids, valid_writing_ids)
+        diagrams = self.normalize_api_diagrams(response.get("diagram_plan"), valid_req_ids, function_groups)
+
+        combined_text = json.dumps(
+            {"architecture_layers": layers, "modules": modules, "sections": sections, "diagram_plan": diagrams},
+            ensure_ascii=False,
+        )
+        pollution = [term for term in FORBIDDEN_DOMAIN_TERMS if term in combined_text]
+        if pollution:
+            raise RuntimeError(f"Design Agent API 输出存在无关领域污染词：{', '.join(sorted(set(pollution)))}")
+        return {"architecture_layers": layers, "modules": modules, "sections": sections, "diagram_plan": diagrams}
+
+    def normalize_api_layers(self, raw_layers: Any, valid_req_ids: set[str]) -> list[dict[str, Any]]:
+        if not isinstance(raw_layers, list) or not raw_layers:
+            raise RuntimeError("Design Agent API 未返回 architecture_layers。")
+        layers = []
+        for index, raw in enumerate(raw_layers, 1):
+            if not isinstance(raw, dict):
+                continue
+            layer_id = str(raw.get("layer_id") or f"L{index:03d}")
+            if not re.match(r"^L[0-9]{3}$", layer_id):
+                layer_id = f"L{index:03d}"
+            source_ids = self.unique_valid_req_ids(raw.get("source_requirement_ids", []))
+            source_ids = [req_id for req_id in source_ids if req_id in valid_req_ids]
+            layers.append(
+                {
+                    "layer_id": layer_id,
+                    "name": self.required_text(raw, "name", f"架构层{index}"),
+                    "responsibility": self.required_text(raw, "responsibility", "负责系统相关能力的分层承载、接口协同和运行支撑。"),
+                    "source_requirement_ids": source_ids,
+                }
+            )
+        if not layers:
+            raise RuntimeError("Design Agent API 返回的 architecture_layers 无可用项。")
+        return layers
+
+    def normalize_api_modules(
+        self,
+        raw_modules: Any,
+        layers: list[dict[str, Any]],
+        valid_req_ids: set[str],
+        valid_score_ids: set[str],
+    ) -> list[dict[str, Any]]:
+        if not isinstance(raw_modules, list) or not raw_modules:
+            raise RuntimeError("Design Agent API 未返回 modules。")
+        layer_ids = {layer["layer_id"] for layer in layers}
+        modules = []
+        for index, raw in enumerate(raw_modules, 1):
+            if not isinstance(raw, dict):
+                continue
+            module_id = str(raw.get("module_id") or f"M{index:03d}")
+            if not re.match(r"^M[0-9]{3}$", module_id):
+                module_id = f"M{index:03d}"
+            source_ids = [req_id for req_id in self.unique_valid_req_ids(raw.get("source_requirement_ids", [])) if req_id in valid_req_ids]
+            related_scores = [score_id for score_id in self.unique_score_ids(raw.get("related_scoring_item_ids", [])) if score_id in valid_score_ids]
+            module_layer_ids = [layer_id for layer_id in self.unique(raw.get("layer_ids", [])) if layer_id in layer_ids] or [layers[min(index - 1, len(layers) - 1)]["layer_id"]]
+            modules.append(
+                {
+                    "module_id": module_id,
+                    "name": self.required_text(raw, "name", f"功能模块{index}"),
+                    "responsibility": self.required_text(raw, "responsibility", "负责对应功能的输入处理、业务规则、输出结果和质量控制。"),
+                    "layer_ids": module_layer_ids,
+                    "source_requirement_ids": source_ids,
+                    "related_scoring_item_ids": related_scores,
+                    "suggested_diagram_ids": [],
+                }
+            )
+        if not modules:
+            raise RuntimeError("Design Agent API 返回的 modules 无可用项。")
+        return modules
+
+    def normalize_api_sections(
+        self,
+        raw_sections: Any,
+        valid_req_ids: set[str],
+        valid_score_ids: set[str],
+        valid_writing_ids: set[str],
+    ) -> list[dict[str, Any]]:
+        if not isinstance(raw_sections, list):
+            raise RuntimeError("Design Agent API 未返回 sections 数组。")
+        sections = []
+        for index, raw in enumerate(raw_sections, 1):
+            if not isinstance(raw, dict):
+                continue
+            placeholder = str(raw.get("placeholder") or "")
+            if placeholder not in TARGET_PLACEHOLDERS:
+                continue
+            content_type = str(raw.get("content_type") or self.target_content_type(placeholder))
+            source_ids = [req_id for req_id in self.unique_valid_req_ids(raw.get("source_requirement_ids", [])) if req_id in valid_req_ids]
+            if not source_ids and placeholder != "【GEN:架构图说明】":
+                raise RuntimeError(f"Design Agent API 章节 {placeholder} 缺少来源需求 ID。")
+            sections.append(
+                {
+                    "section_id": str(raw.get("section_id") or f"SEC{index:03d}"),
+                    "placeholder": placeholder,
+                    "title": self.required_text(raw, "title", placeholder.strip("【】").split(":", 1)[-1]),
+                    "content_type": content_type,
+                    "source_requirement_ids": source_ids,
+                    "related_scoring_item_ids": [score_id for score_id in self.unique_score_ids(raw.get("related_scoring_item_ids", [])) if score_id in valid_score_ids],
+                    "writing_requirement_ids": [writing_id for writing_id in self.unique_writing_ids(raw.get("writing_requirement_ids", [])) if writing_id in valid_writing_ids],
+                    "module_ids": [],
+                    "status": str(raw.get("status") or "planned"),
+                }
+            )
+        missing = TARGET_PLACEHOLDERS - {section["placeholder"] for section in sections}
+        if missing:
+            raise RuntimeError(f"Design Agent API 未返回目标章节：{', '.join(sorted(missing))}")
+        return sections
+
+    def normalize_api_diagrams(
+        self,
+        raw_diagrams: Any,
+        valid_req_ids: set[str],
+        function_groups: list[dict[str, Any]],
+    ) -> list[dict[str, Any]]:
+        if not isinstance(raw_diagrams, list):
+            raise RuntimeError("Design Agent API 未返回 diagram_plan 数组。")
+        diagrams = []
+        for index, raw in enumerate(raw_diagrams, 1):
+            if not isinstance(raw, dict):
+                continue
+            diagram_id = str(raw.get("diagram_id") or f"DG{index:03d}")
+            if not re.match(r"^DG[0-9]{3}$", diagram_id):
+                diagram_id = f"DG{index:03d}"
+            kind = str(raw.get("kind") or "other")
+            source_ids = [req_id for req_id in self.unique_valid_req_ids(raw.get("source_requirement_ids", [])) if req_id in valid_req_ids]
+            if not source_ids:
+                raise RuntimeError(f"Design Agent API 图表 {diagram_id} 缺少来源需求 ID。")
+            diagrams.append(
+                {
+                    "diagram_id": diagram_id,
+                    "title": self.required_text(raw, "title", diagram_id),
+                    "kind": kind,
+                    "purpose": self.required_text(raw, "purpose", "说明系统相关模块、数据流或流程关系。"),
+                    "layout_hint": str(raw.get("layout_hint") or "flowchart TB"),
+                    "source_requirement_ids": source_ids,
+                    "related_section_ids": self.unique(raw.get("related_section_ids", [])),
+                    "related_module_ids": self.unique(raw.get("related_module_ids", [])),
+                }
+            )
+        architecture_count = sum(1 for diagram in diagrams if diagram["kind"] == "architecture" and ("总体架构" in diagram["title"] or "架构" in diagram["title"]))
+        function_count = sum(1 for diagram in diagrams if diagram["kind"] == "function_flow")
+        if architecture_count < 1:
+            raise RuntimeError("Design Agent API 图表计划缺少系统总体架构图。")
+        if function_count < len(function_groups):
+            raise RuntimeError(f"Design Agent API 图表计划缺少一级功能流程图：{function_count}/{len(function_groups)}。")
+        return diagrams
+
+    def primary_function_groups(self, requirements: list[dict[str, Any]]) -> list[dict[str, Any]]:
+        groups: dict[str, list[str]] = {}
+        for item in requirements:
+            source = item.get("source") or {}
+            locator = str(source.get("locator") or "")
+            title = locator.split("/L", 1)[0].split("/", 1)[0].strip() if locator else ""
+            title = re.sub(r"^[0-9]+[.、）)]\s*", "", title).strip() or str(item.get("title") or "").strip()
+            req_id = item.get("requirement_id")
+            if not title or not req_id:
+                continue
+            groups.setdefault(title, []).append(req_id)
+        return [
+            {"title": title, "source_requirement_ids": self.unique_valid_req_ids(req_ids)}
+            for title, req_ids in groups.items()
+            if req_ids
+        ]
+
+    def technical_source_text(self, requirements: dict[str, Any]) -> str:
+        for source in requirements.get("source_documents", []):
+            if source.get("kind") != "technical_requirements_markdown":
+                continue
+            path = self.resolve_workspace_path(str(source.get("path") or ""))
+            if path.exists():
+                return path.read_text(encoding="utf-8", errors="replace")[:12000]
+        return "\n".join(str(item.get("text", "")) for item in requirements.get("requirements", []))
+
+    def merge_target_sections(
+        self,
+        base_sections: list[dict[str, Any]],
+        api_sections: list[dict[str, Any]],
+        requirements: list[dict[str, Any]],
+        scoring_items: list[dict[str, Any]],
+        writing_items: list[dict[str, Any]],
+    ) -> list[dict[str, Any]]:
+        by_placeholder = {section["placeholder"]: section for section in base_sections}
+        next_index = self.next_section_index(base_sections)
+        result = []
+        for section in base_sections:
+            if section["placeholder"] in TARGET_PLACEHOLDERS:
+                replacement = next((item for item in api_sections if item["placeholder"] == section["placeholder"]), None)
+                if replacement:
+                    merged = dict(section)
+                    merged.update({key: value for key, value in replacement.items() if key != "section_id"})
+                    merged["section_id"] = section["section_id"]
+                    result.append(merged)
+                continue
+            result.append(section)
+        existing = {section["placeholder"] for section in result}
+        for api_section in api_sections:
+            if api_section["placeholder"] in existing:
+                continue
+            section = dict(api_section)
+            section["section_id"] = f"SEC{next_index:03d}"
+            next_index += 1
+            result.append(section)
+        missing = TARGET_PLACEHOLDERS - {section["placeholder"] for section in result}
+        if missing:
+            raise RuntimeError(f"目标章节未进入设计蓝图：{', '.join(sorted(missing))}")
+        return result
+
+    def attach_api_modules_to_sections(self, sections: list[dict[str, Any]], modules: list[dict[str, Any]]) -> None:
+        for section in sections:
+            req_ids = set(section.get("source_requirement_ids", []))
+            section["module_ids"] = [
+                module["module_id"]
+                for module in modules
+                if req_ids & set(module.get("source_requirement_ids", []))
+            ]
+
+    def retarget_diagram_sections(self, diagrams: list[dict[str, Any]], sections: list[dict[str, Any]]) -> None:
+        architecture_sections = [
+            section["section_id"]
+            for section in sections
+            if section.get("placeholder") in {"【GEN:总体架构设计】", "【GEN:总体架构图】", "【GEN:架构图说明】"}
+        ]
+        function_sections = [
+            section["section_id"]
+            for section in sections
+            if section.get("placeholder") in {"【GEN:功能设计总述】", "【GEN:功能设计章节】"}
+        ]
+        known_section_ids = {section["section_id"] for section in sections}
+        known_module_ids = {
+            module_id
+            for section in sections
+            for module_id in section.get("module_ids", [])
+        }
+        for diagram in diagrams:
+            existing_sections = [section_id for section_id in diagram.get("related_section_ids", []) if section_id in known_section_ids]
+            if diagram.get("kind") == "architecture":
+                diagram["related_section_ids"] = self.unique(existing_sections + architecture_sections)
+            elif diagram.get("kind") == "function_flow":
+                diagram["related_section_ids"] = self.unique(existing_sections + function_sections)
+            else:
+                diagram["related_section_ids"] = existing_sections
+            diagram["related_module_ids"] = [module_id for module_id in diagram.get("related_module_ids", []) if module_id in known_module_ids]
+
+    @staticmethod
+    def target_content_type(placeholder: str) -> str:
+        if placeholder == "【GEN:总体架构图】":
+            return "diagram_reference"
+        if placeholder == "【GEN:功能设计章节】":
+            return "dynamic_sections"
+        return "generated_paragraphs"
+
+    @staticmethod
+    def required_text(raw: dict[str, Any], field: str, fallback: str) -> str:
+        value = str(raw.get(field) or "").strip()
+        return value or fallback
+
+    @staticmethod
+    def design_requirement_brief(item: dict[str, Any]) -> dict[str, Any]:
+        return {
+            "requirement_id": item.get("requirement_id"),
+            "category": item.get("category"),
+            "title": item.get("title"),
+            "text": item.get("text"),
+            "keywords": item.get("keywords", []),
+            "target_sections": item.get("target_sections", []),
+        }
+
+    @staticmethod
+    def design_scoring_brief(item: dict[str, Any]) -> dict[str, Any]:
+        return {
+            "scoring_item_id": item.get("scoring_item_id"),
+            "title": item.get("title"),
+            "text": item.get("text"),
+            "response_section": item.get("response_section"),
+        }
+
+    @staticmethod
+    def design_writing_brief(item: dict[str, Any]) -> dict[str, Any]:
+        return {
+            "writing_requirement_id": item.get("writing_requirement_id"),
+            "title": item.get("title"),
+            "text": item.get("text"),
+            "target_sections": item.get("target_sections", []),
+        }
 
     @staticmethod
     def delivery_as_requirements(delivery_items: list[dict[str, Any]]) -> list[dict[str, Any]]:
@@ -494,14 +855,20 @@ class DesignAgent:
                 module["related_scoring_item_ids"] = self.unique_score_ids(module.get("related_scoring_item_ids", []) + [score["scoring_item_id"]])
         return modules
 
-    def build_sections(self, requirements: list[dict[str, Any]], scoring_items: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    def build_sections(
+        self,
+        requirements: list[dict[str, Any]],
+        scoring_items: list[dict[str, Any]],
+        writing_items: list[dict[str, Any]],
+    ) -> list[dict[str, Any]]:
         sections = []
         for index, spec in enumerate(SECTION_TARGETS, 1):
             req_ids = self.source_ids_for_section(spec, requirements)
             score_ids = self.score_ids_for_section(spec, scoring_items)
-            if not req_ids and not score_ids:
+            writing_ids = self.writing_ids_for_section(spec["title"], spec.get("match_sections", set()), writing_items)
+            if not req_ids and not score_ids and not writing_ids:
                 continue
-            status = self.section_status(req_ids, score_ids, requirements, scoring_items, spec["content_type"])
+            status = self.section_status(req_ids, score_ids, writing_ids, requirements, scoring_items, writing_items, spec["content_type"])
             sections.append(
                 {
                     "section_id": f"SEC{index:03d}",
@@ -510,19 +877,51 @@ class DesignAgent:
                     "content_type": spec["content_type"],
                     "source_requirement_ids": req_ids,
                     "related_scoring_item_ids": score_ids,
+                    "writing_requirement_ids": writing_ids,
                     "module_ids": [],
                     "status": status,
                 }
             )
-        self.append_template_placeholder_sections(sections, requirements, scoring_items)
+        self.append_writing_fallback_section(sections, writing_items)
+        self.append_template_placeholder_sections(sections, requirements, scoring_items, writing_items)
         self.attach_modules_to_sections(sections, requirements)
         return sections
+
+    def append_writing_fallback_section(self, sections: list[dict[str, Any]], writing_items: list[dict[str, Any]]) -> None:
+        fallback_ids = [
+            item["writing_requirement_id"]
+            for item in writing_items
+            if "方案撰写要求专项响应" in item.get("target_sections", []) or item.get("mapping_confidence") == "low"
+        ]
+        fallback_ids = self.unique_writing_ids(fallback_ids)
+        if not fallback_ids:
+            return
+        next_index = self.next_section_index(sections)
+        sections.append(
+            {
+                "section_id": f"SEC{next_index:03d}",
+                "placeholder": "【REVIEW:方案撰写要求专项响应】",
+                "title": "方案撰写要求专项响应",
+                "content_type": "review_text",
+                "source_requirement_ids": self.unique_valid_req_ids(
+                    req_id
+                    for section in sections
+                    for req_id in section.get("source_requirement_ids", [])
+                )[:12],
+                "related_scoring_item_ids": [],
+                "writing_requirement_ids": fallback_ids,
+                "module_ids": [],
+                "status": "review_required",
+            }
+        )
+        self.warnings.append("部分方案撰写要求为低置信度自动映射，已进入专项响应章节并要求复核。")
 
     def append_template_placeholder_sections(
         self,
         sections: list[dict[str, Any]],
         requirements: list[dict[str, Any]],
         scoring_items: list[dict[str, Any]],
+        writing_items: list[dict[str, Any]],
     ) -> None:
         covered = {section["placeholder"] for section in sections}
         next_index = self.next_section_index(sections)
@@ -535,10 +934,11 @@ class DesignAgent:
 
             req_ids = self.source_ids_for_placeholder(label, requirements)
             score_ids = self.score_ids_for_placeholder(label, scoring_items)
-            if not req_ids and not score_ids:
+            writing_ids = self.writing_ids_for_section(label, {label}, writing_items)
+            if not req_ids and not score_ids and not writing_ids:
                 req_ids = self.unique_valid_req_ids(item["requirement_id"] for item in requirements[:8])
             content_type = "review_text" if kind == "REVIEW" else "generated_paragraphs"
-            status = self.section_status(req_ids, score_ids, requirements, scoring_items, content_type)
+            status = self.section_status(req_ids, score_ids, writing_ids, requirements, scoring_items, writing_items, content_type)
             sections.append(
                 {
                     "section_id": f"SEC{next_index:03d}",
@@ -547,6 +947,7 @@ class DesignAgent:
                     "content_type": content_type,
                     "source_requirement_ids": req_ids,
                     "related_scoring_item_ids": score_ids,
+                    "writing_requirement_ids": writing_ids,
                     "module_ids": [],
                     "status": status,
                 }
@@ -650,6 +1051,7 @@ class DesignAgent:
         requirements: list[dict[str, Any]],
         scoring_items: list[dict[str, Any]],
         delivery_items: list[dict[str, Any]],
+        writing_items: list[dict[str, Any]],
         modules: list[dict[str, Any]],
         sections: list[dict[str, Any]],
         diagrams: list[dict[str, Any]],
@@ -670,6 +1072,20 @@ class DesignAgent:
                     "source_id": source_id,
                     "covered_by": refs,
                     "coverage_status": self.coverage_status(item.get("status", "extracted"), refs),
+                }
+            )
+
+        for writing in writing_items:
+            source_id = writing["writing_requirement_id"]
+            refs = []
+            refs.extend({"kind": "section", "id": section["section_id"]} for section in sections if source_id in section.get("writing_requirement_ids", []))
+            if writing.get("status") == "review_required" or writing.get("mapping_confidence") == "low":
+                refs.append({"kind": "review", "id": source_id})
+            coverage.append(
+                {
+                    "source_id": source_id,
+                    "covered_by": refs,
+                    "coverage_status": self.coverage_status(writing.get("status", "extracted"), refs),
                 }
             )
 
@@ -709,6 +1125,24 @@ class DesignAgent:
             if response_section in spec.get("match_scores", set()) or title in spec.get("match_scores", set()):
                 result.append(item["scoring_item_id"])
         return self.unique_score_ids(result)
+
+    def writing_ids_for_section(
+        self,
+        title: str,
+        match_sections: set[str],
+        writing_items: list[dict[str, Any]],
+    ) -> list[str]:
+        result = []
+        section_tokens = set(match_sections) | {title}
+        for item in writing_items:
+            target_sections = set(item.get("target_sections", []))
+            if target_sections & section_tokens:
+                result.append(item["writing_requirement_id"])
+                continue
+            text = " ".join([item.get("title", ""), item.get("text", ""), " ".join(item.get("keywords", []))])
+            if any(token and token in text for token in section_tokens):
+                result.append(item["writing_requirement_id"])
+        return self.unique_writing_ids(result)
 
     def source_ids_for_placeholder(self, label: str, requirements: list[dict[str, Any]]) -> list[str]:
         label_tokens = self.placeholder_tokens(label)
@@ -935,13 +1369,16 @@ class DesignAgent:
     def section_status(
         req_ids: list[str],
         score_ids: list[str],
+        writing_ids: list[str],
         requirements: list[dict[str, Any]],
         scoring_items: list[dict[str, Any]],
+        writing_items: list[dict[str, Any]],
         content_type: str,
     ) -> str:
         status_by_id = {item["requirement_id"]: item.get("status") for item in requirements}
         status_by_id.update({item["scoring_item_id"]: item.get("status") for item in scoring_items})
-        statuses = {status_by_id.get(item_id) for item_id in req_ids + score_ids}
+        status_by_id.update({item["writing_requirement_id"]: item.get("status") for item in writing_items})
+        statuses = {status_by_id.get(item_id) for item_id in req_ids + score_ids + writing_ids}
         if content_type == "confirm_placeholder" or "confirm_required" in statuses:
             return "confirm_required"
         if content_type == "review_text" or "review_required" in statuses:
@@ -982,6 +1419,7 @@ class DesignAgent:
         valid_req_ids = {item["requirement_id"] for item in requirements.get("requirements", [])}
         valid_req_ids.update(item["delivery_id"] for item in requirements.get("delivery_items", []))
         valid_score_ids = {item["scoring_item_id"] for item in requirements.get("scoring_items", [])}
+        valid_writing_ids = {item["writing_requirement_id"] for item in requirements.get("writing_requirements", [])}
 
         self.ensure_unique("layer_id", blueprint["architecture_layers"])
         self.ensure_unique("module_id", blueprint["modules"])
@@ -989,7 +1427,7 @@ class DesignAgent:
         self.ensure_unique("diagram_id", blueprint["diagram_plan"])
 
         covered_ids = {item["source_id"] for item in blueprint["coverage_map"]}
-        expected_ids = valid_req_ids | valid_score_ids
+        expected_ids = valid_req_ids | valid_score_ids | valid_writing_ids
         missing_coverage = sorted(expected_ids - covered_ids)
         if missing_coverage:
             raise RuntimeError(f"coverage_map 未覆盖来源 ID：{', '.join(missing_coverage[:20])}")
@@ -1002,6 +1440,9 @@ class DesignAgent:
             for score_id in section.get("related_scoring_item_ids", []):
                 if score_id not in valid_score_ids:
                     raise RuntimeError(f"章节引用了不存在的评分项 ID：{score_id}")
+            for writing_id in section.get("writing_requirement_ids", []):
+                if writing_id not in valid_writing_ids:
+                    raise RuntimeError(f"章节引用了不存在的方案撰写要求 ID：{writing_id}")
 
         for diagram in blueprint["diagram_plan"]:
             if not diagram["source_requirement_ids"]:
@@ -1043,10 +1484,10 @@ class DesignAgent:
             lines.append(
                 f"| {module['module_id']} | {self.escape_md(module['name'])} | {', '.join(module.get('layer_ids', []))} | {', '.join(module['source_requirement_ids'])} | {', '.join(module.get('related_scoring_item_ids', [])) or '-'} | {', '.join(module.get('suggested_diagram_ids', [])) or '-'} |"
             )
-        lines.extend(["", "## Sections", "", "| Section | Placeholder | Title | Type | Status | Source IDs | Scoring IDs | Modules |", "|---|---|---|---|---|---|---|---|"])
+        lines.extend(["", "## Sections", "", "| Section | Placeholder | Title | Type | Status | Source IDs | Scoring IDs | Writing IDs | Modules |", "|---|---|---|---|---|---|---|---|---|"])
         for section in blueprint["sections"]:
             lines.append(
-                f"| {section['section_id']} | {self.escape_md(section['placeholder'])} | {self.escape_md(section['title'])} | {section['content_type']} | {section['status']} | {', '.join(section['source_requirement_ids']) or '-'} | {', '.join(section.get('related_scoring_item_ids', [])) or '-'} | {', '.join(section.get('module_ids', [])) or '-'} |"
+                f"| {section['section_id']} | {self.escape_md(section['placeholder'])} | {self.escape_md(section['title'])} | {section['content_type']} | {section['status']} | {', '.join(section['source_requirement_ids']) or '-'} | {', '.join(section.get('related_scoring_item_ids', [])) or '-'} | {', '.join(section.get('writing_requirement_ids', [])) or '-'} | {', '.join(section.get('module_ids', [])) or '-'} |"
             )
         lines.append("")
         return "\n".join(lines)
@@ -1078,6 +1519,9 @@ class DesignAgent:
     def unique_score_ids(self, values: Any) -> list[str]:
         return [value for value in self.unique(values) if isinstance(value, str) and SCORE_ID_RE.match(value)]
 
+    def unique_writing_ids(self, values: Any) -> list[str]:
+        return [value for value in self.unique(values) if isinstance(value, str) and WRITING_ID_RE.match(value)]
+
     @staticmethod
     def escape_md(value: str) -> str:
         return str(value).replace("|", "\\|").replace("\n", " ")
@@ -1087,6 +1531,10 @@ class DesignAgent:
             return str(path.resolve().relative_to(self.workspace.resolve())).replace("\\", "/")
         except ValueError:
             return str(path).replace("\\", "/")
+
+    def resolve_workspace_path(self, value: str) -> Path:
+        path = Path(value)
+        return path if path.is_absolute() else self.workspace / path
 
 
 def parse_args(argv: list[str]) -> argparse.Namespace:

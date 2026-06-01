@@ -4,7 +4,7 @@
 
 ## 总原则
 
-- `requirements.json` 是事实源，所有正文、图表、审核问题和装配记录必须回溯到需求 ID、评分项 ID 或人工确认项。
+- `requirements.json` 是事实源，来源模式为 `source_mode=markdown_only`；所有正文、图表、审核问题和装配记录必须回溯到技术需求 ID、方案撰写要求 ID、评分项 ID 或人工确认项。
 - 所有 JSON 产物必须包含 `schema_version`、`artifact`、`run_id`、`generated_at`、`producer`、`inputs`。
 - 所有 Agent 先写入 `working/agent-system/staging/<stage>/`，校验通过后由 Coordinator 发布到 `working/agent-system/published/<stage>/` 或 `output/records/`。
 - `CONFIRM` 信息不得自动补齐；`REVIEW` 内容可以生成初稿，但必须进入复核清单。
@@ -37,6 +37,7 @@
 | 商务需求 | `BNNN` | `B001` |
 | 交付需求 | `DNNN` | `D001` |
 | 评分项 | `SNNN` | `S001` |
+| 方案撰写要求 | `WRNNN` | `WR001` |
 | 架构层 | `LNNN` | `L001` |
 | 模块 | `MNNN` | `M001` |
 | 章节 | `SECNNN` | `SEC001` |
@@ -45,6 +46,28 @@
 | 审核问题 | `RINNN` | `RI001` |
 
 图表统一使用 `DGNNN`，避免与交付需求 `DNNN` 冲突。设计文档早期示例中的图表 `D001` 在新契约中迁移为 `DG001`。
+
+## Markdown-only 输入
+
+默认权威输入为：
+
+| 文件 | 用途 |
+|---|---|
+| `input/技术要求.md` | 软件功能、性能、非功能、接口、设计约束等技术事实源 |
+| `input/方案撰写要求.md` | 最终方案必须包含并扩写的撰写要求 |
+
+`Requirement Evidence Agent` 不再要求原始 Word 参与自动抽取。若技术要求文件带项目前缀，可使用唯一匹配的 `*技术要求.md`。
+
+`requirements.json` 新增或规范化以下字段：
+
+| 字段 | 说明 |
+|---|---|
+| `source_mode` | 固定为 `markdown_only` |
+| `source_documents[]` | 记录两个 Markdown 权威输入的路径、类型和摘要 |
+| `requirements[]` | 技术要求解析结果，使用 `T/P/Q/B/D` 等 ID |
+| `writing_requirements[]` | 方案撰写要求解析结果，使用 `WRNNN` ID，必须扩写进入最终方案 |
+
+`requirements-matrix.json`、`design-blueprint.json`、`content-blocks.json` 和 `release-decision.json` 均需保留 `WRNNN` 的覆盖链路。低置信度自动章节映射必须进入复核清单。
 
 ## 状态机
 

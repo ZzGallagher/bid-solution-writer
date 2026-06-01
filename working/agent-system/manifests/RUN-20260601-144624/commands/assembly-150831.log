@@ -1,0 +1,16 @@
+stage=assembly
+owner=Word Layout Agent
+returncode=0
+command="D:\Program Files\Python310\python.exe" G:\#.Project\bid-solution-writer\working\agents\word_layout_agent.py --workspace G:\#.Project\bid-solution-writer --records-dir G:\#.Project\bid-solution-writer\output\records --template-path G:\#.Project\bid-solution-writer\templates\投标方案模板.docx --output-dir G:\#.Project\bid-solution-writer\output --records-output-dir G:\#.Project\bid-solution-writer\output\records
+
+## stdout
+Word Layout Agent completed: RUN-20260601-144624
+status: generated
+staging: G:\#.Project\bid-solution-writer\working\agent-system\staging\assembly\RUN-20260601-144624
+published: G:\#.Project\bid-solution-writer\working\agent-system\published\assembly\RUN-20260601-144624
+records: G:\#.Project\bid-solution-writer\output\records
+output_docx: G:\#.Project\bid-solution-writer\output\��ͼ�ۺ�̬��չʾ��Ʒ���_V1.00_20260601.docx
+
+
+## stderr
+

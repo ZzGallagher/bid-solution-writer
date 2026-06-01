@@ -1,0 +1,14 @@
+stage=diagrams
+owner=Render Validate Agent
+returncode=0
+command="D:\Program Files\Python310\python.exe" G:\#.Project\bid-solution-writer\working\agents\render_validate_agent.py --workspace G:\#.Project\bid-solution-writer --records-dir G:\#.Project\bid-solution-writer\output\records --output-dir G:\#.Project\bid-solution-writer\output\records --renderer-command __missing_mmdc__
+
+## stdout
+Render Validate Agent completed: RUN-20260601-142802
+staging: G:\#.Project\bid-solution-writer\working\agent-system\staging\diagrams\RUN-20260601-142802
+published: G:\#.Project\bid-solution-writer\working\agent-system\published\diagrams\RUN-20260601-142802
+output: G:\#.Project\bid-solution-writer\output\records
+
+
+## stderr
+

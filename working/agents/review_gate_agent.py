@@ -63,6 +63,29 @@ UNRESOLVED_PLACEHOLDER_PATTERNS = (
     "TBD",
 )
 
+TARGET_PLACEHOLDERS = {
+    "【GEN:总体架构设计】",
+    "【GEN:架构图说明】",
+    "【GEN:功能设计总述】",
+    "【GEN:功能设计章节】",
+}
+
+PROCESS_LEAK_PATTERNS = (
+    "来源需求",
+    "需求事实源",
+    "结构化需求事实源",
+    "payload",
+    "占位符",
+    "本章节按方案撰写要求",
+    "本地草稿",
+    "local-draft",
+    "Content Agent",
+    "Design Agent",
+    "Review Gate",
+)
+
+MIN_PRIMARY_FUNCTION_FLOW_DIAGRAMS = 5
+
 REVIEW_STATUSES = {"review_required"}
 CONFIRM_STATUSES = {"confirm_required"}
 CLOSED_ITEM_STATUSES = {"resolved", "waived"}
@@ -109,6 +132,7 @@ class ReviewGateAgent:
         self.check_source_ids(requirements, design, content, diagrams)
         self.check_confirm_and_review_items(requirements, content)
         self.check_risk_claims(requirements, content)
+        self.check_target_content_quality(content)
         self.check_diagrams(design, content, diagrams)
         self.check_placeholder_log()
 
@@ -230,8 +254,10 @@ class ReviewGateAgent:
     ) -> dict[str, int]:
         requirement_ids = [item["requirement_id"] for item in requirements.get("requirements", []) if item.get("requirement_id")]
         scoring_ids = [item["scoring_item_id"] for item in requirements.get("scoring_items", []) if item.get("scoring_item_id")]
+        writing_ids = [item["writing_requirement_id"] for item in requirements.get("writing_requirements", []) if item.get("writing_requirement_id")]
         content_req_ids = self.ids_from_blocks(content, "source_requirement_ids")
         content_score_ids = self.ids_from_blocks(content, "scoring_item_ids")
+        content_writing_ids = self.ids_from_blocks(content, "writing_requirement_ids")
         checklist_source_ids = self.ids_from_lifecycle(content)
         diagram_req_ids = {
             req_id
@@ -268,6 +294,35 @@ class ReviewGateAgent:
                 "补充绑定该评分项的正文段落、表格或复核项。",
             )
 
+        covered_writing = content_writing_ids | {item for item in checklist_source_ids if item.startswith("WR")}
+        uncovered_writing = [writing_id for writing_id in writing_ids if writing_id not in covered_writing]
+        for writing_id in uncovered_writing:
+            self.add_issue(
+                "blocking",
+                "uncovered_writing_requirement",
+                f"方案撰写要求 {writing_id} 未扩写进入正文内容块或复核清单。",
+                "requirements.json",
+                writing_id,
+                "Content Agent",
+                "补充绑定该撰写要求的正文内容块；低置信度映射需同时进入复核清单。",
+            )
+
+        review_items = content.get("review_items", [])
+        for writing_item in requirements.get("writing_requirements", []):
+            writing_id = writing_item.get("writing_requirement_id")
+            if not writing_id:
+                continue
+            if writing_item.get("mapping_confidence") == "low" and not self.lifecycle_has_any_source(review_items, {writing_id}):
+                self.add_issue(
+                    "blocking",
+                    "review_missing",
+                    f"低置信度自动映射的方案撰写要求 {writing_id} 未进入复核清单。",
+                    "requirements.json",
+                    writing_id,
+                    "Content Agent",
+                    "将该撰写要求登记到 content-blocks.review_items。",
+                )
+
         matrix_uncovered = [
             row.get("source_id")
             for row in matrix.get("rows", [])
@@ -276,7 +331,7 @@ class ReviewGateAgent:
         for source_id in matrix_uncovered:
             self.add_issue(
                 "blocking",
-                "uncovered_requirement" if not source_id.startswith("S") else "unanswered_scoring_item",
+                "unanswered_scoring_item" if source_id.startswith("S") else "uncovered_writing_requirement" if source_id.startswith("WR") else "uncovered_requirement",
                 f"需求矩阵已标记 {source_id} 为 uncovered。",
                 "requirements-matrix.json",
                 source_id,
@@ -284,11 +339,11 @@ class ReviewGateAgent:
                 "先在需求矩阵和设计蓝图中补齐覆盖路径。",
             )
 
-        status = "failed" if uncovered_requirements or uncovered_scoring or matrix_uncovered else "passed"
+        status = "failed" if uncovered_requirements or uncovered_scoring or uncovered_writing or matrix_uncovered else "passed"
         self.add_gate(
             "覆盖率与评分项响应",
             status,
-            f"需求覆盖 {len(requirement_ids) - len(uncovered_requirements)}/{len(requirement_ids)}，评分项响应 {len(scoring_ids) - len(uncovered_scoring)}/{len(scoring_ids)}。",
+            f"需求覆盖 {len(requirement_ids) - len(uncovered_requirements)}/{len(requirement_ids)}，评分项响应 {len(scoring_ids) - len(uncovered_scoring)}/{len(scoring_ids)}，方案撰写要求扩写 {len(writing_ids) - len(uncovered_writing)}/{len(writing_ids)}。",
         )
 
         diagram_total = len(diagrams.get("diagrams", []))
@@ -297,6 +352,9 @@ class ReviewGateAgent:
             "requirements_total": len(requirement_ids),
             "requirements_covered": len(requirement_ids) - len(uncovered_requirements),
             "requirements_uncovered": len(uncovered_requirements),
+            "writing_requirements_total": len(writing_ids),
+            "writing_requirements_covered": len(writing_ids) - len(uncovered_writing),
+            "writing_requirements_uncovered": len(uncovered_writing),
             "scoring_items_total": len(scoring_ids),
             "scoring_items_covered": len(scoring_ids) - len(uncovered_scoring),
             "diagram_total": diagram_total,
@@ -313,21 +371,23 @@ class ReviewGateAgent:
         valid_req_ids = {item.get("requirement_id") for item in requirements.get("requirements", [])}
         valid_req_ids.update(item.get("delivery_id") for item in requirements.get("delivery_items", []))
         valid_score_ids = {item.get("scoring_item_id") for item in requirements.get("scoring_items", [])}
+        valid_writing_ids = {item.get("writing_requirement_id") for item in requirements.get("writing_requirements", [])}
         missing_count = 0
 
         for block in content.get("blocks", []):
             req_ids = set(block.get("source_requirement_ids", []))
             score_ids = set(block.get("scoring_item_ids", []))
-            if not req_ids and not score_ids and block.get("status") not in CONFIRM_STATUSES:
+            writing_ids = set(block.get("writing_requirement_ids", []))
+            if not req_ids and not score_ids and not writing_ids and block.get("status") not in CONFIRM_STATUSES:
                 missing_count += 1
                 self.add_issue(
                     "blocking",
                     "missing_source_id",
-                    f"内容块 {block.get('block_id')} 缺少需求 ID 或评分项 ID。",
+                    f"内容块 {block.get('block_id')} 缺少需求 ID、评分项 ID 或方案撰写要求 ID。",
                     "content-blocks.json",
                     block.get("block_id", "unknown"),
                     "Content Agent",
-                    "为内容块补充 source_requirement_ids 或 scoring_item_ids。",
+                    "为内容块补充 source_requirement_ids、scoring_item_ids 或 writing_requirement_ids。",
                 )
             for req_id in req_ids - valid_req_ids:
                 missing_count += 1
@@ -335,11 +395,17 @@ class ReviewGateAgent:
             for score_id in score_ids - valid_score_ids:
                 missing_count += 1
                 self.add_issue("blocking", "missing_source_id", f"内容块引用了不存在的评分项 ID：{score_id}。", "content-blocks.json", block.get("block_id", "unknown"), "Content Agent", "修正为 requirements.json 中存在的评分项 ID。")
+            for writing_id in writing_ids - valid_writing_ids:
+                missing_count += 1
+                self.add_issue("blocking", "missing_source_id", f"内容块引用了不存在的方案撰写要求 ID：{writing_id}。", "content-blocks.json", block.get("block_id", "unknown"), "Content Agent", "修正为 requirements.json 中存在的 writing_requirement_id。")
 
         for section in design.get("sections", []):
-            if not section.get("source_requirement_ids") and not section.get("related_scoring_item_ids"):
+            if not section.get("source_requirement_ids") and not section.get("related_scoring_item_ids") and not section.get("writing_requirement_ids"):
                 missing_count += 1
                 self.add_issue("major", "missing_source_id", f"设计章节 {section.get('section_id')} 缺少来源 ID。", "design-blueprint.json", section.get("section_id", "unknown"), "Design Agent", "为章节补充 source_requirement_ids 或 related_scoring_item_ids。")
+            for writing_id in set(section.get("writing_requirement_ids", [])) - valid_writing_ids:
+                missing_count += 1
+                self.add_issue("blocking", "missing_source_id", f"设计章节引用了不存在的方案撰写要求 ID：{writing_id}。", "design-blueprint.json", section.get("section_id", "unknown"), "Design Agent", "修正为 requirements.json 中存在的 writing_requirement_id。")
 
         for diagram in diagrams.get("diagrams", []):
             req_ids = set(diagram.get("source_requirement_ids", []))
@@ -442,7 +508,7 @@ class ReviewGateAgent:
             text = self.content_text(block)
             if not text:
                 continue
-            source_ids = block.get("source_requirement_ids", []) + block.get("scoring_item_ids", [])
+            source_ids = block.get("source_requirement_ids", []) + block.get("scoring_item_ids", []) + block.get("writing_requirement_ids", [])
             source_text = " ".join(source_texts.get(source_id, "") for source_id in source_ids)
             high_risk_flags = self.high_risk_flags(text)
             risk_flags = set(block.get("risk_flags", []))
@@ -484,10 +550,54 @@ class ReviewGateAgent:
 
         self.add_gate("虚构事实与过度承诺", "failed" if issue_count else "passed", "未发现未留痕的高风险事实或过度承诺。" if not issue_count else f"发现 {issue_count} 个风险事实问题。")
 
+    def check_target_content_quality(self, content: dict[str, Any]) -> None:
+        issue_count = 0
+        for block in content.get("blocks", []):
+            placeholder = block.get("placeholder")
+            if placeholder not in TARGET_PLACEHOLDERS:
+                continue
+            text = self.content_text(block)
+            leaks = [pattern for pattern in PROCESS_LEAK_PATTERNS if pattern in text]
+            if leaks:
+                issue_count += 1
+                self.add_issue(
+                    "blocking",
+                    "process_language_leak",
+                    f"目标章节内容块 {block.get('block_id')} 出现生成过程语言：{', '.join(leaks)}。",
+                    "content-blocks.json",
+                    block.get("block_id", "unknown"),
+                    "Content Agent",
+                    "重新生成系统架构与功能设计正文，正文中不得出现内部过程词。",
+                )
+        self.add_gate("目标章节过程语言检查", "failed" if issue_count else "passed", "系统架构和功能设计未发现过程语言。" if not issue_count else f"发现 {issue_count} 个过程语言问题。")
+
     def check_diagrams(self, design: dict[str, Any], content: dict[str, Any], diagrams: dict[str, Any]) -> None:
         issue_count = 0
         diagram_index = {diagram.get("diagram_id"): diagram for diagram in diagrams.get("diagrams", [])}
         design_plan_index = {item.get("diagram_id"): item for item in design.get("diagram_plan", [])}
+
+        planned_architecture = [
+            item for item in design.get("diagram_plan", []) if item.get("kind") == "architecture" and "架构" in str(item.get("title", ""))
+        ]
+        planned_function_flows = [item for item in design.get("diagram_plan", []) if item.get("kind") == "function_flow"]
+        rendered_architecture = [
+            diagram for diagram in diagrams.get("diagrams", []) if diagram.get("kind") == "architecture" and "架构" in str(diagram.get("title", ""))
+        ]
+        rendered_function_flows = [diagram for diagram in diagrams.get("diagrams", []) if diagram.get("kind") == "function_flow"]
+        if not planned_architecture or not rendered_architecture:
+            issue_count += 1
+            self.add_issue("blocking", "diagram_text_mismatch", "缺少系统总体架构图。", "diagram-manifest.json", "architecture", "Design Agent", "补充系统总体架构图计划并重新生成 Mermaid 图表。")
+        if len(planned_function_flows) < MIN_PRIMARY_FUNCTION_FLOW_DIAGRAMS or len(rendered_function_flows) < MIN_PRIMARY_FUNCTION_FLOW_DIAGRAMS:
+            issue_count += 1
+            self.add_issue(
+                "blocking",
+                "diagram_text_mismatch",
+                f"一级功能流程图不足：计划 {len(planned_function_flows)}，已渲染 {len(rendered_function_flows)}，要求至少 {MIN_PRIMARY_FUNCTION_FLOW_DIAGRAMS}。",
+                "diagram-manifest.json",
+                "function_flow",
+                "Design Agent",
+                "按技术要求一级功能补齐每个功能的流程图。",
+            )
 
         for block in content.get("blocks", []):
             block_req_ids = set(block.get("source_requirement_ids", []))
@@ -510,12 +620,16 @@ class ReviewGateAgent:
         for diagram_id, diagram in diagram_index.items():
             render_status = diagram.get("render_status")
             if render_status == "fallback_rendered":
-                notes = diagram.get("review_notes", []) + [error.get("message", "") for error in diagram.get("errors", []) if isinstance(error, dict)]
-                if not notes:
-                    issue_count += 1
-                    self.add_issue("blocking", "fallback_render_unmarked", f"图表 {diagram_id} 为降级渲染，但未记录降级说明。", "diagram-manifest.json", diagram_id, "Render Validate Agent", "在 render_status、review_notes 或 errors 中明确标记降级原因。")
-                else:
-                    self.add_gate("Mermaid 降级渲染标记", "warning", f"图表 {diagram_id} 为 fallback_rendered，已记录降级说明，需人工关注。")
+                issue_count += 1
+                self.add_issue(
+                    "blocking",
+                    "fallback_render_unmarked",
+                    f"图表 {diagram_id} 为 fallback_rendered，目标图表不得以降级 PNG 通过。",
+                    "diagram-manifest.json",
+                    diagram_id,
+                    "Render Validate Agent",
+                    "安装或指定 Mermaid CLI，修复 Mermaid 源码并完成原生渲染。",
+                )
             if render_status in {"failed", "skipped"} or diagram.get("assembly_allowed") is not True:
                 issue_count += 1
                 self.add_issue("blocking", "diagram_text_mismatch", f"图表 {diagram_id} 渲染状态为 {render_status}，不允许装配。", "diagram-manifest.json", diagram_id, "Render Validate Agent", "修复 Mermaid 源码或渲染流程后重新发布图表。")
@@ -531,8 +645,7 @@ class ReviewGateAgent:
                     issue_count += 1
                     self.add_issue("blocking", "diagram_text_mismatch", f"图表 {diagram_id} 与设计蓝图中的来源需求不一致。", "diagram-manifest.json", diagram_id, "Mermaid Agent", "按 design-blueprint.diagram_plan 修正图表来源。")
 
-        if not any(gate["name"] == "Mermaid 降级渲染标记" for gate in self.gates):
-            self.add_gate("Mermaid 降级渲染标记", "passed", "未发现未标记的 Mermaid 降级渲染。")
+        self.add_gate("Mermaid 降级渲染检查", "failed" if any(issue["category"] == "fallback_render_unmarked" for issue in self.issues) else "passed", "未发现 Mermaid 降级渲染。" if not any(issue["category"] == "fallback_render_unmarked" for issue in self.issues) else "存在 fallback_rendered 图表，已阻断。")
         self.add_gate("图文一致性", "failed" if issue_count else "passed", "图表与正文、设计蓝图来源一致。" if not issue_count else f"发现 {issue_count} 个图文或渲染问题。")
 
     def check_placeholder_log(self) -> None:
@@ -629,6 +742,8 @@ class ReviewGateAgent:
         summary = decision["coverage_summary"]
         if summary["requirements_covered"] + summary["requirements_uncovered"] != summary["requirements_total"]:
             raise RuntimeError("coverage_summary 需求覆盖计数不一致")
+        if summary.get("writing_requirements_covered", 0) + summary.get("writing_requirements_uncovered", 0) != summary.get("writing_requirements_total", 0):
+            raise RuntimeError("coverage_summary 方案撰写要求覆盖计数不一致")
         if summary["scoring_items_covered"] > summary["scoring_items_total"]:
             raise RuntimeError("coverage_summary 评分项覆盖计数不一致")
 
@@ -670,6 +785,8 @@ class ReviewGateAgent:
             "",
             f"- Requirements: {summary['requirements_covered']}/{summary['requirements_total']} covered",
             f"- Requirements uncovered: {summary['requirements_uncovered']}",
+            f"- Writing requirements: {summary.get('writing_requirements_covered', 0)}/{summary.get('writing_requirements_total', 0)} expanded",
+            f"- Writing requirements uncovered: {summary.get('writing_requirements_uncovered', 0)}",
             f"- Scoring items: {summary['scoring_items_covered']}/{summary['scoring_items_total']} covered",
             f"- Diagrams assembly allowed: {summary.get('diagram_assembly_allowed', 0)}/{summary.get('diagram_total', 0)}",
             "",
@@ -679,7 +796,7 @@ class ReviewGateAgent:
         coverage_issues = [
             issue
             for issue in decision["issues"]
-            if issue["category"] in {"uncovered_requirement", "unanswered_scoring_item", "missing_source_id"}
+            if issue["category"] in {"uncovered_requirement", "uncovered_writing_requirement", "unanswered_scoring_item", "missing_source_id"}
         ]
         if not coverage_issues:
             lines.extend(["未发现覆盖率或来源 ID 问题。", ""])
@@ -834,6 +951,16 @@ class ReviewGateAgent:
                     item.get("title", ""),
                     item.get("text", ""),
                     item.get("source", {}).get("quote", ""),
+                )
+            )
+        for item in requirements.get("writing_requirements", []):
+            index[item.get("writing_requirement_id", "")] = " ".join(
+                str(part)
+                for part in (
+                    item.get("title", ""),
+                    item.get("text", ""),
+                    item.get("source", {}).get("quote", ""),
+                    " ".join(item.get("keywords", [])),
                 )
             )
         return index

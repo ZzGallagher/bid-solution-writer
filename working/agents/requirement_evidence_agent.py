@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 """Requirement Evidence Agent.
 
-This stage turns tender Word inputs into the pipeline fact source:
+This stage turns reviewed Markdown inputs into the pipeline fact source:
 requirements.json, requirements-matrix.json/md, confirm-candidates.md, and
 extraction-warnings.md.
 
@@ -32,9 +32,8 @@ AGENT_VERSION = "1.0.0"
 SCHEMA_VERSION = "1.0.0"
 WORD_NS = {"w": "http://schemas.openxmlformats.org/wordprocessingml/2006/main"}
 
-TECHNICAL_REQUIREMENTS = "技术要求.docx"
-BUSINESS_REQUIREMENTS = "商务要求.docx"
-SCORING_TABLE = "技术评分表.docx"
+TECHNICAL_REQUIREMENTS_MD = "技术要求.md"
+WRITING_REQUIREMENTS_MD = "方案撰写要求.md"
 OPTIONAL_RULES = ("生成规则.md", "模板占位符说明.md")
 
 SECTION_HEADINGS = {
@@ -114,6 +113,22 @@ class DocxContent:
     tables: list[Table]
 
 
+@dataclass(frozen=True)
+class MarkdownItem:
+    text: str
+    locator: str
+    heading_path: list[str]
+    line_number: int
+
+
+@dataclass(frozen=True)
+class MarkdownContent:
+    path: Path
+    text: str
+    items: list[MarkdownItem]
+    headings: list[str]
+
+
 class RequirementEvidenceAgent:
     def __init__(self, workspace: Path, input_dir: Path, template_dir: Path, output_dir: Path) -> None:
         self.workspace = workspace
@@ -129,21 +144,20 @@ class RequirementEvidenceAgent:
         self.confirm_candidates: list[dict[str, Any]] = []
 
     def run(self) -> dict[str, Path]:
-        technical = self.read_docx(self.input_dir / TECHNICAL_REQUIREMENTS)
-        business = self.read_docx(self.input_dir / BUSINESS_REQUIREMENTS)
-        scoring = self.read_docx(self.input_dir / SCORING_TABLE)
+        technical_path = self.resolve_markdown_input(TECHNICAL_REQUIREMENTS_MD, "*技术要求.md")
+        writing_path = self.resolve_markdown_input(WRITING_REQUIREMENTS_MD, "*方案撰写要求.md")
+        technical = self.read_markdown(technical_path)
+        writing = self.read_markdown(writing_path)
 
-        inputs = self.build_inputs()
-        project = self.extract_project(technical)
+        inputs = self.build_inputs(technical_path, writing_path)
+        project = self.extract_project_from_markdown(technical)
 
         requirements: list[dict[str, Any]] = []
-        requirements.extend(self.extract_technical_requirements(technical))
-        requirements.extend(self.extract_business_requirements(business))
+        requirements.extend(self.extract_markdown_technical_requirements(technical))
 
-        delivery_items = self.extract_delivery_items(technical)
-        scoring_items = self.extract_scoring_items(scoring, requirements)
-        self.add_project_confirm_candidates(scoring_items)
-        self.link_scoring_items(requirements, scoring_items)
+        writing_requirements = self.extract_writing_requirements(writing)
+        delivery_items: list[dict[str, Any]] = []
+        scoring_items: list[dict[str, Any]] = []
 
         requirements_json = {
             "schema_version": SCHEMA_VERSION,
@@ -151,9 +165,12 @@ class RequirementEvidenceAgent:
             "run_id": self.run_id,
             "generated_at": self.generated_at,
             "producer": {"agent": AGENT_NAME, "version": AGENT_VERSION},
+            "source_mode": "markdown_only",
+            "source_documents": self.build_source_documents(technical_path, writing_path),
             "inputs": inputs,
             "project": project,
             "requirements": requirements,
+            "writing_requirements": writing_requirements,
             "scoring_items": scoring_items,
             "delivery_items": delivery_items,
             "confirm_candidates": self.confirm_candidates,
@@ -189,6 +206,81 @@ class RequirementEvidenceAgent:
             "published_dir": published_dir,
             "output_dir": self.output_dir,
         }
+
+    def resolve_markdown_input(self, preferred_name: str, fallback_pattern: str) -> Path:
+        preferred = self.input_dir / preferred_name
+        if preferred.exists():
+            return preferred
+        matches = sorted(self.input_dir.glob(fallback_pattern))
+        if len(matches) == 1:
+            self.add_warning(
+                f"未找到默认输入 {preferred_name}，已使用 {matches[0].name} 作为 Markdown 权威输入。",
+                "info",
+            )
+            return matches[0]
+        if not matches:
+            raise FileNotFoundError(f"缺少 Markdown 权威输入文件：{preferred}")
+        names = "、".join(path.name for path in matches)
+        raise RuntimeError(f"存在多个可选 Markdown 输入匹配 {fallback_pattern}：{names}；请保留一个或重命名为 {preferred_name}。")
+
+    def read_markdown(self, path: Path) -> MarkdownContent:
+        if not path.exists():
+            raise FileNotFoundError(f"缺少 Markdown 输入文件：{path}")
+        text = path.read_text(encoding="utf-8", errors="replace")
+        if not text.strip():
+            raise RuntimeError(f"Markdown 输入为空：{path}")
+
+        heading_stack: list[str] = []
+        headings: list[str] = []
+        items: list[MarkdownItem] = []
+        for line_number, raw_line in enumerate(text.splitlines(), 1):
+            line = raw_line.strip()
+            if not line:
+                continue
+            heading_match = re.match(r"^(#{1,6})\s+(.+)$", line)
+            if heading_match:
+                level = len(heading_match.group(1))
+                heading = heading_match.group(2).strip()
+                heading_stack = heading_stack[: level - 1]
+                heading_stack.append(heading)
+                headings.append(heading)
+                continue
+            normalized = self.markdown_item_text(line)
+            if not normalized:
+                continue
+            locator = "/".join(heading_stack) if heading_stack else "正文"
+            items.append(MarkdownItem(normalized, f"{locator}/L{line_number}", list(heading_stack), line_number))
+
+        if not items:
+            raise RuntimeError(f"Markdown 文件未抽取到可用条目：{path}")
+        return MarkdownContent(path=path, text=text, items=items, headings=headings)
+
+    @staticmethod
+    def markdown_item_text(line: str) -> str:
+        if re.match(r"^\|?\s*:?-{3,}:?\s*(\|\s*:?-{3,}:?\s*)+\|?$", line):
+            return ""
+        if line.startswith("|") and line.endswith("|"):
+            cells = [cell.strip() for cell in line.strip("|").split("|")]
+            return "；".join(cell for cell in cells if cell)
+        line = re.sub(r"^[-*+]\s+", "", line)
+        line = re.sub(r"^[0-9]+[.)、]\s*", "", line)
+        return re.sub(r"\s+", " ", line).strip()
+
+    def build_source_documents(self, technical_path: Path, writing_path: Path) -> list[dict[str, str]]:
+        return [
+            {
+                "document_id": "SRC001",
+                "path": self.relative(technical_path),
+                "kind": "technical_requirements_markdown",
+                "sha256": self.sha256(technical_path),
+            },
+            {
+                "document_id": "SRC002",
+                "path": self.relative(writing_path),
+                "kind": "writing_requirements_markdown",
+                "sha256": self.sha256(writing_path),
+            },
+        ]
 
     def read_docx(self, path: Path) -> DocxContent:
         if not path.exists():
@@ -242,11 +334,10 @@ class RequirementEvidenceAgent:
                 parts.append(text_node.text)
         return re.sub(r"\s+", " ", "".join(parts)).strip()
 
-    def build_inputs(self) -> list[dict[str, Any]]:
+    def build_inputs(self, technical_path: Path, writing_path: Path) -> list[dict[str, Any]]:
         candidates = [
-            (self.input_dir / TECHNICAL_REQUIREMENTS, "technical_requirements"),
-            (self.input_dir / BUSINESS_REQUIREMENTS, "business_requirements"),
-            (self.input_dir / SCORING_TABLE, "scoring_table"),
+            (technical_path, "technical_requirements"),
+            (writing_path, "writing_requirements"),
             (self.template_dir / "投标方案模板.docx", "template"),
         ]
         for filename in OPTIONAL_RULES:
@@ -270,6 +361,127 @@ class RequirementEvidenceAgent:
                 }
             )
         return inputs
+
+    def extract_project_from_markdown(self, technical: MarkdownContent) -> dict[str, Any]:
+        project_name = technical.path.stem
+        project_name = re.sub(r"(技术要求|需求规格|需求)$", "", project_name).strip("-_ 　") or project_name
+        for heading in technical.headings:
+            if re.match(r"^[0-9]+[.、）)]\s*", heading):
+                continue
+            if heading not in SECTION_HEADINGS and not heading.endswith("要求") and len(heading) >= 4:
+                project_name = heading
+                break
+
+        return {
+            "name": project_name,
+            "tender_name": project_name,
+            "bidder_name_status": "missing",
+        }
+
+    def extract_markdown_technical_requirements(self, document: MarkdownContent) -> list[dict[str, Any]]:
+        requirements: list[dict[str, Any]] = []
+        counters = {"T": 1, "P": 1, "Q": 1}
+        for item in document.items:
+            if self.is_low_value_line(item.text):
+                continue
+            section = item.heading_path[0] if item.heading_path else ""
+            topic = item.heading_path[-1] if item.heading_path else section
+            category, prefix, target_sections, need_diagram = self.classify_technical_line(section, topic, item.text)
+            if not category:
+                category, prefix = self.classify_markdown_fallback(item.heading_path, item.text)
+                target_sections = self.target_sections_for_text(item.text, "功能设计" if prefix == "T" else "质量与安全设计")
+                need_diagram = prefix == "T"
+
+            req_id = f"{prefix}{counters[prefix]:03d}"
+            counters[prefix] += 1
+            title = self.title_from_text(topic if topic and topic != section else item.text, item.text)
+            risk_level, status = self.risk_status(item.text)
+            requirements.append(
+                self.make_requirement(
+                    req_id,
+                    category,
+                    title,
+                    item.text,
+                    document.path,
+                    item.locator,
+                    item.text,
+                    self.keywords_from_text(" ".join(item.heading_path + [item.text])),
+                    self.is_mandatory(item.text),
+                    need_diagram,
+                    risk_level,
+                    target_sections,
+                    status=status,
+                )
+            )
+
+        if not requirements:
+            self.add_warning("技术要求.md 未识别到技术需求条目。", "error")
+        return requirements
+
+    @staticmethod
+    def classify_markdown_fallback(heading_path: list[str], text: str) -> tuple[str, str]:
+        joined = " ".join(heading_path + [text])
+        if any(keyword in joined for keyword in ("性能", "响应时间", "初始化", "查询时间", "稳定性", "MTTR")):
+            return "technical_performance", "P"
+        if any(keyword in joined for keyword in ("接口", "数据通信", "外部", "内部", "NMEA", "HMI")):
+            return "technical_function", "T"
+        if any(keyword in joined for keyword in ("功能", "支持", "具备", "显示", "规划", "告警", "处理")):
+            return "technical_function", "T"
+        return "technical_quality", "Q"
+
+    def extract_writing_requirements(self, document: MarkdownContent) -> list[dict[str, Any]]:
+        writing_requirements = []
+        for index, item in enumerate(document.items, 1):
+            title = self.title_from_text(item.heading_path[-1] if item.heading_path else item.text, item.text)
+            target_sections, confidence = self.writing_target_sections(item.text, item.heading_path)
+            writing_requirement_id = f"WR{index:03d}"
+            if confidence == "low":
+                self.add_confirm(
+                    f"{title} 章节映射复核",
+                    "方案撰写要求由系统低置信度自动映射，需复核是否进入正确章节。",
+                    [writing_requirement_id],
+                    "review_required",
+                )
+            writing_requirements.append(
+                {
+                    "writing_requirement_id": writing_requirement_id,
+                    "title": title,
+                    "text": item.text,
+                    "source": self.source_ref(document.path, item.locator, item.text),
+                    "keywords": self.keywords_from_text(" ".join(item.heading_path + [item.text])),
+                    "target_sections": target_sections,
+                    "mandatory_expansion": True,
+                    "mapping_confidence": confidence,
+                    "coverage_status": "planned",
+                    "status": "review_required" if confidence == "low" else "extracted",
+                }
+            )
+        return writing_requirements
+
+    def writing_target_sections(self, text: str, heading_path: list[str]) -> tuple[list[str], str]:
+        joined = " ".join(heading_path + [text])
+        mapping = [
+            (("需求分析", "全面性", "准确性", "充分性"), "需求分析"),
+            (("总体", "业务", "逻辑", "技术", "数据架构", "架构"), "总体架构设计"),
+            (("流程图", "业务流程", "数据处理流程"), "业务与数据流程设计"),
+            (("接口", "数据交互"), "接口设计"),
+            (("部署", "安装", "上线", "运行"), "部署方案"),
+            (("安全", "网络安全", "保密"), "安全设计"),
+            (("工具", "软件开发", "软件测试", "软件设计"), "开发测试工具"),
+            (("关键技术", "创新", "可行性"), "关键技术"),
+            (("实施周期", "进度", "人力资源", "过程管理"), "项目实施计划"),
+            (("风险", "风险控制"), "质量控制与风险管理"),
+            (("质量", "质量保证", "测试过程", "质量计划"), "质量保证与测试方案"),
+            (("培训",), "培训与售后服务方案"),
+            (("售后", "质保", "上门", "响应", "保修"), "培训与售后服务方案"),
+            (("交付", "地点", "方式", "运输", "调试"), "项目实施与交付验收"),
+            (("知识产权", "保密要求"), "安全与保密方案"),
+        ]
+        sections = [section for keywords, section in mapping if any(keyword in joined for keyword in keywords)]
+        sections = list(dict.fromkeys(sections))
+        if sections:
+            return sections, "high"
+        return ["方案撰写要求专项响应"], "low"
 
     def extract_project(self, technical: DocxContent) -> dict[str, Any]:
         project_name = "待确认项目名称"
@@ -579,6 +791,23 @@ class RequirementEvidenceAgent:
                 }
             )
 
+        for writing_item in requirements_json.get("writing_requirements", []):
+            rows.append(
+                {
+                    "source_id": writing_item["writing_requirement_id"],
+                    "source_type": "writing_requirement",
+                    "title": writing_item["title"],
+                    "target_sections": writing_item["target_sections"],
+                    "planned_module_ids": [],
+                    "planned_diagram_ids": [],
+                    "coverage_status": writing_item.get("coverage_status", "planned"),
+                    "notes": [
+                        "必须扩写进入最终方案",
+                        f"自动映射置信度：{writing_item.get('mapping_confidence', 'unknown')}",
+                    ],
+                }
+            )
+
         uncovered_total = sum(1 for row in rows if row["coverage_status"] == "uncovered")
         return {
             "schema_version": SCHEMA_VERSION,
@@ -596,6 +825,7 @@ class RequirementEvidenceAgent:
             "rows": rows,
             "summary": {
                 "requirements_total": len(requirements_json["requirements"]),
+                "writing_requirements_total": len(requirements_json.get("writing_requirements", [])),
                 "scoring_items_total": len(requirements_json["scoring_items"]),
                 "uncovered_total": uncovered_total,
             },
@@ -863,9 +1093,12 @@ class RequirementEvidenceAgent:
                 "run_id",
                 "generated_at",
                 "producer",
+                "source_mode",
+                "source_documents",
                 "inputs",
                 "project",
                 "requirements",
+                "writing_requirements",
                 "scoring_items",
                 "delivery_items",
                 "confirm_candidates",
@@ -873,6 +1106,8 @@ class RequirementEvidenceAgent:
             ],
             "requirements.json",
         )
+        if artifact["source_mode"] != "markdown_only":
+            raise RuntimeError("requirements.json source_mode 必须为 markdown_only。")
         if not artifact["requirements"]:
             raise RuntimeError("需求抽取结果为空。")
         ids = [item["requirement_id"] for item in artifact["requirements"]]
@@ -889,6 +1124,25 @@ class RequirementEvidenceAgent:
             )
             if not item["target_sections"] and item["status"] not in {"confirm_required", "review_required"}:
                 raise RuntimeError(f"{item['requirement_id']} 缺少建议响应章节。")
+        writing_ids = [item["writing_requirement_id"] for item in artifact["writing_requirements"]]
+        if len(writing_ids) != len(set(writing_ids)):
+            raise RuntimeError("方案撰写要求 ID 重复。")
+        for item in artifact["writing_requirements"]:
+            self.require_fields(
+                item,
+                [
+                    "writing_requirement_id",
+                    "title",
+                    "text",
+                    "source",
+                    "target_sections",
+                    "mandatory_expansion",
+                    "mapping_confidence",
+                    "coverage_status",
+                    "status",
+                ],
+                f"requirements.json#{item.get('writing_requirement_id', '?')}",
+            )
 
     def validate_matrix(self, artifact: dict[str, Any]) -> None:
         self.require_fields(
@@ -920,6 +1174,7 @@ class RequirementEvidenceAgent:
             "requirement": "需求",
             "scoring_item": "评分项",
             "delivery_item": "交付物",
+            "writing_requirement": "方案撰写要求",
         }
         for row in matrix["rows"]:
             lines.append(
@@ -941,6 +1196,7 @@ class RequirementEvidenceAgent:
                 "## Summary",
                 "",
                 f"- Requirements total: {summary['requirements_total']}",
+                f"- Writing requirements total: {summary.get('writing_requirements_total', 0)}",
                 f"- Scoring items total: {summary['scoring_items_total']}",
                 f"- Uncovered total: {summary['uncovered_total']}",
                 "",

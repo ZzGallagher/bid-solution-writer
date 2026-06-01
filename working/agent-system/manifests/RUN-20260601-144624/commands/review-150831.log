@@ -1,0 +1,15 @@
+stage=review
+owner=Review Gate Agent
+returncode=0
+command="D:\Program Files\Python310\python.exe" G:\#.Project\bid-solution-writer\working\agents\review_gate_agent.py --workspace G:\#.Project\bid-solution-writer --records-dir G:\#.Project\bid-solution-writer\output\records --output-dir G:\#.Project\bid-solution-writer\output\records
+
+## stdout
+Review Gate Agent completed: RUN-20260601-144624
+decision: approved
+staging: G:\#.Project\bid-solution-writer\working\agent-system\staging\review\RUN-20260601-144624
+published: G:\#.Project\bid-solution-writer\working\agent-system\published\review\RUN-20260601-144624
+output: G:\#.Project\bid-solution-writer\output\records
+
+
+## stderr
+

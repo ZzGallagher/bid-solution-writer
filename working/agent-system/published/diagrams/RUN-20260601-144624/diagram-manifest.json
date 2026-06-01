@@ -1,0 +1,1573 @@
+{
+  "schema_version": "1.0.0",
+  "artifact": "diagram-manifest",
+  "run_id": "RUN-20260601-144624",
+  "generated_at": "2026-06-01T15:03:43+08:00",
+  "producer": {
+    "agent": "Render Validate Agent",
+    "version": "1.0.0",
+    "renderer": "fallback-png"
+  },
+  "inputs": [
+    {
+      "artifact": "diagram-specs",
+      "path": "output/records/diagram-specs.json",
+      "schema_version": "1.0.0"
+    }
+  ],
+  "diagrams": [
+    {
+      "diagram_id": "DG001",
+      "title": "总体架构蓝图",
+      "kind": "architecture",
+      "mermaid_path": "output/records/diagrams/DG001.mmd",
+      "image_path": "output/records/diagrams/DG001.png",
+      "source_requirement_ids": [
+        "T029",
+        "T030",
+        "T031",
+        "Q013",
+        "Q002",
+        "Q005",
+        "Q010",
+        "T034",
+        "Q001",
+        "Q007",
+        "Q009",
+        "T035",
+        "T036",
+        "T037"
+      ],
+      "description": "展示用户交互、业务功能、数据接口、平台运行和质量安全保障之间的分层关系。",
+      "render_status": "fallback_rendered",
+      "assembly_allowed": true,
+      "image_check": {
+        "exists": true,
+        "width": 1600,
+        "height": 1044,
+        "file_size_bytes": 120644,
+        "blank_risk": "low"
+      },
+      "errors": [
+        {
+          "message": "未找到 Mermaid CLI 渲染器，已生成降级 PNG。",
+          "recoverable": true,
+          "suggested_action": "安装 @mermaid-js/mermaid-cli 或通过 --renderer-command 指定渲染器以获得原生图。"
+        }
+      ],
+      "review_notes": [
+        "render_status=fallback_rendered：原生 Mermaid 渲染不可用或失败，已生成降级 PNG，需人工关注。"
+      ]
+    },
+    {
+      "diagram_id": "DG002",
+      "title": "功能模块划分图",
+      "kind": "architecture",
+      "mermaid_path": "output/records/diagrams/DG002.mmd",
+      "image_path": "output/records/diagrams/DG002.png",
+      "source_requirement_ids": [
+        "T001",
+        "T002",
+        "T003",
+        "T004",
+        "T005",
+        "T006",
+        "T007",
+        "T008",
+        "T009",
+        "T010",
+        "T011",
+        "T012",
+        "T013",
+        "T014",
+        "T015",
+        "T016",
+        "T017",
+        "T018",
+        "T019",
+        "T020",
+        "T021",
+        "T022",
+        "T023",
+        "T024",
+        "T025",
+        "T026",
+        "T027",
+        "T028",
+        "T029",
+        "T030",
+        "T031",
+        "T032",
+        "T033",
+        "T034",
+        "Q001",
+        "Q007",
+        "T035",
+        "T036",
+        "T037",
+        "T038"
+      ],
+      "description": "展示海图显示、态势融合、航线规划、告警监控、个性化配置和数据维护等功能模块边界。",
+      "render_status": "fallback_rendered",
+      "assembly_allowed": true,
+      "image_check": {
+        "exists": true,
+        "width": 1600,
+        "height": 1396,
+        "file_size_bytes": 73994,
+        "blank_risk": "low"
+      },
+      "errors": [
+        {
+          "message": "未找到 Mermaid CLI 渲染器，已生成降级 PNG。",
+          "recoverable": true,
+          "suggested_action": "安装 @mermaid-js/mermaid-cli 或通过 --renderer-command 指定渲染器以获得原生图。"
+        }
+      ],
+      "review_notes": [
+        "render_status=fallback_rendered：原生 Mermaid 渲染不可用或失败，已生成降级 PNG，需人工关注。"
+      ]
+    },
+    {
+      "diagram_id": "DG003",
+      "title": "核心业务流程图",
+      "kind": "business_flow",
+      "mermaid_path": "output/records/diagrams/DG003.mmd",
+      "image_path": "output/records/diagrams/DG003.png",
+      "source_requirement_ids": [
+        "T001",
+        "T002",
+        "T003",
+        "T004",
+        "T005",
+        "T006",
+        "T007",
+        "T008",
+        "T009",
+        "T010",
+        "T011",
+        "T012",
+        "T013",
+        "T014",
+        "T015",
+        "T016",
+        "T017",
+        "T018",
+        "T019",
+        "T020",
+        "T021",
+        "T022",
+        "T023",
+        "T024",
+        "T025",
+        "T028",
+        "T032",
+        "Q001",
+        "Q007",
+        "T035",
+        "T036",
+        "T037"
+      ],
+      "description": "说明电子海图加载、目标信息融合、航线规划、航行监控和告警处置的主业务路径。",
+      "render_status": "fallback_rendered",
+      "assembly_allowed": true,
+      "image_check": {
+        "exists": true,
+        "width": 1600,
+        "height": 1396,
+        "file_size_bytes": 64918,
+        "blank_risk": "low"
+      },
+      "errors": [
+        {
+          "message": "未找到 Mermaid CLI 渲染器，已生成降级 PNG。",
+          "recoverable": true,
+          "suggested_action": "安装 @mermaid-js/mermaid-cli 或通过 --renderer-command 指定渲染器以获得原生图。"
+        }
+      ],
+      "review_notes": [
+        "render_status=fallback_rendered：原生 Mermaid 渲染不可用或失败，已生成降级 PNG，需人工关注。"
+      ]
+    },
+    {
+      "diagram_id": "DG004",
+      "title": "数据流与接口关系图",
+      "kind": "data_flow",
+      "mermaid_path": "output/records/diagrams/DG004.mmd",
+      "image_path": "output/records/diagrams/DG004.png",
+      "source_requirement_ids": [
+        "T001",
+        "T005",
+        "T021",
+        "T023",
+        "T031",
+        "T032",
+        "T033",
+        "T034",
+        "P001",
+        "P003",
+        "P004",
+        "Q001",
+        "Q004",
+        "Q007",
+        "Q009",
+        "T035",
+        "T036",
+        "T037",
+        "T038",
+        "T039",
+        "T040",
+        "T041"
+      ],
+      "description": "说明外部导航设备、文件系统、数据库读写、HMI控制和业务模块之间的数据流向。",
+      "render_status": "fallback_rendered",
+      "assembly_allowed": true,
+      "image_check": {
+        "exists": true,
+        "width": 1600,
+        "height": 1396,
+        "file_size_bytes": 62001,
+        "blank_risk": "low"
+      },
+      "errors": [
+        {
+          "message": "未找到 Mermaid CLI 渲染器，已生成降级 PNG。",
+          "recoverable": true,
+          "suggested_action": "安装 @mermaid-js/mermaid-cli 或通过 --renderer-command 指定渲染器以获得原生图。"
+        }
+      ],
+      "review_notes": [
+        "render_status=fallback_rendered：原生 Mermaid 渲染不可用或失败，已生成降级 PNG，需人工关注。"
+      ]
+    },
+    {
+      "diagram_id": "DG005",
+      "title": "部署与运行支撑图",
+      "kind": "deployment",
+      "mermaid_path": "output/records/diagrams/DG005.mmd",
+      "image_path": "output/records/diagrams/DG005.png",
+      "source_requirement_ids": [
+        "P001",
+        "P002",
+        "P003",
+        "P004",
+        "P005",
+        "P006",
+        "P007",
+        "T029",
+        "Q001",
+        "Q002",
+        "Q005",
+        "Q010"
+      ],
+      "description": "说明国产化软硬件环境、跨平台运行、多设备协同和性能保障的部署关系。",
+      "render_status": "fallback_rendered",
+      "assembly_allowed": true,
+      "image_check": {
+        "exists": true,
+        "width": 1600,
+        "height": 1396,
+        "file_size_bytes": 47817,
+        "blank_risk": "low"
+      },
+      "errors": [
+        {
+          "message": "未找到 Mermaid CLI 渲染器，已生成降级 PNG。",
+          "recoverable": true,
+          "suggested_action": "安装 @mermaid-js/mermaid-cli 或通过 --renderer-command 指定渲染器以获得原生图。"
+        }
+      ],
+      "review_notes": [
+        "render_status=fallback_rendered：原生 Mermaid 渲染不可用或失败，已生成降级 PNG，需人工关注。"
+      ]
+    },
+    {
+      "diagram_id": "DG006",
+      "title": "安全与质量保障流程图",
+      "kind": "security",
+      "mermaid_path": "output/records/diagrams/DG006.mmd",
+      "image_path": "output/records/diagrams/DG006.png",
+      "source_requirement_ids": [
+        "T011",
+        "T012",
+        "T016",
+        "T017",
+        "T018",
+        "T020",
+        "T028",
+        "T033",
+        "Q001",
+        "Q002",
+        "Q003",
+        "Q004",
+        "Q005",
+        "Q006",
+        "Q007",
+        "Q008",
+        "Q009",
+        "Q010",
+        "T035",
+        "Q011",
+        "Q012",
+        "Q013"
+      ],
+      "description": "说明权限、保密、质量监督、测试验收和风险处置的闭环控制。",
+      "render_status": "fallback_rendered",
+      "assembly_allowed": true,
+      "image_check": {
+        "exists": true,
+        "width": 1600,
+        "height": 1396,
+        "file_size_bytes": 63391,
+        "blank_risk": "low"
+      },
+      "errors": [
+        {
+          "message": "未找到 Mermaid CLI 渲染器，已生成降级 PNG。",
+          "recoverable": true,
+          "suggested_action": "安装 @mermaid-js/mermaid-cli 或通过 --renderer-command 指定渲染器以获得原生图。"
+        }
+      ],
+      "review_notes": [
+        "render_status=fallback_rendered：原生 Mermaid 渲染不可用或失败，已生成降级 PNG，需人工关注。"
+      ]
+    },
+    {
+      "diagram_id": "DG007",
+      "title": "T001 海图综合态势展示-标准符合性功能流程图",
+      "kind": "function_flow",
+      "mermaid_path": "output/records/diagrams/DG007.mmd",
+      "image_path": "output/records/diagrams/DG007.png",
+      "source_requirement_ids": [
+        "T001"
+      ],
+      "description": "说明海图综合态势展示-标准符合性的输入、处理、输出与异常记录流程。",
+      "render_status": "fallback_rendered",
+      "assembly_allowed": true,
+      "image_check": {
+        "exists": true,
+        "width": 1600,
+        "height": 1220,
+        "file_size_bytes": 66020,
+        "blank_risk": "low"
+      },
+      "errors": [
+        {
+          "message": "未找到 Mermaid CLI 渲染器，已生成降级 PNG。",
+          "recoverable": true,
+          "suggested_action": "安装 @mermaid-js/mermaid-cli 或通过 --renderer-command 指定渲染器以获得原生图。"
+        }
+      ],
+      "review_notes": [
+        "render_status=fallback_rendered：原生 Mermaid 渲染不可用或失败，已生成降级 PNG，需人工关注。"
+      ]
+    },
+    {
+      "diagram_id": "DG008",
+      "title": "T002 海图综合态势展示功能流程图",
+      "kind": "function_flow",
+      "mermaid_path": "output/records/diagrams/DG008.mmd",
+      "image_path": "output/records/diagrams/DG008.png",
+      "source_requirement_ids": [
+        "T002"
+      ],
+      "description": "说明海图综合态势展示的输入、处理、输出与异常记录流程。",
+      "render_status": "fallback_rendered",
+      "assembly_allowed": true,
+      "image_check": {
+        "exists": true,
+        "width": 1600,
+        "height": 1396,
+        "file_size_bytes": 74745,
+        "blank_risk": "low"
+      },
+      "errors": [
+        {
+          "message": "未找到 Mermaid CLI 渲染器，已生成降级 PNG。",
+          "recoverable": true,
+          "suggested_action": "安装 @mermaid-js/mermaid-cli 或通过 --renderer-command 指定渲染器以获得原生图。"
+        }
+      ],
+      "review_notes": [
+        "render_status=fallback_rendered：原生 Mermaid 渲染不可用或失败，已生成降级 PNG，需人工关注。"
+      ]
+    },
+    {
+      "diagram_id": "DG009",
+      "title": "T003 海图综合态势展示功能流程图",
+      "kind": "function_flow",
+      "mermaid_path": "output/records/diagrams/DG009.mmd",
+      "image_path": "output/records/diagrams/DG009.png",
+      "source_requirement_ids": [
+        "T003"
+      ],
+      "description": "说明海图综合态势展示的输入、处理、输出与异常记录流程。",
+      "render_status": "fallback_rendered",
+      "assembly_allowed": true,
+      "image_check": {
+        "exists": true,
+        "width": 1600,
+        "height": 1396,
+        "file_size_bytes": 69106,
+        "blank_risk": "low"
+      },
+      "errors": [
+        {
+          "message": "未找到 Mermaid CLI 渲染器，已生成降级 PNG。",
+          "recoverable": true,
+          "suggested_action": "安装 @mermaid-js/mermaid-cli 或通过 --renderer-command 指定渲染器以获得原生图。"
+        }
+      ],
+      "review_notes": [
+        "render_status=fallback_rendered：原生 Mermaid 渲染不可用或失败，已生成降级 PNG，需人工关注。"
+      ]
+    },
+    {
+      "diagram_id": "DG010",
+      "title": "T004 海图综合态势展示功能流程图",
+      "kind": "function_flow",
+      "mermaid_path": "output/records/diagrams/DG010.mmd",
+      "image_path": "output/records/diagrams/DG010.png",
+      "source_requirement_ids": [
+        "T004"
+      ],
+      "description": "说明海图综合态势展示的输入、处理、输出与异常记录流程。",
+      "render_status": "fallback_rendered",
+      "assembly_allowed": true,
+      "image_check": {
+        "exists": true,
+        "width": 1600,
+        "height": 1396,
+        "file_size_bytes": 72493,
+        "blank_risk": "low"
+      },
+      "errors": [
+        {
+          "message": "未找到 Mermaid CLI 渲染器，已生成降级 PNG。",
+          "recoverable": true,
+          "suggested_action": "安装 @mermaid-js/mermaid-cli 或通过 --renderer-command 指定渲染器以获得原生图。"
+        }
+      ],
+      "review_notes": [
+        "render_status=fallback_rendered：原生 Mermaid 渲染不可用或失败，已生成降级 PNG，需人工关注。"
+      ]
+    },
+    {
+      "diagram_id": "DG011",
+      "title": "T005 AIS/雷达等目标信息的处理与显示功能流程图",
+      "kind": "function_flow",
+      "mermaid_path": "output/records/diagrams/DG011.mmd",
+      "image_path": "output/records/diagrams/DG011.png",
+      "source_requirement_ids": [
+        "T005"
+      ],
+      "description": "说明AIS/雷达等目标信息的处理与显示的输入、处理、输出与异常记录流程。",
+      "render_status": "fallback_rendered",
+      "assembly_allowed": true,
+      "image_check": {
+        "exists": true,
+        "width": 1600,
+        "height": 1396,
+        "file_size_bytes": 75249,
+        "blank_risk": "low"
+      },
+      "errors": [
+        {
+          "message": "未找到 Mermaid CLI 渲染器，已生成降级 PNG。",
+          "recoverable": true,
+          "suggested_action": "安装 @mermaid-js/mermaid-cli 或通过 --renderer-command 指定渲染器以获得原生图。"
+        }
+      ],
+      "review_notes": [
+        "render_status=fallback_rendered：原生 Mermaid 渲染不可用或失败，已生成降级 PNG，需人工关注。"
+      ]
+    },
+    {
+      "diagram_id": "DG012",
+      "title": "T006 AIS/雷达等目标信息的处理与显示功能流程图",
+      "kind": "function_flow",
+      "mermaid_path": "output/records/diagrams/DG012.mmd",
+      "image_path": "output/records/diagrams/DG012.png",
+      "source_requirement_ids": [
+        "T006"
+      ],
+      "description": "说明AIS/雷达等目标信息的处理与显示的输入、处理、输出与异常记录流程。",
+      "render_status": "fallback_rendered",
+      "assembly_allowed": true,
+      "image_check": {
+        "exists": true,
+        "width": 1600,
+        "height": 1396,
+        "file_size_bytes": 68835,
+        "blank_risk": "low"
+      },
+      "errors": [
+        {
+          "message": "未找到 Mermaid CLI 渲染器，已生成降级 PNG。",
+          "recoverable": true,
+          "suggested_action": "安装 @mermaid-js/mermaid-cli 或通过 --renderer-command 指定渲染器以获得原生图。"
+        }
+      ],
+      "review_notes": [
+        "render_status=fallback_rendered：原生 Mermaid 渲染不可用或失败，已生成降级 PNG，需人工关注。"
+      ]
+    },
+    {
+      "diagram_id": "DG013",
+      "title": "T007 AIS/雷达等目标信息的处理与显示功能流程图",
+      "kind": "function_flow",
+      "mermaid_path": "output/records/diagrams/DG013.mmd",
+      "image_path": "output/records/diagrams/DG013.png",
+      "source_requirement_ids": [
+        "T007"
+      ],
+      "description": "AIS/雷达目标信息处理与显示流程：输入、解析、有效性检查、显示或异常记录",
+      "render_status": "fallback_rendered",
+      "assembly_allowed": true,
+      "image_check": {
+        "exists": true,
+        "width": 1600,
+        "height": 1396,
+        "file_size_bytes": 78395,
+        "blank_risk": "low"
+      },
+      "errors": [
+        {
+          "message": "未找到 Mermaid CLI 渲染器，已生成降级 PNG。",
+          "recoverable": true,
+          "suggested_action": "安装 @mermaid-js/mermaid-cli 或通过 --renderer-command 指定渲染器以获得原生图。"
+        }
+      ],
+      "review_notes": [
+        "render_status=fallback_rendered：原生 Mermaid 渲染不可用或失败，已生成降级 PNG，需人工关注。"
+      ]
+    },
+    {
+      "diagram_id": "DG014",
+      "title": "T008 AIS/雷达等目标信息的处理与显示功能流程图",
+      "kind": "function_flow",
+      "mermaid_path": "output/records/diagrams/DG014.mmd",
+      "image_path": "output/records/diagrams/DG014.png",
+      "source_requirement_ids": [
+        "T008"
+      ],
+      "description": "自定义GIS要素叠加显示流程：输入GIS要素、处理叠加、显示",
+      "render_status": "fallback_rendered",
+      "assembly_allowed": true,
+      "image_check": {
+        "exists": true,
+        "width": 1600,
+        "height": 1220,
+        "file_size_bytes": 74320,
+        "blank_risk": "low"
+      },
+      "errors": [
+        {
+          "message": "未找到 Mermaid CLI 渲染器，已生成降级 PNG。",
+          "recoverable": true,
+          "suggested_action": "安装 @mermaid-js/mermaid-cli 或通过 --renderer-command 指定渲染器以获得原生图。"
+        }
+      ],
+      "review_notes": [
+        "render_status=fallback_rendered：原生 Mermaid 渲染不可用或失败，已生成降级 PNG，需人工关注。"
+      ]
+    },
+    {
+      "diagram_id": "DG015",
+      "title": "T009 AIS/雷达等目标信息的处理与显示功能流程图",
+      "kind": "function_flow",
+      "mermaid_path": "output/records/diagrams/DG015.mmd",
+      "image_path": "output/records/diagrams/DG015.png",
+      "source_requirement_ids": [
+        "T009"
+      ],
+      "description": "潮汐、海流、气象及临时通告叠加显示流程：数据接入、处理、显示",
+      "render_status": "fallback_rendered",
+      "assembly_allowed": true,
+      "image_check": {
+        "exists": true,
+        "width": 1600,
+        "height": 1220,
+        "file_size_bytes": 76697,
+        "blank_risk": "low"
+      },
+      "errors": [
+        {
+          "message": "未找到 Mermaid CLI 渲染器，已生成降级 PNG。",
+          "recoverable": true,
+          "suggested_action": "安装 @mermaid-js/mermaid-cli 或通过 --renderer-command 指定渲染器以获得原生图。"
+        }
+      ],
+      "review_notes": [
+        "render_status=fallback_rendered：原生 Mermaid 渲染不可用或失败，已生成降级 PNG，需人工关注。"
+      ]
+    },
+    {
+      "diagram_id": "DG016",
+      "title": "T010 航线规划功能流程图",
+      "kind": "function_flow",
+      "mermaid_path": "output/records/diagrams/DG016.mmd",
+      "image_path": "output/records/diagrams/DG016.png",
+      "source_requirement_ids": [
+        "T010"
+      ],
+      "description": "航线规划流程：手动/自动航线设计，添加/删除/拖动/排序航点航段",
+      "render_status": "fallback_rendered",
+      "assembly_allowed": true,
+      "image_check": {
+        "exists": true,
+        "width": 1600,
+        "height": 1396,
+        "file_size_bytes": 74031,
+        "blank_risk": "low"
+      },
+      "errors": [
+        {
+          "message": "未找到 Mermaid CLI 渲染器，已生成降级 PNG。",
+          "recoverable": true,
+          "suggested_action": "安装 @mermaid-js/mermaid-cli 或通过 --renderer-command 指定渲染器以获得原生图。"
+        }
+      ],
+      "review_notes": [
+        "render_status=fallback_rendered：原生 Mermaid 渲染不可用或失败，已生成降级 PNG，需人工关注。"
+      ]
+    },
+    {
+      "diagram_id": "DG017",
+      "title": "T011 航线规划功能流程图",
+      "kind": "function_flow",
+      "mermaid_path": "output/records/diagrams/DG017.mmd",
+      "image_path": "output/records/diagrams/DG017.png",
+      "source_requirement_ids": [
+        "T011"
+      ],
+      "description": "航线安全检查流程：输入航线，自动检查浅水、禁航区、危险物，输出提示",
+      "render_status": "fallback_rendered",
+      "assembly_allowed": true,
+      "image_check": {
+        "exists": true,
+        "width": 1600,
+        "height": 1396,
+        "file_size_bytes": 76933,
+        "blank_risk": "low"
+      },
+      "errors": [
+        {
+          "message": "未找到 Mermaid CLI 渲染器，已生成降级 PNG。",
+          "recoverable": true,
+          "suggested_action": "安装 @mermaid-js/mermaid-cli 或通过 --renderer-command 指定渲染器以获得原生图。"
+        }
+      ],
+      "review_notes": [
+        "render_status=fallback_rendered：原生 Mermaid 渲染不可用或失败，已生成降级 PNG，需人工关注。"
+      ]
+    },
+    {
+      "diagram_id": "DG018",
+      "title": "T012 航线规划功能流程图",
+      "kind": "function_flow",
+      "mermaid_path": "output/records/diagrams/DG018.mmd",
+      "image_path": "output/records/diagrams/DG018.png",
+      "source_requirement_ids": [
+        "T012"
+      ],
+      "description": "安全参数设定流程：用户设定吃水、安全等深线、偏航阈值、船舶尺寸等参数",
+      "render_status": "fallback_rendered",
+      "assembly_allowed": true,
+      "image_check": {
+        "exists": true,
+        "width": 1600,
+        "height": 1396,
+        "file_size_bytes": 89950,
+        "blank_risk": "low"
+      },
+      "errors": [
+        {
+          "message": "未找到 Mermaid CLI 渲染器，已生成降级 PNG。",
+          "recoverable": true,
+          "suggested_action": "安装 @mermaid-js/mermaid-cli 或通过 --renderer-command 指定渲染器以获得原生图。"
+        }
+      ],
+      "review_notes": [
+        "render_status=fallback_rendered：原生 Mermaid 渲染不可用或失败，已生成降级 PNG，需人工关注。"
+      ]
+    },
+    {
+      "diagram_id": "DG019",
+      "title": "T013 航线规划功能流程图",
+      "kind": "function_flow",
+      "mermaid_path": "output/records/diagrams/DG019.mmd",
+      "image_path": "output/records/diagrams/DG019.png",
+      "source_requirement_ids": [
+        "T013"
+      ],
+      "description": "航线规划输入起止位置，计算真距离、方位和ETA，校验数据并输出结果，异常时记录日志。",
+      "render_status": "fallback_rendered",
+      "assembly_allowed": true,
+      "image_check": {
+        "exists": true,
+        "width": 1600,
+        "height": 1396,
+        "file_size_bytes": 61432,
+        "blank_risk": "low"
+      },
+      "errors": [
+        {
+          "message": "未找到 Mermaid CLI 渲染器，已生成降级 PNG。",
+          "recoverable": true,
+          "suggested_action": "安装 @mermaid-js/mermaid-cli 或通过 --renderer-command 指定渲染器以获得原生图。"
+        }
+      ],
+      "review_notes": [
+        "render_status=fallback_rendered：原生 Mermaid 渲染不可用或失败，已生成降级 PNG，需人工关注。"
+      ]
+    },
+    {
+      "diagram_id": "DG020",
+      "title": "T014 航线规划功能流程图",
+      "kind": "function_flow",
+      "mermaid_path": "output/records/diagrams/DG020.mmd",
+      "image_path": "output/records/diagrams/DG020.png",
+      "source_requirement_ids": [
+        "T014"
+      ],
+      "description": "实时接收GPS/DGPS位置数据，叠加船舶位置至海图，比对计划航线，检测偏航并触发告警与记录。",
+      "render_status": "fallback_rendered",
+      "assembly_allowed": true,
+      "image_check": {
+        "exists": true,
+        "width": 1600,
+        "height": 1396,
+        "file_size_bytes": 62225,
+        "blank_risk": "low"
+      },
+      "errors": [
+        {
+          "message": "未找到 Mermaid CLI 渲染器，已生成降级 PNG。",
+          "recoverable": true,
+          "suggested_action": "安装 @mermaid-js/mermaid-cli 或通过 --renderer-command 指定渲染器以获得原生图。"
+        }
+      ],
+      "review_notes": [
+        "render_status=fallback_rendered：原生 Mermaid 渲染不可用或失败，已生成降级 PNG，需人工关注。"
+      ]
+    },
+    {
+      "diagram_id": "DG021",
+      "title": "T015 航线规划功能流程图",
+      "kind": "function_flow",
+      "mermaid_path": "output/records/diagrams/DG021.mmd",
+      "image_path": "output/records/diagrams/DG021.png",
+      "source_requirement_ids": [
+        "T015"
+      ],
+      "description": "采集船位、速度、航向及报警事件，格式化后存储至历史航迹数据库并备份至VDR，处理成功或失败日志。",
+      "render_status": "fallback_rendered",
+      "assembly_allowed": true,
+      "image_check": {
+        "exists": true,
+        "width": 1600,
+        "height": 1396,
+        "file_size_bytes": 68427,
+        "blank_risk": "low"
+      },
+      "errors": [
+        {
+          "message": "未找到 Mermaid CLI 渲染器，已生成降级 PNG。",
+          "recoverable": true,
+          "suggested_action": "安装 @mermaid-js/mermaid-cli 或通过 --renderer-command 指定渲染器以获得原生图。"
+        }
+      ],
+      "review_notes": [
+        "render_status=fallback_rendered：原生 Mermaid 渲染不可用或失败，已生成降级 PNG，需人工关注。"
+      ]
+    },
+    {
+      "diagram_id": "DG022",
+      "title": "T016 安全等深线与水深告警功能流程图",
+      "kind": "function_flow",
+      "mermaid_path": "output/records/diagrams/DG022.mmd",
+      "image_path": "output/records/diagrams/DG022.png",
+      "source_requirement_ids": [
+        "T016"
+      ],
+      "description": "用户输入船舶吃水和富裕水深，系统计算安全等深线和轮廓线，校验输入合法性并更新海图显示。",
+      "render_status": "fallback_rendered",
+      "assembly_allowed": true,
+      "image_check": {
+        "exists": true,
+        "width": 1600,
+        "height": 1396,
+        "file_size_bytes": 70687,
+        "blank_risk": "low"
+      },
+      "errors": [
+        {
+          "message": "未找到 Mermaid CLI 渲染器，已生成降级 PNG。",
+          "recoverable": true,
+          "suggested_action": "安装 @mermaid-js/mermaid-cli 或通过 --renderer-command 指定渲染器以获得原生图。"
+        }
+      ],
+      "review_notes": [
+        "render_status=fallback_rendered：原生 Mermaid 渲染不可用或失败，已生成降级 PNG，需人工关注。"
+      ]
+    },
+    {
+      "diagram_id": "DG023",
+      "title": "T017 安全等深线与水深告警功能流程图",
+      "kind": "function_flow",
+      "mermaid_path": "output/records/diagrams/DG023.mmd",
+      "image_path": "output/records/diagrams/DG023.png",
+      "source_requirement_ids": [
+        "T017"
+      ],
+      "description": "加载海图数据并获取安全等深线，判断水深数据有效性，标记浅水区域为蓝色、安全水域为白色。",
+      "render_status": "fallback_rendered",
+      "assembly_allowed": true,
+      "image_check": {
+        "exists": true,
+        "width": 1600,
+        "height": 1396,
+        "file_size_bytes": 74067,
+        "blank_risk": "low"
+      },
+      "errors": [
+        {
+          "message": "未找到 Mermaid CLI 渲染器，已生成降级 PNG。",
+          "recoverable": true,
+          "suggested_action": "安装 @mermaid-js/mermaid-cli 或通过 --renderer-command 指定渲染器以获得原生图。"
+        }
+      ],
+      "review_notes": [
+        "render_status=fallback_rendered：原生 Mermaid 渲染不可用或失败，已生成降级 PNG，需人工关注。"
+      ]
+    },
+    {
+      "diagram_id": "DG024",
+      "title": "T018 安全等深线与水深告警功能流程图",
+      "kind": "function_flow",
+      "mermaid_path": "output/records/diagrams/DG024.mmd",
+      "image_path": "output/records/diagrams/DG024.png",
+      "source_requirement_ids": [
+        "T018"
+      ],
+      "description": "实时获取本船位置与安全轮廓，比对安全等深线预测轨迹，判断是否接近不安全水域并触发声光告警。",
+      "render_status": "fallback_rendered",
+      "assembly_allowed": true,
+      "image_check": {
+        "exists": true,
+        "width": 1600,
+        "height": 1396,
+        "file_size_bytes": 73336,
+        "blank_risk": "low"
+      },
+      "errors": [
+        {
+          "message": "未找到 Mermaid CLI 渲染器，已生成降级 PNG。",
+          "recoverable": true,
+          "suggested_action": "安装 @mermaid-js/mermaid-cli 或通过 --renderer-command 指定渲染器以获得原生图。"
+        }
+      ],
+      "review_notes": [
+        "render_status=fallback_rendered：原生 Mermaid 渲染不可用或失败，已生成降级 PNG，需人工关注。"
+      ]
+    },
+    {
+      "diagram_id": "DG025",
+      "title": "T019 安全等深线与水深告警功能流程图",
+      "kind": "function_flow",
+      "mermaid_path": "output/records/diagrams/DG025.mmd",
+      "image_path": "output/records/diagrams/DG025.png",
+      "source_requirement_ids": [
+        "T019"
+      ],
+      "description": "说明安全等深线与水深告警（穿越禁航区等）的输入、处理、输出与异常记录流程。",
+      "render_status": "fallback_rendered",
+      "assembly_allowed": true,
+      "image_check": {
+        "exists": true,
+        "width": 1600,
+        "height": 1220,
+        "file_size_bytes": 61862,
+        "blank_risk": "low"
+      },
+      "errors": [
+        {
+          "message": "未找到 Mermaid CLI 渲染器，已生成降级 PNG。",
+          "recoverable": true,
+          "suggested_action": "安装 @mermaid-js/mermaid-cli 或通过 --renderer-command 指定渲染器以获得原生图。"
+        }
+      ],
+      "review_notes": [
+        "render_status=fallback_rendered：原生 Mermaid 渲染不可用或失败，已生成降级 PNG，需人工关注。"
+      ]
+    },
+    {
+      "diagram_id": "DG026",
+      "title": "T020 安全等深线与水深告警功能流程图",
+      "kind": "function_flow",
+      "mermaid_path": "output/records/diagrams/DG026.mmd",
+      "image_path": "output/records/diagrams/DG026.png",
+      "source_requirement_ids": [
+        "T020"
+      ],
+      "description": "说明安全等深线与水深告警（预测接近危险物）的输入、处理、输出与异常记录流程。",
+      "render_status": "fallback_rendered",
+      "assembly_allowed": true,
+      "image_check": {
+        "exists": true,
+        "width": 1600,
+        "height": 1396,
+        "file_size_bytes": 73310,
+        "blank_risk": "low"
+      },
+      "errors": [
+        {
+          "message": "未找到 Mermaid CLI 渲染器，已生成降级 PNG。",
+          "recoverable": true,
+          "suggested_action": "安装 @mermaid-js/mermaid-cli 或通过 --renderer-command 指定渲染器以获得原生图。"
+        }
+      ],
+      "review_notes": [
+        "render_status=fallback_rendered：原生 Mermaid 渲染不可用或失败，已生成降级 PNG，需人工关注。"
+      ]
+    },
+    {
+      "diagram_id": "DG027",
+      "title": "T021 安全等深线与水深告警功能流程图",
+      "kind": "function_flow",
+      "mermaid_path": "output/records/diagrams/DG027.mmd",
+      "image_path": "output/records/diagrams/DG027.png",
+      "source_requirement_ids": [
+        "T021"
+      ],
+      "description": "说明安全等深线与水深告警（CPA/TCPA碰撞预警）的输入、处理、输出与异常记录流程。",
+      "render_status": "fallback_rendered",
+      "assembly_allowed": true,
+      "image_check": {
+        "exists": true,
+        "width": 1600,
+        "height": 1396,
+        "file_size_bytes": 65559,
+        "blank_risk": "low"
+      },
+      "errors": [
+        {
+          "message": "未找到 Mermaid CLI 渲染器，已生成降级 PNG。",
+          "recoverable": true,
+          "suggested_action": "安装 @mermaid-js/mermaid-cli 或通过 --renderer-command 指定渲染器以获得原生图。"
+        }
+      ],
+      "review_notes": [
+        "render_status=fallback_rendered：原生 Mermaid 渲染不可用或失败，已生成降级 PNG，需人工关注。"
+      ]
+    },
+    {
+      "diagram_id": "DG028",
+      "title": "T022 航行监控导航与安全预警功能流程图",
+      "kind": "function_flow",
+      "mermaid_path": "output/records/diagrams/DG028.mmd",
+      "image_path": "output/records/diagrams/DG028.png",
+      "source_requirement_ids": [
+        "T022"
+      ],
+      "description": "说明航行监控导航与安全预警（偏航告警）的输入、处理、输出与异常记录流程。",
+      "render_status": "fallback_rendered",
+      "assembly_allowed": true,
+      "image_check": {
+        "exists": true,
+        "width": 1600,
+        "height": 1396,
+        "file_size_bytes": 66441,
+        "blank_risk": "low"
+      },
+      "errors": [
+        {
+          "message": "未找到 Mermaid CLI 渲染器，已生成降级 PNG。",
+          "recoverable": true,
+          "suggested_action": "安装 @mermaid-js/mermaid-cli 或通过 --renderer-command 指定渲染器以获得原生图。"
+        }
+      ],
+      "review_notes": [
+        "render_status=fallback_rendered：原生 Mermaid 渲染不可用或失败，已生成降级 PNG，需人工关注。"
+      ]
+    },
+    {
+      "diagram_id": "DG029",
+      "title": "T023 航行监控导航与安全预警功能流程图",
+      "kind": "function_flow",
+      "mermaid_path": "output/records/diagrams/DG029.mmd",
+      "image_path": "output/records/diagrams/DG029.png",
+      "source_requirement_ids": [
+        "T023"
+      ],
+      "description": "说明航行监控导航与安全预警（系统级故障告警）的输入、处理、输出与异常记录流程。",
+      "render_status": "fallback_rendered",
+      "assembly_allowed": true,
+      "image_check": {
+        "exists": true,
+        "width": 1600,
+        "height": 1220,
+        "file_size_bytes": 63740,
+        "blank_risk": "low"
+      },
+      "errors": [
+        {
+          "message": "未找到 Mermaid CLI 渲染器，已生成降级 PNG。",
+          "recoverable": true,
+          "suggested_action": "安装 @mermaid-js/mermaid-cli 或通过 --renderer-command 指定渲染器以获得原生图。"
+        }
+      ],
+      "review_notes": [
+        "render_status=fallback_rendered：原生 Mermaid 渲染不可用或失败，已生成降级 PNG，需人工关注。"
+      ]
+    },
+    {
+      "diagram_id": "DG030",
+      "title": "T024 航行监控导航与安全预警功能流程图",
+      "kind": "function_flow",
+      "mermaid_path": "output/records/diagrams/DG030.mmd",
+      "image_path": "output/records/diagrams/DG030.png",
+      "source_requirement_ids": [
+        "T024"
+      ],
+      "description": "说明航行监控导航与安全预警（报警优先级分类与声光模式）的输入、处理、输出与异常记录流程。",
+      "render_status": "fallback_rendered",
+      "assembly_allowed": true,
+      "image_check": {
+        "exists": true,
+        "width": 1600,
+        "height": 1396,
+        "file_size_bytes": 70311,
+        "blank_risk": "low"
+      },
+      "errors": [
+        {
+          "message": "未找到 Mermaid CLI 渲染器，已生成降级 PNG。",
+          "recoverable": true,
+          "suggested_action": "安装 @mermaid-js/mermaid-cli 或通过 --renderer-command 指定渲染器以获得原生图。"
+        }
+      ],
+      "review_notes": [
+        "render_status=fallback_rendered：原生 Mermaid 渲染不可用或失败，已生成降级 PNG，需人工关注。"
+      ]
+    },
+    {
+      "diagram_id": "DG031",
+      "title": "T025 航行监控导航与安全预警功能流程图",
+      "kind": "function_flow",
+      "mermaid_path": "output/records/diagrams/DG031.mmd",
+      "image_path": "output/records/diagrams/DG031.png",
+      "source_requirement_ids": [
+        "T025"
+      ],
+      "description": "航行监控导航与安全预警功能流程图：展示从输入传感器数据到告警检测、告警列表、确认消除及记录的流程。",
+      "render_status": "fallback_rendered",
+      "assembly_allowed": true,
+      "image_check": {
+        "exists": true,
+        "width": 1600,
+        "height": 1396,
+        "file_size_bytes": 69672,
+        "blank_risk": "low"
+      },
+      "errors": [
+        {
+          "message": "未找到 Mermaid CLI 渲染器，已生成降级 PNG。",
+          "recoverable": true,
+          "suggested_action": "安装 @mermaid-js/mermaid-cli 或通过 --renderer-command 指定渲染器以获得原生图。"
+        }
+      ],
+      "review_notes": [
+        "render_status=fallback_rendered：原生 Mermaid 渲染不可用或失败，已生成降级 PNG，需人工关注。"
+      ]
+    },
+    {
+      "diagram_id": "DG032",
+      "title": "T026 个性化设置需求功能流程图",
+      "kind": "function_flow",
+      "mermaid_path": "output/records/diagrams/DG032.mmd",
+      "image_path": "output/records/diagrams/DG032.png",
+      "source_requirement_ids": [
+        "T026"
+      ],
+      "description": "个性化设置需求（图形化界面与快捷键）功能流程图：展示用户操作图形界面、菜单导航及快捷键响应的流程。",
+      "render_status": "fallback_rendered",
+      "assembly_allowed": true,
+      "image_check": {
+        "exists": true,
+        "width": 1600,
+        "height": 1396,
+        "file_size_bytes": 58980,
+        "blank_risk": "low"
+      },
+      "errors": [
+        {
+          "message": "未找到 Mermaid CLI 渲染器，已生成降级 PNG。",
+          "recoverable": true,
+          "suggested_action": "安装 @mermaid-js/mermaid-cli 或通过 --renderer-command 指定渲染器以获得原生图。"
+        }
+      ],
+      "review_notes": [
+        "render_status=fallback_rendered：原生 Mermaid 渲染不可用或失败，已生成降级 PNG，需人工关注。"
+      ]
+    },
+    {
+      "diagram_id": "DG033",
+      "title": "T027 个性化设置需求功能流程图",
+      "kind": "function_flow",
+      "mermaid_path": "output/records/diagrams/DG033.mmd",
+      "image_path": "output/records/diagrams/DG033.png",
+      "source_requirement_ids": [
+        "T027"
+      ],
+      "description": "个性化设置需求（高分辨率适配与亮度调节）功能流程图：展示检测显示参数、适配分辨率、调节亮度的流程。",
+      "render_status": "fallback_rendered",
+      "assembly_allowed": true,
+      "image_check": {
+        "exists": true,
+        "width": 1600,
+        "height": 1396,
+        "file_size_bytes": 64707,
+        "blank_risk": "low"
+      },
+      "errors": [
+        {
+          "message": "未找到 Mermaid CLI 渲染器，已生成降级 PNG。",
+          "recoverable": true,
+          "suggested_action": "安装 @mermaid-js/mermaid-cli 或通过 --renderer-command 指定渲染器以获得原生图。"
+        }
+      ],
+      "review_notes": [
+        "render_status=fallback_rendered：原生 Mermaid 渲染不可用或失败，已生成降级 PNG，需人工关注。"
+      ]
+    },
+    {
+      "diagram_id": "DG034",
+      "title": "T028 个性化设置需求功能流程图",
+      "kind": "function_flow",
+      "mermaid_path": "output/records/diagrams/DG034.mmd",
+      "image_path": "output/records/diagrams/DG034.png",
+      "source_requirement_ids": [
+        "T028"
+      ],
+      "description": "个性化设置需求（重要操作确认对话框）功能流程图：展示删除航线或修改安全参数时弹出确认框、二次确认的流程。",
+      "render_status": "fallback_rendered",
+      "assembly_allowed": true,
+      "image_check": {
+        "exists": true,
+        "width": 1600,
+        "height": 1396,
+        "file_size_bytes": 72847,
+        "blank_risk": "low"
+      },
+      "errors": [
+        {
+          "message": "未找到 Mermaid CLI 渲染器，已生成降级 PNG。",
+          "recoverable": true,
+          "suggested_action": "安装 @mermaid-js/mermaid-cli 或通过 --renderer-command 指定渲染器以获得原生图。"
+        }
+      ],
+      "review_notes": [
+        "render_status=fallback_rendered：原生 Mermaid 渲染不可用或失败，已生成降级 PNG，需人工关注。"
+      ]
+    },
+    {
+      "diagram_id": "DG035",
+      "title": "T029 基础平台与架构要求-跨平台兼容性功能流程图",
+      "kind": "function_flow",
+      "mermaid_path": "output/records/diagrams/DG035.mmd",
+      "image_path": "output/records/diagrams/DG035.png",
+      "source_requirement_ids": [
+        "T029"
+      ],
+      "description": "基础平台与架构要求-跨平台兼容性功能流程图：展示从输入硬件平台和操作系统到通过抽象层实现跨平台运行的流程。",
+      "render_status": "fallback_rendered",
+      "assembly_allowed": true,
+      "image_check": {
+        "exists": true,
+        "width": 1600,
+        "height": 1396,
+        "file_size_bytes": 77741,
+        "blank_risk": "low"
+      },
+      "errors": [
+        {
+          "message": "未找到 Mermaid CLI 渲染器，已生成降级 PNG。",
+          "recoverable": true,
+          "suggested_action": "安装 @mermaid-js/mermaid-cli 或通过 --renderer-command 指定渲染器以获得原生图。"
+        }
+      ],
+      "review_notes": [
+        "render_status=fallback_rendered：原生 Mermaid 渲染不可用或失败，已生成降级 PNG，需人工关注。"
+      ]
+    },
+    {
+      "diagram_id": "DG036",
+      "title": "T030 基础平台与架构要求-多设备协同功能流程图",
+      "kind": "function_flow",
+      "mermaid_path": "output/records/diagrams/DG036.mmd",
+      "image_path": "output/records/diagrams/DG036.png",
+      "source_requirement_ids": [
+        "T030"
+      ],
+      "description": "基础平台与架构要求-多设备协同功能流程图：展示多设备按优先级调度、任务分配与状态同步的流程。",
+      "render_status": "fallback_rendered",
+      "assembly_allowed": true,
+      "image_check": {
+        "exists": true,
+        "width": 1600,
+        "height": 1396,
+        "file_size_bytes": 65192,
+        "blank_risk": "low"
+      },
+      "errors": [
+        {
+          "message": "未找到 Mermaid CLI 渲染器，已生成降级 PNG。",
+          "recoverable": true,
+          "suggested_action": "安装 @mermaid-js/mermaid-cli 或通过 --renderer-command 指定渲染器以获得原生图。"
+        }
+      ],
+      "review_notes": [
+        "render_status=fallback_rendered：原生 Mermaid 渲染不可用或失败，已生成降级 PNG，需人工关注。"
+      ]
+    },
+    {
+      "diagram_id": "DG037",
+      "title": "T031 基础平台与架构要求功能流程图",
+      "kind": "function_flow",
+      "mermaid_path": "output/records/diagrams/DG037.mmd",
+      "image_path": "output/records/diagrams/DG037.png",
+      "source_requirement_ids": [
+        "T031"
+      ],
+      "description": "基础平台与架构要求功能流程图：展示从输入模块化架构需求到输出标准数据接口的完整流程，包含异常处理与记录。",
+      "render_status": "fallback_rendered",
+      "assembly_allowed": true,
+      "image_check": {
+        "exists": true,
+        "width": 1600,
+        "height": 1396,
+        "file_size_bytes": 67733,
+        "blank_risk": "low"
+      },
+      "errors": [
+        {
+          "message": "未找到 Mermaid CLI 渲染器，已生成降级 PNG。",
+          "recoverable": true,
+          "suggested_action": "安装 @mermaid-js/mermaid-cli 或通过 --renderer-command 指定渲染器以获得原生图。"
+        }
+      ],
+      "review_notes": [
+        "render_status=fallback_rendered：原生 Mermaid 渲染不可用或失败，已生成降级 PNG，需人工关注。"
+      ]
+    },
+    {
+      "diagram_id": "DG038",
+      "title": "T032 数据维护与合规功能流程图",
+      "kind": "function_flow",
+      "mermaid_path": "output/records/diagrams/DG038.mmd",
+      "image_path": "output/records/diagrams/DG038.png",
+      "source_requirement_ids": [
+        "T032"
+      ],
+      "description": "数据维护与合规功能流程图（S-63）：展示从接收S-63加密海图更新数据到生成更新记录的全流程，包含异常处理。",
+      "render_status": "fallback_rendered",
+      "assembly_allowed": true,
+      "image_check": {
+        "exists": true,
+        "width": 1600,
+        "height": 1396,
+        "file_size_bytes": 73175,
+        "blank_risk": "low"
+      },
+      "errors": [
+        {
+          "message": "未找到 Mermaid CLI 渲染器，已生成降级 PNG。",
+          "recoverable": true,
+          "suggested_action": "安装 @mermaid-js/mermaid-cli 或通过 --renderer-command 指定渲染器以获得原生图。"
+        }
+      ],
+      "review_notes": [
+        "render_status=fallback_rendered：原生 Mermaid 渲染不可用或失败，已生成降级 PNG，需人工关注。"
+      ]
+    },
+    {
+      "diagram_id": "DG039",
+      "title": "T033 数据维护与合规功能流程图",
+      "kind": "function_flow",
+      "mermaid_path": "output/records/diagrams/DG039.mmd",
+      "image_path": "output/records/diagrams/DG039.png",
+      "source_requirement_ids": [
+        "T033"
+      ],
+      "description": "数据维护与合规功能流程图（数据备份）：展示定期自动备份SENC和航行记录的全流程，包含异常处理与通知。",
+      "render_status": "fallback_rendered",
+      "assembly_allowed": true,
+      "image_check": {
+        "exists": true,
+        "width": 1600,
+        "height": 1396,
+        "file_size_bytes": 68711,
+        "blank_risk": "low"
+      },
+      "errors": [
+        {
+          "message": "未找到 Mermaid CLI 渲染器，已生成降级 PNG。",
+          "recoverable": true,
+          "suggested_action": "安装 @mermaid-js/mermaid-cli 或通过 --renderer-command 指定渲染器以获得原生图。"
+        }
+      ],
+      "review_notes": [
+        "render_status=fallback_rendered：原生 Mermaid 渲染不可用或失败，已生成降级 PNG，需人工关注。"
+      ]
+    },
+    {
+      "diagram_id": "DG040",
+      "title": "T034 数据维护与合规功能流程图",
+      "kind": "function_flow",
+      "mermaid_path": "output/records/diagrams/DG040.mmd",
+      "image_path": "output/records/diagrams/DG040.png",
+      "source_requirement_ids": [
+        "T034"
+      ],
+      "description": "数据维护与合规功能流程图（NMEA协议通信）：展示遵循NMEA0183/2000协议与船载设备进行数据通信的流程，包含异常处理。",
+      "render_status": "fallback_rendered",
+      "assembly_allowed": true,
+      "image_check": {
+        "exists": true,
+        "width": 1600,
+        "height": 1396,
+        "file_size_bytes": 72076,
+        "blank_risk": "low"
+      },
+      "errors": [
+        {
+          "message": "未找到 Mermaid CLI 渲染器，已生成降级 PNG。",
+          "recoverable": true,
+          "suggested_action": "安装 @mermaid-js/mermaid-cli 或通过 --renderer-command 指定渲染器以获得原生图。"
+        }
+      ],
+      "review_notes": [
+        "render_status=fallback_rendered：原生 Mermaid 渲染不可用或失败，已生成降级 PNG，需人工关注。"
+      ]
+    },
+    {
+      "diagram_id": "DG041",
+      "title": "T035 内部接口-安全告警与风险接口功能流程图",
+      "kind": "function_flow",
+      "mermaid_path": "output/records/diagrams/DG041.mmd",
+      "image_path": "output/records/diagrams/DG041.png",
+      "source_requirement_ids": [
+        "T035"
+      ],
+      "description": "内部接口-安全告警与风险接口功能流程图：展示操作反馈、确认对话框及视觉/听觉告警的处理流程，包含异常处理。",
+      "render_status": "fallback_rendered",
+      "assembly_allowed": true,
+      "image_check": {
+        "exists": true,
+        "width": 1600,
+        "height": 1396,
+        "file_size_bytes": 61695,
+        "blank_risk": "low"
+      },
+      "errors": [
+        {
+          "message": "未找到 Mermaid CLI 渲染器，已生成降级 PNG。",
+          "recoverable": true,
+          "suggested_action": "安装 @mermaid-js/mermaid-cli 或通过 --renderer-command 指定渲染器以获得原生图。"
+        }
+      ],
+      "review_notes": [
+        "render_status=fallback_rendered：原生 Mermaid 渲染不可用或失败，已生成降级 PNG，需人工关注。"
+      ]
+    },
+    {
+      "diagram_id": "DG042",
+      "title": "T036 内部接口-航线规划与监控接口功能流程图",
+      "kind": "function_flow",
+      "mermaid_path": "output/records/diagrams/DG042.mmd",
+      "image_path": "output/records/diagrams/DG042.png",
+      "source_requirement_ids": [
+        "T036"
+      ],
+      "description": "内部接口-航线规划与监控接口功能流程图：展示通过图形化界面进行航点绘制、编辑和航线规划的全流程，包含异常处理。",
+      "render_status": "fallback_rendered",
+      "assembly_allowed": true,
+      "image_check": {
+        "exists": true,
+        "width": 1600,
+        "height": 1396,
+        "file_size_bytes": 74212,
+        "blank_risk": "low"
+      },
+      "errors": [
+        {
+          "message": "未找到 Mermaid CLI 渲染器，已生成降级 PNG。",
+          "recoverable": true,
+          "suggested_action": "安装 @mermaid-js/mermaid-cli 或通过 --renderer-command 指定渲染器以获得原生图。"
+        }
+      ],
+      "review_notes": [
+        "render_status=fallback_rendered：原生 Mermaid 渲染不可用或失败，已生成降级 PNG，需人工关注。"
+      ]
+    },
+    {
+      "diagram_id": "DG043",
+      "title": "T037 内部接口-数据库数据读写接口功能流程图",
+      "kind": "function_flow",
+      "mermaid_path": "output/records/diagrams/DG043.mmd",
+      "image_path": "output/records/diagrams/DG043.png",
+      "source_requirement_ids": [
+        "T037"
+      ],
+      "description": "内部接口-数据库数据读写接口的输入、处理、输出与异常记录流程。输入为海图数据请求，经解析后读写数据库，输出结果，异常时记录日志。",
+      "render_status": "fallback_rendered",
+      "assembly_allowed": true,
+      "image_check": {
+        "exists": true,
+        "width": 1600,
+        "height": 1396,
+        "file_size_bytes": 66963,
+        "blank_risk": "low"
+      },
+      "errors": [
+        {
+          "message": "未找到 Mermaid CLI 渲染器，已生成降级 PNG。",
+          "recoverable": true,
+          "suggested_action": "安装 @mermaid-js/mermaid-cli 或通过 --renderer-command 指定渲染器以获得原生图。"
+        }
+      ],
+      "review_notes": [
+        "render_status=fallback_rendered：原生 Mermaid 渲染不可用或失败，已生成降级 PNG，需人工关注。"
+      ]
+    },
+    {
+      "diagram_id": "DG044",
+      "title": "T038 内部接口-海图显示与态势融合接口功能流程图",
+      "kind": "function_flow",
+      "mermaid_path": "output/records/diagrams/DG044.mmd",
+      "image_path": "output/records/diagrams/DG044.png",
+      "source_requirement_ids": [
+        "T038"
+      ],
+      "description": "内部接口-海图显示与态势融合接口的输入、处理、输出与异常记录流程。输入为态势数据，经融合处理后更新海图显示，异常时记录日志。",
+      "render_status": "fallback_rendered",
+      "assembly_allowed": true,
+      "image_check": {
+        "exists": true,
+        "width": 1600,
+        "height": 1396,
+        "file_size_bytes": 72874,
+        "blank_risk": "low"
+      },
+      "errors": [
+        {
+          "message": "未找到 Mermaid CLI 渲染器，已生成降级 PNG。",
+          "recoverable": true,
+          "suggested_action": "安装 @mermaid-js/mermaid-cli 或通过 --renderer-command 指定渲染器以获得原生图。"
+        }
+      ],
+      "review_notes": [
+        "render_status=fallback_rendered：原生 Mermaid 渲染不可用或失败，已生成降级 PNG，需人工关注。"
+      ]
+    },
+    {
+      "diagram_id": "DG045",
+      "title": "T039 外部接口-外部数据与文件系统功能流程图",
+      "kind": "function_flow",
+      "mermaid_path": "output/records/diagrams/DG045.mmd",
+      "image_path": "output/records/diagrams/DG045.png",
+      "source_requirement_ids": [
+        "T039"
+      ],
+      "description": "外部接口-外部数据与文件系统的输入、处理、输出与异常记录流程。输入为文件导入导出请求，经格式转换后读写文件系统，异常时记录日志。",
+      "render_status": "fallback_rendered",
+      "assembly_allowed": true,
+      "image_check": {
+        "exists": true,
+        "width": 1600,
+        "height": 1396,
+        "file_size_bytes": 76678,
+        "blank_risk": "low"
+      },
+      "errors": [
+        {
+          "message": "未找到 Mermaid CLI 渲染器，已生成降级 PNG。",
+          "recoverable": true,
+          "suggested_action": "安装 @mermaid-js/mermaid-cli 或通过 --renderer-command 指定渲染器以获得原生图。"
+        }
+      ],
+      "review_notes": [
+        "render_status=fallback_rendered：原生 Mermaid 渲染不可用或失败，已生成降级 PNG，需人工关注。"
+      ]
+    },
+    {
+      "diagram_id": "DG046",
+      "title": "T040 外部接口-传感器与导航设备功能流程图",
+      "kind": "function_flow",
+      "mermaid_path": "output/records/diagrams/DG046.mmd",
+      "image_path": "output/records/diagrams/DG046.png",
+      "source_requirement_ids": [
+        "T040"
+      ],
+      "description": "外部接口-传感器与导航设备的输入、处理、输出与异常记录流程。输入为传感器数据，经协议解析后传输至系统，异常时记录日志。",
+      "render_status": "fallback_rendered",
+      "assembly_allowed": true,
+      "image_check": {
+        "exists": true,
+        "width": 1600,
+        "height": 1396,
+        "file_size_bytes": 80209,
+        "blank_risk": "low"
+      },
+      "errors": [
+        {
+          "message": "未找到 Mermaid CLI 渲染器，已生成降级 PNG。",
+          "recoverable": true,
+          "suggested_action": "安装 @mermaid-js/mermaid-cli 或通过 --renderer-command 指定渲染器以获得原生图。"
+        }
+      ],
+      "review_notes": [
+        "render_status=fallback_rendered：原生 Mermaid 渲染不可用或失败，已生成降级 PNG，需人工关注。"
+      ]
+    },
+    {
+      "diagram_id": "DG047",
+      "title": "T041 外部接口-人机交互与控制HMI功能流程图",
+      "kind": "function_flow",
+      "mermaid_path": "output/records/diagrams/DG047.mmd",
+      "image_path": "output/records/diagrams/DG047.png",
+      "source_requirement_ids": [
+        "T041"
+      ],
+      "description": "外部接口-人机交互与控制HMI的输入、处理、输出与异常记录流程。输入为用户操作指令，经识别后响应，异常时记录日志。",
+      "render_status": "fallback_rendered",
+      "assembly_allowed": true,
+      "image_check": {
+        "exists": true,
+        "width": 1600,
+        "height": 1396,
+        "file_size_bytes": 74034,
+        "blank_risk": "low"
+      },
+      "errors": [
+        {
+          "message": "未找到 Mermaid CLI 渲染器，已生成降级 PNG。",
+          "recoverable": true,
+          "suggested_action": "安装 @mermaid-js/mermaid-cli 或通过 --renderer-command 指定渲染器以获得原生图。"
+        }
+      ],
+      "review_notes": [
+        "render_status=fallback_rendered：原生 Mermaid 渲染不可用或失败，已生成降级 PNG，需人工关注。"
+      ]
+    }
+  ],
+  "render_summary": {
+    "total": 47,
+    "native_rendered": 0,
+    "fallback_rendered": 47,
+    "failed": 0,
+    "blocked": 0
+  }
+}

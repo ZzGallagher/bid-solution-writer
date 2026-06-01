@@ -2,11 +2,11 @@
 
 ## 1. 设计目标
 
-本系统不是普通文本生成器，而是一条面向投标方案初稿的受控生产流水线。它的核心任务不是让模型自由写作，而是把招标资料、商务要求、评分表和 Word 模板组织成可追溯、可复核、可交付的方案文档。
+本系统不是普通文本生成器，而是一条面向投标方案初稿的受控生产流水线。它的核心任务不是让模型自由写作，而是把已人工审核的 Markdown 技术要求、方案撰写要求和 Word 模板组织成可追溯、可复核、可交付的方案文档。
 
 设计目标如下：
 
-- 需求可追溯：所有正文、图表和响应说明都应能回到 `requirements.json` 或 `requirements-matrix.md` 中的需求编号、评分项编号或人工确认项。
+- 需求可追溯：所有正文、图表和响应说明都应能回到 `requirements.json` 或 `requirements-matrix.md` 中的技术需求编号、方案撰写要求编号、评分项编号或人工确认项。
 - 内容可复核：涉及人员、资质、业绩、报价、服务承诺、质量保证期、交付周期等高风险内容，不允许自动编造，必须保留 `CONFIRM` 或进入 `REVIEW`。
 - 图文一致：架构图、流程图和正文描述必须使用同一份设计蓝图与需求矩阵，避免图中模块和正文模块不一致。
 - Word 交付稳定：最终 `.docx` 只由 Word 排版 Agent 统一装配，其他 Agent 不直接修改 Word 文件。
@@ -23,23 +23,23 @@
 
 ```mermaid
 flowchart TB
-    A["输入资料<br/>技术要求 / 商务要求 / 评分表"]
+    A["Markdown 权威输入<br/>技术要求 / 方案撰写要求"]
     B["协调器 Agent<br/>编排流程、管理产物、处理返工"]
 
-    C["需求证据 Agent<br/>抽取条款、评分项、确认风险"]
+    C["需求证据 Agent<br/>解析技术要求、撰写要求、确认风险"]
     D[("需求响应矩阵<br/>requirements.json<br/>requirements-matrix.md")]
 
     E["设计 Agent<br/>系统架构、模块划分、功能蓝图"]
     F["设计蓝图<br/>章节结构、模块清单、图表清单"]
 
-    G["正文 Agent<br/>生成正文、绑定需求 ID、保留确认项"]
+    G["正文 Agent<br/>生成正文、绑定需求/撰写要求 ID、保留确认项"]
     H["正文内容块<br/>段落 / 表格 / 章节文本"]
 
     I["Mermaid Agent<br/>生成架构图与流程图源码"]
     J["渲染校验 Agent<br/>校验 Mermaid、输出图片"]
     K["图像资产<br/>mmd / png / 图说明"]
 
-    L["审核 Gate<br/>覆盖率、评分项、风险承诺、图文一致性"]
+    L["审核 Gate<br/>覆盖率、撰写要求扩写、风险承诺、图文一致性"]
     M["Word 排版 Agent<br/>填充模板、插入图表、统一样式"]
     N["最终输出<br/>投标方案.docx<br/>复核清单 / 确认清单 / 覆盖报告"]
 
@@ -54,7 +54,8 @@ flowchart TB
 ### 3.1 主链路
 
 ```text
-input/*.docx
+input/技术要求.md
+input/方案撰写要求.md
 -> requirements.json
 -> requirements-matrix.md
 -> design-blueprint.json
@@ -69,9 +70,8 @@ input/*.docx
 
 ```text
 input/
-  技术要求.docx
-  商务要求.docx
-  技术评分表.docx
+  技术要求.md
+  方案撰写要求.md
 
 templates/
   投标方案模板.docx
@@ -125,7 +125,7 @@ output/
 输入：
 
 - 用户启动指令或自动化任务配置。
-- `input/*.docx`、`templates/*`。
+- `input/技术要求.md`、`input/方案撰写要求.md`、`templates/*`。
 - 各子 Agent 的阶段产物与状态报告。
 
 输出：
@@ -165,13 +165,12 @@ output/
 
 ### 4.2 Requirement Evidence Agent
 
-目标：把招标资料、商务要求和评分表整理成全流程事实源，生成需求响应矩阵和人工确认风险清单。
+目标：把人工审核后的技术要求 Markdown 和方案撰写要求 Markdown 整理成全流程事实源，生成需求响应矩阵和人工确认风险清单。
 
 输入：
 
-- `input/技术要求.docx`
-- `input/商务要求.docx`
-- `input/技术评分表.docx`
+- `input/技术要求.md`
+- `input/方案撰写要求.md`
 - `templates/生成规则.md`
 - `templates/模板占位符说明.md`
 
@@ -184,9 +183,11 @@ output/
 
 允许做什么：
 
-- 抽取功能、性能、质量、商务、评分项和交付要求。
+- 解析功能、性能、非功能、接口、设计约束等技术要求。
+- 解析方案撰写要求，生成 `WRNNN` ID，并自动推断目标章节。
 - 为每条要求生成稳定 ID。
 - 标记需求类别、主题、关键词、对应章节、是否需要图。
+- 对低置信度章节映射生成复核事项。
 - 标记需要人工确认或复核的高风险内容。
 - 记录抽取不完整、疑似截断、跨行断句等问题。
 
@@ -198,15 +199,16 @@ output/
 
 失败条件：
 
-- 核心输入 Word 无法读取。
+- 核心 Markdown 输入无法读取。
 - 需求 ID 重复。
+- 方案撰写要求 ID 重复。
 - 抽取结果为空或明显缺失关键章节。
 - 发现疑似截断但未记录 warning。
 
 验收标准：
 
 - 每条需求有唯一 ID。
-- 每条评分项有来源、分值或评分描述。
+- 每条方案撰写要求有唯一 `WRNNN` ID、原文、自动目标章节和覆盖状态。
 - 每条需求至少有一个建议响应章节或明确标记为待确认。
 - `CONFIRM` 候选项被单独列出。
 
@@ -387,7 +389,7 @@ output/
 
 ### 4.7 Review Gate Agent
 
-目标：作为最终发布前的质量门禁，检查覆盖率、评分项响应、风险承诺、图文一致性和占位符状态。
+目标：作为最终发布前的质量门禁，检查技术要求覆盖、方案撰写要求扩写、评分项响应、风险承诺、图文一致性和占位符状态。
 
 输入：
 
@@ -409,6 +411,8 @@ output/
 允许做什么：
 
 - 检查需求是否覆盖。
+- 检查方案撰写要求是否全部扩写进入正文内容块。
+- 检查低置信度自动章节映射是否进入复核清单。
 - 检查评分项是否响应。
 - 检查正文是否存在无来源事实。
 - 检查 `CONFIRM` 是否被错误替换。
@@ -426,6 +430,7 @@ output/
 失败条件：
 
 - 存在未覆盖关键需求。
+- 存在未扩写的方案撰写要求。
 - 存在未响应评分项。
 - 存在虚构人员、资质、业绩、报价或承诺。
 - 存在未标记的 Mermaid 降级渲染。
@@ -495,7 +500,7 @@ output/
 ```json
 {
   "id": "T001",
-  "source_file": "技术要求.docx",
+  "source_file": "input/技术要求.md",
   "category": "技术要求-功能",
   "title": "海图综合态势展示",
   "text": "原文摘录或归纳后的完整要求",
@@ -505,6 +510,22 @@ output/
   "risk_level": "normal",
   "status": "extracted",
   "warnings": []
+}
+```
+
+### 5.2 Writing Requirement Item
+
+```json
+{
+  "writing_requirement_id": "WR001",
+  "source_file": "input/方案撰写要求.md",
+  "title": "总体架构设计完整性",
+  "text": "系统总体、业务、逻辑、技术、数据架构设计需具备全面性、合理性，以及配置灵活性。",
+  "target_sections": ["总体架构设计"],
+  "mandatory_expansion": true,
+  "mapping_confidence": "high",
+  "coverage_status": "planned",
+  "status": "extracted"
 }
 ```
 
@@ -612,15 +633,15 @@ output/
 
 ### 窗口 1：需求证据 Agent
 
-负责设计和实现 Word 输入解析、需求 ID 规则、评分项抽取、需求矩阵、确认风险识别和抽取 warning。该窗口的核心交付物是 `requirements.json` 和 `requirements-matrix.md`。
+负责设计和实现 Markdown 输入解析、需求 ID 规则、方案撰写要求 ID 规则、需求矩阵、确认风险识别和抽取 warning。该窗口的核心交付物是 `requirements.json` 和 `requirements-matrix.md`。
 
 ### 窗口 2：Design Agent
 
-负责设计蓝图结构、章节计划、模块划分、图表计划和需求覆盖映射。该窗口不生成正文，只输出可供正文和 Mermaid 使用的设计骨架。
+负责设计蓝图结构、章节计划、模块划分、图表计划、需求覆盖映射和方案撰写要求自动章节映射。该窗口不生成正文，只输出可供正文和 Mermaid 使用的设计骨架。
 
 ### 窗口 3：Content Agent
 
-负责正文内容块格式、占位符映射、正文生成规则、来源 ID 绑定和风险内容保留策略。该窗口交付 `content-blocks.json` 和可读预览。
+负责正文内容块格式、占位符映射、正文生成规则、来源 ID 绑定、方案撰写要求扩写和风险内容保留策略。该窗口交付 `content-blocks.json` 和可读预览。
 
 ### 窗口 4：Mermaid + Render Validate
 
@@ -628,7 +649,7 @@ output/
 
 ### 窗口 5：Review Gate
 
-负责覆盖率、评分项响应、无依据事实、承诺风险、图文一致性、降级渲染、占位符残留等检查规则。该窗口交付 `review-report.md` 和 `release-decision.json`。
+负责覆盖率、方案撰写要求扩写、评分项响应、无依据事实、承诺风险、图文一致性、降级渲染、占位符残留等检查规则。该窗口交付 `review-report.md` 和 `release-decision.json`。
 
 ### 窗口 6：Word Layout
 
@@ -646,6 +667,8 @@ output/
 Review Gate 必须拦截以下问题：
 
 - 未覆盖需求：`requirements.json` 中的关键需求没有映射到正文、图表或复核项。
+- 未扩写方案撰写要求：`writing_requirements` 中的条目没有进入正文内容块或复核清单。
+- 低置信度映射未复核：系统自动章节映射置信度为 low 的 `WRNNN` 未进入复核清单。
 - 未响应评分项：评分表中的高分项没有明确章节响应。
 - 虚构事实：出现输入资料未提供的人员、资质、业绩、报价、品牌、型号、日期、服务承诺。
 - `CONFIRM` 被错误替换：需要人工确认的内容被自动填成确定值。
@@ -653,7 +676,7 @@ Review Gate 必须拦截以下问题：
 - 图和正文不一致：图中的模块、流程、数据流与正文或设计蓝图不一致。
 - Mermaid 降级渲染未标记：非原生渲染图未在 `render_status` 中说明。
 - Word 残留未处理占位符：最终装配前存在未解释、未记录的占位符。
-- 来源 ID 缺失：正文块、图表说明或关键表格没有绑定需求 ID 或评分项 ID。
+- 来源 ID 缺失：正文块、图表说明或关键表格没有绑定需求 ID、方案撰写要求 ID 或评分项 ID。
 - 过度承诺：正文使用“完全满足”“保证”“无偏离”等确定性表达但缺少输入依据。
 
 Review Gate 输出必须包含：
@@ -723,7 +746,7 @@ Review Gate 输出必须包含：
 ## 10. 公共接口约束
 
 - `requirements.json` 是全流程事实源。
-- 所有正文段落必须能关联 `requirement_ids` 或 `scoring_item_ids`。
+- 所有正文段落必须能关联 `requirement_ids`、`writing_requirement_ids` 或 `scoring_item_ids`。
 - 所有图表必须输出 `diagram_id`、`title`、`kind`、`mermaid_path`、`image_path`、`source_requirement_ids`、`description`、`render_status`。
 - Word 排版 Agent 不判断内容正确性，只消费审核通过的内容和图片。
 - Review Gate 是最终发布前唯一放行点。
@@ -735,21 +758,22 @@ Review Gate 输出必须包含：
 
 使用现有样例输入执行端到端验证：
 
-- `input/技术要求.docx`
-- `input/商务要求.docx`
-- `input/技术评分表.docx`
+- `input/技术要求.md` 或唯一匹配的 `input/*技术要求.md`
+- `input/方案撰写要求.md`
 
 本地闭环验收命令：
 
 ```powershell
-python working\agents\coordinator_agent.py --allow-local-draft
+python working\agents\coordinator_agent.py --allow-local-draft --renderer-command __missing_mmdc__
 ```
 
-该模式不依赖外部 LLM/API：Content Agent 和 Mermaid Agent 使用确定性本地草稿，生产模式仍通过各自唯一的 `call_llm_api()` 接口接入真实 LLM。
+该模式不依赖外部 LLM/API：Content Agent 和 Mermaid Agent 使用确定性本地草稿；`--renderer-command __missing_mmdc__` 用于本地测试时跳过原生 Mermaid CLI 并走已标记的 fallback PNG。生产模式仍通过各自唯一的 `call_llm_api()` 接口接入真实 LLM，并建议配置 Mermaid CLI。
 
 检查项：
 
 - 每个需求 ID 是否进入矩阵并至少映射到一个章节、图表或复核项。
+- 每个方案撰写要求 ID 是否进入矩阵并扩写进入正文内容块。
+- 低置信度自动章节映射是否进入 `复核清单.md`。
 - 每个评分项是否被明确响应。
 - 正文内容块是否带来源 ID。
 - `diagram-specs.json` 是否生成，且每张 `.mmd` 首行为 `flowchart TB` 或 `flowchart TD`，不包含 Markdown 代码围栏。

@@ -76,7 +76,7 @@
       "properties": {
         "issue_id": { "type": "string", "pattern": "^RI[0-9]{3}$" },
         "severity": { "enum": ["info", "minor", "major", "blocking"] },
-        "category": { "enum": ["uncovered_requirement", "unanswered_scoring_item", "unsupported_claim", "confirm_replaced", "review_missing", "diagram_text_mismatch", "fallback_render_unmarked", "placeholder_unresolved", "missing_source_id", "overcommitment", "schema_invalid", "other"] },
+        "category": { "enum": ["uncovered_requirement", "uncovered_writing_requirement", "unanswered_scoring_item", "unsupported_claim", "confirm_replaced", "review_missing", "diagram_text_mismatch", "fallback_render_unmarked", "placeholder_unresolved", "missing_source_id", "overcommitment", "schema_invalid", "other"] },
         "message": { "$ref": "#/$defs/non_empty" },
         "source": { "$ref": "#/$defs/source_ref" },
         "owner_agent": { "enum": ["Requirement Evidence Agent", "Design Agent", "Content Agent", "Mermaid Agent", "Render Validate Agent", "Word Layout Agent", "Coordinator Agent"] },
@@ -98,12 +98,15 @@
     },
     "coverage_summary": {
       "type": "object",
-      "required": ["requirements_total", "requirements_covered", "requirements_uncovered", "scoring_items_total", "scoring_items_covered"],
+      "required": ["requirements_total", "requirements_covered", "requirements_uncovered", "writing_requirements_total", "writing_requirements_covered", "writing_requirements_uncovered", "scoring_items_total", "scoring_items_covered"],
       "additionalProperties": false,
       "properties": {
         "requirements_total": { "type": "integer", "minimum": 0 },
         "requirements_covered": { "type": "integer", "minimum": 0 },
         "requirements_uncovered": { "type": "integer", "minimum": 0 },
+        "writing_requirements_total": { "type": "integer", "minimum": 0 },
+        "writing_requirements_covered": { "type": "integer", "minimum": 0 },
+        "writing_requirements_uncovered": { "type": "integer", "minimum": 0 },
         "scoring_items_total": { "type": "integer", "minimum": 0 },
         "scoring_items_covered": { "type": "integer", "minimum": 0 },
         "diagram_total": { "type": "integer", "minimum": 0 },

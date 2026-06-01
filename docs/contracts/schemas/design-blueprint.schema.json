@@ -27,6 +27,7 @@
     "non_empty": { "type": "string", "minLength": 1 },
     "req_id": { "type": "string", "pattern": "^(T|P|Q|B|D)[0-9]{3}$" },
     "score_id": { "type": "string", "pattern": "^S[0-9]{3}$" },
+    "writing_id": { "type": "string", "pattern": "^WR[0-9]{3}$" },
     "producer": {
       "type": "object",
       "required": ["agent", "version"],
@@ -86,6 +87,7 @@
         "content_type": { "enum": ["copy", "generated_paragraphs", "generated_table", "dynamic_sections", "diagram_reference", "review_text", "confirm_placeholder"] },
         "source_requirement_ids": { "type": "array", "items": { "$ref": "#/$defs/req_id" } },
         "related_scoring_item_ids": { "type": "array", "items": { "$ref": "#/$defs/score_id" } },
+        "writing_requirement_ids": { "type": "array", "items": { "$ref": "#/$defs/writing_id" } },
         "module_ids": { "type": "array", "items": { "type": "string", "pattern": "^M[0-9]{3}$" } },
         "status": { "enum": ["planned", "review_required", "confirm_required"] }
       }
@@ -109,7 +111,7 @@
       "required": ["source_id", "covered_by", "coverage_status"],
       "additionalProperties": false,
       "properties": {
-        "source_id": { "type": "string", "pattern": "^(T|P|Q|B|D|S)[0-9]{3}$" },
+        "source_id": { "type": "string", "pattern": "^((T|P|Q|B|D|S)[0-9]{3}|WR[0-9]{3})$" },
         "covered_by": { "type": "array", "items": { "$ref": "#/$defs/coverage_ref" } },
         "coverage_status": { "enum": ["planned", "review_required", "confirm_required", "uncovered"] }
       }
